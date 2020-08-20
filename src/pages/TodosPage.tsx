@@ -1,7 +1,7 @@
 import React from "react";
 import { rootFetch, Todos, fetchUser } from "../utils";
 import { useQuery } from "react-query";
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import matchSorter from "match-sorter";
 import { useStoreState } from "restatum";
 import searchContainer, { FilterTodos } from "../searchContainer";
@@ -68,11 +68,6 @@ export default function TodosPage() {
   const userId = parseInt(id);
   const userQuery = useQuery(["user", userId], fetchUser);
   const todosQuery = useQuery(["todos", userId], fetchTodos);
-
-  let { url, path } = useRouteMatch();
-
-  console.log("url", url);
-  console.log("path", path);
 
   if (userQuery.isLoading) {
     return <div>Loading user...</div>;
