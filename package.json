@@ -10,9 +10,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "match-sorter": "^4.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-query": "^2.8.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "restatum": "^1.0.6",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -35,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/match-sorter": "^4.0.0",
+    "@types/react-query": "^1.1.2",
+    "@types/react-router-dom": "^5.1.5"
   }
 }
