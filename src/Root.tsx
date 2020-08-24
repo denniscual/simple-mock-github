@@ -11,8 +11,6 @@ import searchContainer from "./searchContainer";
 
 // TODO
 // - review
-// - inside the TodosPage, we need change the button filter to checkboxes
-//   then create a filter against these Selected options.
 // - integrate the React.Suspense CM and the beta react-router.
 
 function UserAndTodosPageRoutes() {

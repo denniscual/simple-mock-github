@@ -16,7 +16,7 @@
     "react-query": "^2.8.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "restatum": "^1.0.6",
+    "restatum": "^1.0.8",
     "typescript": "~3.7.2"
   },
   "scripts": {

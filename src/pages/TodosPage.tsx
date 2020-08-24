@@ -3,8 +3,25 @@ import { rootFetch, Todos, fetchUser } from "../utils";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import matchSorter from "match-sorter";
-import { useStoreState } from "restatum";
+import { useStoreState, useStoreValue } from "restatum";
 import searchContainer, { FilterTodos } from "../searchContainer";
+
+function FilterTodosButton({
+  filterType,
+  children,
+}: {
+  filterType: FilterTodos;
+  children: React.ReactNode;
+}) {
+  const [currentFilter, setFilterTodos] = useStoreState(
+    searchContainer.filterTodos
+  );
+  return filterType === currentFilter ? (
+    <span>{children}</span>
+  ) : (
+    <button onClick={() => setFilterTodos(filterType)}>{children}</button>
+  );
+}
 
 async function fetchTodos(_: string, userId: number) {
   if (!Boolean(userId) || typeof userId !== "number") {
@@ -19,9 +36,7 @@ async function fetchTodos(_: string, userId: number) {
 
 function FilterableTodoList({ todos }: { todos: Todos }) {
   const [search, setSearch] = useStoreState(searchContainer.search);
-  const [filterTodos, setFilterTodos] = useStoreState(
-    searchContainer.filterTodos
-  );
+  const filterTodos = useStoreValue(searchContainer.filterTodos);
 
   const filteredTodos = matchSorter(todos, search, { keys: ["title"] }).filter(
     (todo) => {
@@ -45,13 +60,15 @@ function FilterableTodoList({ todos }: { todos: Todos }) {
           onChange={(event) => setSearch(event.target.value)}
         />
         <div>
-          <button onClick={() => setFilterTodos(FilterTodos.ALL)}>All</button>
-          <button onClick={() => setFilterTodos(FilterTodos.COMPLETED)}>
+          <FilterTodosButton filterType={FilterTodos.ALL}>
+            All
+          </FilterTodosButton>
+          <FilterTodosButton filterType={FilterTodos.COMPLETED}>
             Completed
-          </button>
-          <button onClick={() => setFilterTodos(FilterTodos.NOT_COMPLETED)}>
+          </FilterTodosButton>
+          <FilterTodosButton filterType={FilterTodos.NOT_COMPLETED}>
             Not completed
-          </button>
+          </FilterTodosButton>
         </div>
       </header>
       <ul>
