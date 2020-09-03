@@ -1,6 +1,10 @@
 import React from 'react'
-import { Button, IconButton } from './components'
+import { Button, PillButton } from './components'
 import S from './stitches.config'
+
+// TODO:
+// - review the button.
+// - integrate IconButton.
 
 const Container = S.styled('div', {
     margin: '5em auto',
@@ -42,6 +46,18 @@ export default function App() {
                     <Button color="danger">Danger button</Button>
                 </SectionTiles>
                 <SectionTiles>
+                    <Button appearance="lightContained" color="primary">
+                        Primary button
+                    </Button>
+                    <Button appearance="lightContained" color="accent">
+                        Accent button
+                    </Button>
+                    <Button>Default button</Button>
+                    <Button appearance="lightContained" color="danger">
+                        Danger button
+                    </Button>
+                </SectionTiles>
+                <SectionTiles>
                     <Button color="primary" appearance="text">
                         Primary button
                     </Button>
@@ -74,6 +90,30 @@ export default function App() {
                     </Button>
                     <Button status="disabled">Default button</Button>
                     <Button color="danger" status="disabled">
+                        Danger button
+                    </Button>
+                </SectionTiles>
+                <SectionTiles>
+                    <Button
+                        status="disabled"
+                        appearance="lightContained"
+                        color="primary"
+                    >
+                        Primary button
+                    </Button>
+                    <Button
+                        status="disabled"
+                        appearance="lightContained"
+                        color="accent"
+                    >
+                        Accent button
+                    </Button>
+                    <Button status="disabled">Default button</Button>
+                    <Button
+                        status="disabled"
+                        appearance="lightContained"
+                        color="danger"
+                    >
                         Danger button
                     </Button>
                 </SectionTiles>
@@ -119,88 +159,100 @@ export default function App() {
                 </SectionTiles>
             </Section>
             <Section>
-                <SectionTitle>Icon Buttons</SectionTitle>
+                <SectionTitle>Pill Buttons</SectionTitle>
                 <SectionTiles>
-                    <Button color="primary">Primary button</Button>
-                    <Button color="accent">Accent button</Button>
-                    <Button>Default button</Button>
-                    <Button color="danger">Danger button</Button>
+                    <PillButton color="primary">Primary button</PillButton>
+                    <PillButton color="accent">Accent button</PillButton>
+                    <PillButton>Default button</PillButton>
+                    <PillButton color="danger">Danger button</PillButton>
                 </SectionTiles>
                 <SectionTiles>
-                    <Button color="primary" appearance="text">
+                    <PillButton appearance="lightContained" color="primary">
                         Primary button
-                    </Button>
-                    <Button color="accent" appearance="text">
+                    </PillButton>
+                    <PillButton appearance="lightContained" color="accent">
                         Accent button
-                    </Button>
-                    <Button appearance="text">Default button</Button>
-                    <Button color="danger" appearance="text">
+                    </PillButton>
+                    <PillButton>Default button</PillButton>
+                    <PillButton appearance="lightContained" color="danger">
                         Danger button
-                    </Button>
+                    </PillButton>
                 </SectionTiles>
                 <SectionTiles>
-                    <Button color="primary" appearance="outlined">
+                    <PillButton color="primary" appearance="outlined">
                         Primary button
-                    </Button>
-                    <Button color="accent" appearance="outlined">
+                    </PillButton>
+                    <PillButton color="accent" appearance="outlined">
                         Accent button
-                    </Button>
-                    <Button appearance="outlined">Default button</Button>
-                    <Button color="danger" appearance="outlined">
-                        Danger button
-                    </Button>
-                </SectionTiles>
-                <SectionTiles>
-                    <Button color="primary" status="disabled">
-                        Primary button
-                    </Button>
-                    <Button color="accent" status="disabled">
-                        Accent button
-                    </Button>
-                    <Button status="disabled">Default button</Button>
-                    <Button color="danger" status="disabled">
-                        Danger button
-                    </Button>
-                </SectionTiles>
-                <SectionTiles>
-                    <Button color="primary" appearance="text" status="disabled">
-                        Primary button
-                    </Button>
-                    <Button color="accent" appearance="text" status="disabled">
-                        Accent button
-                    </Button>
-                    <Button appearance="text" status="disabled">
+                    </PillButton>
+                    <PillButton appearance="outlined">
                         Default button
-                    </Button>
-                    <Button color="danger" appearance="text" status="disabled">
+                    </PillButton>
+                    <PillButton color="danger" appearance="outlined">
                         Danger button
-                    </Button>
+                    </PillButton>
                 </SectionTiles>
                 <SectionTiles>
-                    <Button
+                    <PillButton color="primary" status="disabled">
+                        Primary button
+                    </PillButton>
+                    <PillButton color="accent" status="disabled">
+                        Accent button
+                    </PillButton>
+                    <PillButton status="disabled">Default button</PillButton>
+                    <PillButton color="danger" status="disabled">
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <PillButton
+                        status="disabled"
+                        appearance="lightContained"
+                        color="primary"
+                    >
+                        Primary button
+                    </PillButton>
+                    <PillButton
+                        status="disabled"
+                        appearance="lightContained"
+                        color="accent"
+                    >
+                        Accent button
+                    </PillButton>
+                    <PillButton status="disabled">Default button</PillButton>
+                    <PillButton
+                        status="disabled"
+                        appearance="lightContained"
+                        color="danger"
+                    >
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <PillButton
                         color="primary"
                         appearance="outlined"
                         status="disabled"
                     >
                         Primary button
-                    </Button>
-                    <Button
+                    </PillButton>
+                    <PillButton
                         color="accent"
                         appearance="outlined"
                         status="disabled"
                     >
                         Accent button
-                    </Button>
-                    <Button appearance="outlined" status="disabled">
+                    </PillButton>
+                    <PillButton appearance="outlined" status="disabled">
                         Default button
-                    </Button>
-                    <Button
+                    </PillButton>
+                    <PillButton
                         color="danger"
                         appearance="outlined"
                         status="disabled"
                     >
                         Danger button
-                    </Button>
+                    </PillButton>
                 </SectionTiles>
             </Section>
         </Container>

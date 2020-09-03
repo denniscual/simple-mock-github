@@ -17,14 +17,17 @@ const { styled, css } = createStyled({
             $dimBlue: '#0258b9',
             $lightBlack: '#586069',
             $lightGreen: '#dafae3',
-            $mildGreen: '#2ea44f',
+            $mildGreen: '#b9f3c9',
             $green: '#2c974b',
+            $dimGreen: '#2ea44f',
             $black: '#24292e',
             $white: '#ffffff',
             $lightRed: '#ffd7db',
+            $mildRed: '#f3c3c8',
             $red: '#cb2431',
             $dimRed: '#ae1420',
         },
+        // This must be a Rem.
         fontSizes: {
             $1: '12px',
             $2: '14px',

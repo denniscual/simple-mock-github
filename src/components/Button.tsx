@@ -47,6 +47,9 @@ const Button = S.styled('button', {
             contained: {
                 border: '$1 solid $mildGray',
             },
+            lightContained: {
+                border: 'none',
+            },
             text: {
                 border: 'none',
                 backgroundColor: 'transparent',
@@ -131,7 +134,7 @@ Button.compoundVariant(
     }
 )
 
-// Composition variants for color and appearance: 'contained'
+// Composition variants for color and appearance: 'outlined'
 
 Button.compoundVariant(
     {
@@ -189,12 +192,57 @@ Button.compoundVariant(
     }
 )
 
+// Composition variants for color and appearance: 'lightContained'
+
+Button.compoundVariant(
+    {
+        color: 'primary',
+        appearance: 'lightContained',
+    },
+    {
+        color: '$primary',
+        backgroundColor: '$lightBlue',
+
+        '&:hover': {
+            backgroundColor: '$mildBlue',
+        },
+    }
+)
+
+Button.compoundVariant(
+    {
+        color: 'accent',
+        appearance: 'lightContained',
+    },
+    {
+        color: '$accent',
+        backgroundColor: '$lightGreen',
+
+        '&:hover': {
+            backgroundColor: '$mildGreen',
+        },
+    }
+)
+
+Button.compoundVariant(
+    {
+        color: 'danger',
+        appearance: 'lightContained',
+    },
+    {
+        color: '$danger',
+        backgroundColor: '$lightRed',
+
+        '&:hover': {
+            backgroundColor: '$mildRed',
+        },
+    }
+)
+
 Button.defaultProps = {
     color: 'default',
     appearance: 'contained',
     status: 'enabled',
 }
-
-Button.displayName = 'Button'
 
 export default Button
