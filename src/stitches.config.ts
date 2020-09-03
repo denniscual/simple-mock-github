@@ -21,7 +21,10 @@ const { styled, css } = createStyled({
             $1: '12px',
             $2: '14px',
             $3: '16px',
-            $4: '20px',
+            $4: '18px',
+            $5: '20px',
+            $6: '22px',
+            $lg: '28px',
         },
         fontWeights: {
             $1: '100',
@@ -58,6 +61,7 @@ css.global({
         color: '$black',
         background: '$white',
         textDecoration: 'none',
+        boxSizing: 'border-box',
     },
 })
 
