@@ -9,12 +9,11 @@ const Button = S.styled('button', {
     outline: 0,
     border: '$1 solid $mildGray',
     cursor: 'pointer',
+    backgroundColor: '$lightGray',
 
     variants: {
         color: {
             default: {
-                backgroundColor: '$lightGray',
-
                 '&:hover': {
                     backgroundColor: '$gray',
                 },
@@ -28,14 +27,12 @@ const Button = S.styled('button', {
                 },
             },
             danger: {
-                background: '$lightGray',
                 color: '$red',
             },
         },
         appearance: {
             disabled: {
-                backgroundColor: '$lightGray',
-                color: '$dimGray',
+                opacity: '0.5',
             },
         },
     },
