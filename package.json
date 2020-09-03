@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stitches/react": "^0.0.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -11,12 +12,13 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "match-sorter": "^4.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-query": "^2.8.0",
-    "react-router-dom": "^5.2.0",
+    "react": "^0.0.0-experimental-94c0244ba",
+    "react-dom": "^0.0.0-experimental-94c0244ba",
+    "react-query": "^2.14.1",
+    "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
     "react-scripts": "3.4.3",
-    "restatum": "^1.0.8",
+    "reset.css": "^2.0.2",
+    "restatum": "^2.0.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -43,6 +45,7 @@
   "devDependencies": {
     "@types/match-sorter": "^4.0.0",
     "@types/react-query": "^1.1.2",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "prettier": "^2.1.1"
   }
 }
