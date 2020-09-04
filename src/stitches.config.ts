@@ -25,6 +25,10 @@ const tokens = {
         $black: '#24292e',
         $white: '#ffffff',
     },
+    fonts: {
+        $sans:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+    },
     // This must be a Rem.
     fontSizes: {
         $xs: '12px',
@@ -43,8 +47,8 @@ const tokens = {
     },
     space: {
         $1: '4px',
-        $2: '6px',
-        $3: '8px',
+        $2: '8px',
+        $3: '12px',
         $4: '16px',
     },
     borderWidths: {
@@ -99,15 +103,9 @@ const { styled, css } = createStyled({
 })
 
 css.global({
-    'html body *': {
-        // TODO: Im not sure why this style doesn't override the element styles.
-        // SOmething like I need to add the `!important` which basically
-        // can create an issue for a tool like styling Markdown.
-        // We will find another safer way in the future.
+    'html, body, .App, .root': {
         fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important`,
-        fontSize: '$2',
         lineHeight: '1.2',
-        color: '$black',
         background: '$white',
         textDecoration: 'none',
         boxSizing: 'border-box',

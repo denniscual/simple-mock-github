@@ -1,10 +1,7 @@
 import React from 'react'
-import { Button, PillButton } from './components'
+import { Button, PillButton, IconButton } from './components'
 import S from './stitches.config'
-
-// TODO:
-// - review the button.
-// - integrate IconButton.
+import { CaretDownFill, Download } from './components/icons'
 
 const Container = S.styled('div', {
     margin: '5em auto',
@@ -37,6 +34,123 @@ const SectionTiles = S.styled('div', {
 export default function App() {
     return (
         <Container>
+            <Section>
+                <SectionTitle>Icon Button</SectionTitle>
+                <SectionTiles>
+                    <IconButton
+                        size="sm"
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        size="sm"
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        size="sm"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton
+                        size="sm"
+                        color="danger"
+                        startIcon={<Download />}
+                    >
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconButton color="primary" endIcon={<CaretDownFill />}>
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton color="danger" startIcon={<Download />}>
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconButton
+                        appearance="lightContained"
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        appearance="lightContained"
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        appearance="lightContained"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton
+                        appearance="lightContained"
+                        color="danger"
+                        startIcon={<Download />}
+                    >
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconButton
+                        appearance="outlined"
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        appearance="outlined"
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        appearance="outlined"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton
+                        appearance="outlined"
+                        color="danger"
+                        startIcon={<Download />}
+                    >
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+            </Section>
             <Section>
                 <SectionTitle>Buttons</SectionTitle>
                 <SectionTiles>
