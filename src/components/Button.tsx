@@ -2,16 +2,23 @@ import S from '../stitches.config'
 
 // TODO: Consider adding size.
 const Button = S.styled('button', {
-    fontSize: '$sm',
     color: '$black',
     borderRadius: '$1',
-    padding: '$1 $3',
     fontWeight: '$medium',
     outline: 0,
     cursor: 'pointer',
-    m: '$1',
 
     variants: {
+        size: {
+            sm: {
+                fontSize: '$xs',
+                padding: '$1 $2',
+            },
+            base: {
+                fontSize: '$sm',
+                padding: '$2 $4',
+            },
+        },
         color: {
             primary: {
                 backgroundColor: '$blue',
@@ -21,7 +28,7 @@ const Button = S.styled('button', {
                     backgroundColor: '$dimBlue',
                 },
             },
-            default: {
+            base: {
                 backgroundColor: '$lightGray',
 
                 '&:hover': {
@@ -76,7 +83,7 @@ const Button = S.styled('button', {
 // These are variants composition.
 // `compoundVariant` is an api to create a result based on the combined variant props.
 // E.g on the code below this states that this is a combinatiion of
-// color: 'default', and appearance: 'contained' and has added styles
+// color: 'base', and appearance: 'contained' and has added styles
 // which is the next object.
 
 // Composition variants for color and appearance: 'text'
@@ -99,7 +106,7 @@ Button.compoundVariant(
 
 Button.compoundVariant(
     {
-        color: 'default',
+        color: 'base',
         appearance: 'text',
     },
     {
@@ -185,7 +192,7 @@ Button.compoundVariant(
 
 Button.compoundVariant(
     {
-        color: 'default',
+        color: 'base',
         appearance: 'outlined',
     },
     {
@@ -242,7 +249,8 @@ Button.compoundVariant(
 )
 
 Button.defaultProps = {
-    color: 'default',
+    size: 'base',
+    color: 'base',
     appearance: 'contained',
     status: 'enabled',
 }

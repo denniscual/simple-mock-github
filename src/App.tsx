@@ -15,7 +15,7 @@ const Container = S.styled('div', {
 
 const Section = S.styled('section', {
     display: 'grid',
-    rowGap: '$3',
+    rowGap: '$4',
 })
 
 const SectionTitle = S.styled('h3', {
@@ -26,7 +26,7 @@ const SectionTiles = S.styled('div', {
     display: 'flex',
 
     '& > *': {
-        marginRight: '$3',
+        marginRight: '$4',
 
         '&:last-child': {
             marginRight: 0,
@@ -39,6 +39,70 @@ export default function App() {
         <Container>
             <Section>
                 <SectionTitle>Buttons</SectionTitle>
+                <SectionTiles>
+                    <Button size="sm" color="primary">
+                        Primary button
+                    </Button>
+                    <Button size="sm" color="accent">
+                        Accent button
+                    </Button>
+                    <Button size="sm">Default button</Button>
+                    <Button size="sm" color="danger">
+                        Danger button
+                    </Button>
+                </SectionTiles>
+                <SectionTiles>
+                    <Button
+                        size="sm"
+                        appearance="lightContained"
+                        color="primary"
+                    >
+                        Primary button
+                    </Button>
+                    <Button
+                        size="sm"
+                        appearance="lightContained"
+                        color="accent"
+                    >
+                        Accent button
+                    </Button>
+                    <Button size="sm">Default button</Button>
+                    <Button
+                        size="sm"
+                        appearance="lightContained"
+                        color="danger"
+                    >
+                        Danger button
+                    </Button>
+                </SectionTiles>
+                <SectionTiles>
+                    <Button size="sm" color="primary" appearance="text">
+                        Primary button
+                    </Button>
+                    <Button size="sm" color="accent" appearance="text">
+                        Accent button
+                    </Button>
+                    <Button size="sm" appearance="text">
+                        Default button
+                    </Button>
+                    <Button size="sm" color="danger" appearance="text">
+                        Danger button
+                    </Button>
+                </SectionTiles>
+                <SectionTiles>
+                    <Button size="sm" color="primary" appearance="outlined">
+                        Primary button
+                    </Button>
+                    <Button size="sm" color="accent" appearance="outlined">
+                        Accent button
+                    </Button>
+                    <Button size="sm" appearance="outlined">
+                        Default button
+                    </Button>
+                    <Button size="sm" color="danger" appearance="outlined">
+                        Danger button
+                    </Button>
+                </SectionTiles>
                 <SectionTiles>
                     <Button color="primary">Primary button</Button>
                     <Button color="accent">Accent button</Button>
@@ -160,6 +224,71 @@ export default function App() {
             </Section>
             <Section>
                 <SectionTitle>Pill Buttons</SectionTitle>
+                <SectionTiles>
+                    <PillButton size="sm" color="primary">
+                        Primary button
+                    </PillButton>
+                    <PillButton size="sm" color="accent">
+                        Accent button
+                    </PillButton>
+                    <PillButton size="sm">Default button</PillButton>
+                    <PillButton size="sm" color="danger">
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <PillButton
+                        size="sm"
+                        appearance="lightContained"
+                        color="primary"
+                    >
+                        Primary button
+                    </PillButton>
+                    <PillButton
+                        size="sm"
+                        appearance="lightContained"
+                        color="accent"
+                    >
+                        Accent button
+                    </PillButton>
+                    <PillButton size="sm">Default button</PillButton>
+                    <PillButton
+                        size="sm"
+                        appearance="lightContained"
+                        color="danger"
+                    >
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <PillButton size="sm" color="primary" appearance="text">
+                        Primary button
+                    </PillButton>
+                    <PillButton size="sm" color="accent" appearance="text">
+                        Accent button
+                    </PillButton>
+                    <PillButton size="sm" appearance="text">
+                        Default button
+                    </PillButton>
+                    <PillButton size="sm" color="danger" appearance="text">
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <PillButton size="sm" color="primary" appearance="outlined">
+                        Primary button
+                    </PillButton>
+                    <PillButton size="sm" color="accent" appearance="outlined">
+                        Accent button
+                    </PillButton>
+                    <PillButton size="sm" appearance="outlined">
+                        Default button
+                    </PillButton>
+                    <PillButton size="sm" color="danger" appearance="outlined">
+                        Danger button
+                    </PillButton>
+                </SectionTiles>
+
                 <SectionTiles>
                     <PillButton color="primary">Primary button</PillButton>
                     <PillButton color="accent">Accent button</PillButton>
