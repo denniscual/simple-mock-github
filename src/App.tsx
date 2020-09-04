@@ -19,7 +19,7 @@ const Section = S.styled('section', {
 })
 
 const SectionTitle = S.styled('h3', {
-    fontSize: '$lg',
+    fontSize: '$3xl',
 })
 
 const SectionTiles = S.styled('div', {
