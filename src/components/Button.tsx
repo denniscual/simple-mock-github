@@ -1,13 +1,15 @@
 import S from '../stitches.config'
 
+// TODO: Consider adding size.
 const Button = S.styled('button', {
     fontSize: '$2',
     color: '$black',
     borderRadius: '$1',
-    padding: '5px 16px',
+    padding: '$1 $3',
     fontWeight: '$4',
     outline: 0,
     cursor: 'pointer',
+    m: '$1',
 
     variants: {
         color: {

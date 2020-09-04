@@ -1,63 +1,100 @@
 import { createStyled } from '@stitches/react'
 
+const tokens = {
+    colors: {
+        $primary: '#0366d6',
+        $accent: '#2ea44f',
+        $danger: '#cb2431',
+        $lightGray: '#fafbfc',
+        $mildGray: 'rgba(27,31,35,.15)',
+        $gray: '#f3f4f6',
+        $dimGray: '#959da5',
+        $lightBlue: '#f1f8ff',
+        $mildBlue: '#def',
+        $blue: '#0366d6',
+        $dimBlue: '#0258b9',
+        $lightGreen: '#dafae3',
+        $mildGreen: '#b9f3c9',
+        $green: '#2c974b',
+        $dimGreen: '#2ea44f',
+        $lightRed: '#ffd7db',
+        $mildRed: '#f3c3c8',
+        $red: '#cb2431',
+        $dimRed: '#ae1420',
+        $lightBlack: '#586069',
+        $black: '#24292e',
+        $white: '#ffffff',
+    },
+    // This must be a Rem.
+    fontSizes: {
+        $1: '12px',
+        $2: '14px',
+        $3: '16px',
+        $4: '18px',
+        $5: '20px',
+        $6: '22px',
+        $lg: '28px',
+    },
+    fontWeights: {
+        $1: '100',
+        $2: '300',
+        $3: '400',
+        $4: '500',
+    },
+    space: {
+        $1: '4px',
+        $2: '8px',
+        $3: '16px',
+    },
+    borderWidths: {
+        $1: '1px',
+        $2: '2px',
+    },
+    radii: {
+        $1: '6px',
+    },
+}
+
+type SpaceKey = keyof typeof tokens.space
+
 const { styled, css } = createStyled({
     prefix: '',
-    tokens: {
-        colors: {
-            $primary: '#0366d6',
-            $accent: '#2ea44f',
-            $danger: '#cb2431',
-            $lightGray: '#fafbfc',
-            $mildGray: 'rgba(27,31,35,.15)',
-            $gray: '#f3f4f6',
-            $dimGray: '#959da5',
-            $lightBlue: '#f1f8ff',
-            $mildBlue: '#def',
-            $blue: '#0366d6',
-            $dimBlue: '#0258b9',
-            $lightBlack: '#586069',
-            $lightGreen: '#dafae3',
-            $mildGreen: '#b9f3c9',
-            $green: '#2c974b',
-            $dimGreen: '#2ea44f',
-            $black: '#24292e',
-            $white: '#ffffff',
-            $lightRed: '#ffd7db',
-            $mildRed: '#f3c3c8',
-            $red: '#cb2431',
-            $dimRed: '#ae1420',
-        },
-        // This must be a Rem.
-        fontSizes: {
-            $1: '12px',
-            $2: '14px',
-            $3: '16px',
-            $4: '18px',
-            $5: '20px',
-            $6: '22px',
-            $lg: '28px',
-        },
-        fontWeights: {
-            $1: '100',
-            $2: '300',
-            $3: '400',
-            $4: '500',
-        },
-        space: {
-            $1: '4px',
-            $2: '8px',
-            $3: '16px',
-        },
-        borderWidths: {
-            $1: '1px',
-            $2: '2px',
-        },
-        radii: {
-            $1: '6px',
-        },
-    },
+    tokens,
     breakpoints: {},
-    utils: {},
+    utils: {
+        m: (config: any) => (value: SpaceKey) => ({
+            marginTop: value,
+            marginRight: value,
+            marginBottom: value,
+            marginLeft: value,
+        }),
+        mx: (config: any) => (value: SpaceKey) => ({
+            marginRight: value,
+            marginLeft: value,
+        }),
+        my: (config: any) => (value: SpaceKey) => ({
+            marginTop: value,
+            marginBottom: value,
+        }),
+        p: (config: any) => (value: SpaceKey) => ({
+            paddingTop: value,
+            paddingRight: value,
+            paddingBottom: value,
+            paddingLeft: value,
+        }),
+        px: (config: any) => (value: SpaceKey) => ({
+            paddingRight: value,
+            paddingLeft: value,
+        }),
+        py: (config: any) => (value: SpaceKey) => ({
+            paddingTop: value,
+            paddingBottom: value,
+        }),
+        box: (config: any) => (value: SpaceKey) => ({
+            width: value,
+            height: value,
+        }),
+    },
 })
 
 css.global({
