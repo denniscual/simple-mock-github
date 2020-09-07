@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, PillButton, IconButton } from './components'
+import { Button, PillButton, IconButton, IconPillButton } from './components'
 import S from './stitches.config'
 import { CaretDownFill, Download } from './components/icons'
 
@@ -63,6 +63,7 @@ export default function App() {
                         size="sm"
                         color="danger"
                         startIcon={<Download />}
+                        appearance="outlined"
                     >
                         Danger
                     </IconButton>
@@ -149,6 +150,198 @@ export default function App() {
                     >
                         Danger
                     </IconButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconButton
+                        appearance="text"
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        appearance="text"
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        appearance="text"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton
+                        appearance="text"
+                        color="danger"
+                        startIcon={<Download />}
+                    >
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconButton
+                        as="a"
+                        href="#"
+                        appearance="text"
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary
+                    </IconButton>
+                    <IconButton
+                        as="a"
+                        href="#"
+                        appearance="text"
+                        color="accent"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent
+                    </IconButton>
+                    <IconButton
+                        as="a"
+                        href="#"
+                        appearance="text"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default
+                    </IconButton>
+                    <IconButton
+                        as="a"
+                        href="#"
+                        appearance="text"
+                        color="danger"
+                        startIcon={<Download />}
+                    >
+                        Danger
+                    </IconButton>
+                </SectionTiles>
+            </Section>
+            <Section>
+                <SectionTitle>Icon pill buttons</SectionTitle>
+                <SectionTiles>
+                    <IconPillButton
+                        size="sm"
+                        color="primary"
+                        appearance="outlined"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary button
+                    </IconPillButton>
+                    <IconPillButton
+                        size="sm"
+                        color="accent"
+                        appearance="outlined"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent button
+                    </IconPillButton>
+                    <IconPillButton
+                        size="sm"
+                        appearance="outlined"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default button
+                    </IconPillButton>
+                    <IconPillButton
+                        size="sm"
+                        color="danger"
+                        appearance="outlined"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Danger button
+                    </IconPillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconPillButton
+                        startIcon={<Download />}
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary button
+                    </IconPillButton>
+                    <IconPillButton color="accent" endIcon={<CaretDownFill />}>
+                        Accent button
+                    </IconPillButton>
+                    <IconPillButton size="sm" endIcon={<CaretDownFill />}>
+                        Default button
+                    </IconPillButton>
+                    <IconPillButton
+                        startIcon={<Download />}
+                        color="danger"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Danger button
+                    </IconPillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconPillButton
+                        startIcon={<Download />}
+                        color="primary"
+                        appearance="outlined"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary button
+                    </IconPillButton>
+                    <IconPillButton
+                        color="accent"
+                        appearance="outlined"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent button
+                    </IconPillButton>
+                    <IconPillButton
+                        appearance="outlined"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default button
+                    </IconPillButton>
+                    <IconPillButton
+                        color="danger"
+                        appearance="outlined"
+                        startIcon={<Download />}
+                        endIcon={<CaretDownFill />}
+                    >
+                        Danger button
+                    </IconPillButton>
+                </SectionTiles>
+                <SectionTiles>
+                    <IconPillButton
+                        status="disabled"
+                        startIcon={<Download />}
+                        color="primary"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Primary button
+                    </IconPillButton>
+                    <IconPillButton
+                        status="disabled"
+                        color="accent"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Accent button
+                    </IconPillButton>
+                    <IconPillButton
+                        status="disabled"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Default button
+                    </IconPillButton>
+                    <IconPillButton
+                        status="disabled"
+                        startIcon={<Download />}
+                        color="danger"
+                        endIcon={<CaretDownFill />}
+                    >
+                        Danger button
+                    </IconPillButton>
                 </SectionTiles>
             </Section>
             <Section>

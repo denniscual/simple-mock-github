@@ -1,10 +1,8 @@
 import React from 'react'
 import Button from './Button'
 import S from '../stitches.config'
+import Stitches from '@stitches/react'
 
-// FIXME: We need to research or file a bug on the stiches because
-// some variants doesn't work but other are working correctly like
-// contained and lightContained. it works! But outlined and text are not working.
 const RootIconButton = S.styled(Button, {
     display: 'flex',
     alignItems: 'center',
@@ -45,7 +43,13 @@ const RootIconButton = S.styled(Button, {
 
 RootIconButton.defaultProps = {
     size: 'base',
+    appearance: 'contained',
 }
+
+type IconButtonProps = {
+    startIcon?: React.ReactNode
+    endIcon?: React.ReactNode
+} & React.ComponentProps<typeof RootIconButton>
 
 // FIXME: We need to know the solution on how we can inherit the types of the Button.
 

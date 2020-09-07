@@ -110,6 +110,9 @@ css.global({
         textDecoration: 'none',
         boxSizing: 'border-box',
     },
+    a: {
+        textDecoration: 'none',
+    },
 })
 
 export default {

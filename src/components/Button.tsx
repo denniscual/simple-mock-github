@@ -97,6 +97,7 @@ Button.compoundVariant(
     // The added styles.
     {
         color: '$accent',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightGreen',
@@ -121,6 +122,7 @@ Button.compoundVariant(
     },
     {
         color: '$primary',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightBlue',
@@ -135,6 +137,7 @@ Button.compoundVariant(
     },
     {
         color: '$danger',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightRed',
@@ -153,6 +156,7 @@ Button.compoundVariant(
     {
         color: '$primary',
         border: '$1 solid $primary',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightBlue',
@@ -168,6 +172,7 @@ Button.compoundVariant(
     {
         color: '$accent',
         border: '$1 solid $accent',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightGreen',
@@ -183,6 +188,7 @@ Button.compoundVariant(
     {
         color: '$danger',
         border: '$1 solid $danger',
+        backgroundColor: 'transparent',
 
         '&:hover': {
             backgroundColor: '$lightRed',
@@ -198,6 +204,7 @@ Button.compoundVariant(
     {
         color: '$black',
         border: '$1 solid $mildGray',
+        backgroundColor: 'transparent',
     }
 )
 
