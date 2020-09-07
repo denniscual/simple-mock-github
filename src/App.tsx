@@ -1,5 +1,11 @@
 import React from 'react'
-import { Button, PillButton, IconButton, IconPillButton } from './components'
+import {
+    Button,
+    PillButton,
+    IconButton,
+    IconPillButton,
+    Text,
+} from './components'
 import S from './stitches.config'
 import { CaretDownFill, Download } from './components/icons'
 
@@ -34,6 +40,13 @@ const SectionTiles = S.styled('div', {
 export default function App() {
     return (
         <Container>
+            <Section>
+                <SectionTitle>Text</SectionTitle>
+                <Text size="xs">Hello world</Text>
+                <Text size="sm">Hello world</Text>
+                <Text>Hello world</Text>
+                <Text size="xl">Hello world</Text>
+            </Section>
             <Section>
                 <SectionTitle>Icon Button</SectionTitle>
                 <SectionTiles>
@@ -221,6 +234,9 @@ export default function App() {
                         Danger
                     </IconButton>
                 </SectionTiles>
+            </Section>
+            <Section>
+                <SectionTitle>Icon pill buttons</SectionTitle>
             </Section>
             <Section>
                 <SectionTitle>Icon pill buttons</SectionTitle>
