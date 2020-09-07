@@ -43,4 +43,6 @@ Text.defaultProps = {
     size: 'base',
 }
 
+Text.displayName = 'Text'
+
 export default Text

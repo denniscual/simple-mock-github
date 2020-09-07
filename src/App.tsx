@@ -6,6 +6,7 @@ import {
     IconPillButton,
     Text,
     Headings,
+    Stack,
 } from './components'
 import S from './stitches.config'
 import { CaretDownFill, Download } from './components/icons'
@@ -16,15 +17,12 @@ const Container = S.styled('div', {
     display: 'grid',
     rowGap: 40,
 })
-
-const Section = S.styled('section', {
-    display: 'grid',
-    rowGap: '$4',
-})
+Container.displayName = 'Container'
 
 const SectionTitle = S.styled('h3', {
     fontSize: '$3xl',
 })
+SectionTitle.displayName = 'SectionTitle'
 
 const SectionTiles = S.styled('div', {
     display: 'flex',
@@ -54,7 +52,7 @@ const SectionTiles = S.styled('div', {
         },
     },
 })
-
+SectionTiles.displayName = 'SectionTiles'
 SectionTiles.defaultProps = {
     direction: 'row',
 }
@@ -62,7 +60,7 @@ SectionTiles.defaultProps = {
 export default function App() {
     return (
         <Container>
-            <Section>
+            <Stack>
                 <SectionTitle>Texts</SectionTitle>
                 <SectionTiles direction="column">
                     <Text size="xs" fontWeight="hairline">
@@ -72,8 +70,8 @@ export default function App() {
                     <Text>Hello world</Text>
                     <Text size="xl">Hello world</Text>
                 </SectionTiles>
-            </Section>
-            <Section>
+            </Stack>
+            <Stack>
                 <SectionTitle>Headings</SectionTitle>
                 <SectionTiles direction="column">
                     <Headings.H6>Hello world</Headings.H6>
@@ -83,8 +81,8 @@ export default function App() {
                     <Headings.H2 color="accent">Hello world</Headings.H2>
                     <Headings.H1 color="danger">Hello world</Headings.H1>
                 </SectionTiles>
-            </Section>
-            <Section>
+            </Stack>
+            <Stack>
                 <SectionTitle>Icon Button</SectionTitle>
                 <SectionTiles>
                     <IconButton
@@ -271,8 +269,8 @@ export default function App() {
                         Danger
                     </IconButton>
                 </SectionTiles>
-            </Section>
-            <Section>
+            </Stack>
+            <Stack>
                 <SectionTitle>Icon pill buttons</SectionTitle>
                 <SectionTiles>
                     <IconPillButton
@@ -320,7 +318,7 @@ export default function App() {
                     <IconPillButton color="accent" endIcon={<CaretDownFill />}>
                         Accent button
                     </IconPillButton>
-                    <IconPillButton size="sm" endIcon={<CaretDownFill />}>
+                    <IconPillButton endIcon={<CaretDownFill />}>
                         Default button
                     </IconPillButton>
                     <IconPillButton
@@ -393,8 +391,8 @@ export default function App() {
                         Danger button
                     </IconPillButton>
                 </SectionTiles>
-            </Section>
-            <Section>
+            </Stack>
+            <Stack>
                 <SectionTitle>Buttons</SectionTitle>
                 <SectionTiles>
                     <Button size="sm" color="primary">
@@ -578,8 +576,8 @@ export default function App() {
                         Danger button
                     </Button>
                 </SectionTiles>
-            </Section>
-            <Section>
+            </Stack>
+            <Stack>
                 <SectionTitle>Pill Buttons</SectionTitle>
                 <SectionTiles>
                     <PillButton size="sm" color="primary">
@@ -740,7 +738,7 @@ export default function App() {
                         Danger button
                     </PillButton>
                 </SectionTiles>
-            </Section>
+            </Stack>
         </Container>
     )
 }

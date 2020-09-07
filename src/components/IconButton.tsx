@@ -46,6 +46,8 @@ RootIconButton.defaultProps = {
     appearance: 'contained',
 }
 
+RootIconButton.displayName = 'RootIconButton'
+
 type IconButtonProps = {
     startIcon?: React.ReactNode
     endIcon?: React.ReactNode

@@ -5,4 +5,6 @@ const IconPillButton = S.styled(IconButton, {
     borderRadius: '9999px',
 })
 
+IconPillButton.displayName = 'IconPillButton'
+
 export default IconPillButton

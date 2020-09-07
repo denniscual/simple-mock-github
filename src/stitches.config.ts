@@ -52,6 +52,7 @@ const tokens = {
         $2: '8px',
         $3: '12px',
         $4: '16px',
+        $5: '20px',
     },
     borderWidths: {
         $1: '1px',
@@ -107,7 +108,7 @@ const { styled, css } = createStyled({
 css.global({
     'html, body, .App, .root': {
         fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important`,
-        lineHeight: '1.2',
+        lineHeight: '1.5',
         background: '$white',
         textDecoration: 'none',
         boxSizing: 'border-box',
