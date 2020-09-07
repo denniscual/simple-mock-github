@@ -3,9 +3,9 @@ import S from '../stitches.config'
 // TODO: Continue this. the types will go back in the future.
 const Text = S.styled('p', {
     opacity: 1,
-    margin: 0,
     fontFamily: '$sans',
     color: '$black',
+    my: '$0',
 
     variants: {
         size: {
@@ -19,6 +19,20 @@ const Text = S.styled('p', {
                 fontSize: '$base',
             },
             xl: {
+                fontSize: '$xl',
+            },
+        },
+        fontWeight: {
+            hairline: {
+                fontSize: '$xs',
+            },
+            light: {
+                fontSize: '$sm',
+            },
+            normal: {
+                fontSize: '$base',
+            },
+            medium: {
                 fontSize: '$xl',
             },
         },

@@ -5,6 +5,7 @@ import {
     IconButton,
     IconPillButton,
     Text,
+    Headings,
 } from './components'
 import S from './stitches.config'
 import { CaretDownFill, Download } from './components/icons'
@@ -28,24 +29,60 @@ const SectionTitle = S.styled('h3', {
 const SectionTiles = S.styled('div', {
     display: 'flex',
 
-    '& > *': {
-        marginRight: '$4',
+    variants: {
+        direction: {
+            row: {
+                '& > *': {
+                    marginRight: '$4',
 
-        '&:last-child': {
-            marginRight: 0,
+                    '&:last-child': {
+                        marginRight: 0,
+                    },
+                },
+            },
+            column: {
+                flexDirection: 'column',
+
+                '& > *': {
+                    marginBottom: '$4',
+
+                    '&:last-child': {
+                        marginBottom: 0,
+                    },
+                },
+            },
         },
     },
 })
+
+SectionTiles.defaultProps = {
+    direction: 'row',
+}
 
 export default function App() {
     return (
         <Container>
             <Section>
-                <SectionTitle>Text</SectionTitle>
-                <Text size="xs">Hello world</Text>
-                <Text size="sm">Hello world</Text>
-                <Text>Hello world</Text>
-                <Text size="xl">Hello world</Text>
+                <SectionTitle>Texts</SectionTitle>
+                <SectionTiles direction="column">
+                    <Text size="xs" fontWeight="hairline">
+                        Hello world
+                    </Text>
+                    <Text size="sm">Hello world</Text>
+                    <Text>Hello world</Text>
+                    <Text size="xl">Hello world</Text>
+                </SectionTiles>
+            </Section>
+            <Section>
+                <SectionTitle>Headings</SectionTitle>
+                <SectionTiles direction="column">
+                    <Headings.H6>Hello world</Headings.H6>
+                    <Headings.H5>Hello world</Headings.H5>
+                    <Headings.H4>Hello world</Headings.H4>
+                    <Headings.H3 color="primary">Hello world</Headings.H3>
+                    <Headings.H2 color="accent">Hello world</Headings.H2>
+                    <Headings.H1 color="danger">Hello world</Headings.H1>
+                </SectionTiles>
             </Section>
             <Section>
                 <SectionTitle>Icon Button</SectionTitle>
@@ -234,9 +271,6 @@ export default function App() {
                         Danger
                     </IconButton>
                 </SectionTiles>
-            </Section>
-            <Section>
-                <SectionTitle>Icon pill buttons</SectionTitle>
             </Section>
             <Section>
                 <SectionTitle>Icon pill buttons</SectionTitle>

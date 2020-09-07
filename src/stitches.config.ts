@@ -44,6 +44,7 @@ const tokens = {
         $light: '300',
         $normal: '400',
         $medium: '500',
+        $bold: '600',
     },
     space: {
         $0: '0px',
