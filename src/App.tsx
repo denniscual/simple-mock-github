@@ -1,9 +1,38 @@
 import React from 'react'
 import { Routes, Route, Outlet } from 'react-router-dom'
-import { Text, Link, ButtonGroup, IconButton, Button } from './components'
+import { ButtonGroup, IconButton, Button, Headings } from './components'
 import Docs from './Docs'
+import { Link as RootLink } from 'react-router-dom'
 import Download from './components/icons/Download'
 import S from './stitches.config'
+
+const LightH3 = S.styled(Headings.H3, {
+    fontWeight: '$normal',
+})
+
+const RepoIcon = S.styled('span', {
+    color: '$black',
+    fontSize: '$lg',
+    marginRight: '$3',
+})
+
+const Separator = S.styled('span', {
+    color: '$black',
+    fontSize: '$xl',
+})
+
+const Link = S.styled(RootLink, {
+    color: '$primary',
+
+    '&:hover': {
+        textDecoration: 'underline',
+    },
+})
+Link.displayName = 'Link'
+
+const RepoLink = S.styled(Link, {
+    fontWeight: '$bold',
+})
 
 const Header = S.styled('header', {
     px: '$8',
@@ -27,13 +56,13 @@ function Home() {
         <div>
             <Header>
                 <HeaderAction>
-                    <div>
-                        <Text as="span">
+                    <LightH3>
+                        <RepoIcon>
                             <Download />
-                        </Text>
-                        <Link to="#">denniscual</Link>/
-                        <Link to="#">restatum</Link>
-                    </div>
+                        </RepoIcon>
+                        <Link to="#">denniscual</Link> <Separator>/</Separator>{' '}
+                        <RepoLink to="#">restatum</RepoLink>
+                    </LightH3>
                     <ButtonGroup>
                         <IconButton size="sm" startIcon={<Download />}>
                             Unstar
