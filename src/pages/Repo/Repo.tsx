@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import HeaderActions from './HeaderActions'
 import S from '../../stitches.config'
 import { NavLink as RootNavLink } from 'react-router-dom'
+import { Comment } from '../../components'
 
 const Header = S.styled('header', {
     px: '$8',
@@ -70,8 +71,8 @@ export default function Repo() {
                     </Links>
                 </nav>
             </Header>
-            <div>
-                <Outlet />
+            <div style={{ margin: '3em' }}>
+                <Comment commentTitle="" />
             </div>
             <footer>Footer</footer>
         </div>

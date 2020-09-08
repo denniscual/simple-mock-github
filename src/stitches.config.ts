@@ -9,6 +9,7 @@ const tokens = {
         $mildGray: 'rgba(27,31,35,.15)',
         $gray: '#f3f4f6',
         $gray2: '#e1e4e8',
+        $gray3: '#f6f8fa',
         $dimGray: '#959da5',
         $lightBlue: '#f1f8ff',
         $mildBlue: '#def',

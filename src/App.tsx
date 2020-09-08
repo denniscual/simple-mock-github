@@ -3,6 +3,10 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import { Home, Repo } from './pages'
 
+// TODO:
+// - Finalise the code tab page.
+// - create an issues and issue page. Maybe connect now to server???
+
 function Code() {
     return <div>Code</div>
 }
