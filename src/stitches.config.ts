@@ -23,6 +23,7 @@ const tokens = {
         $dimRed: '#ae1420',
         $lightBlack: '#586069',
         $black: '#24292e',
+        $dimBlack: '#121315',
         $white: '#ffffff',
     },
     fonts: {
@@ -53,6 +54,9 @@ const tokens = {
         $3: '12px',
         $4: '16px',
         $5: '20px',
+        $6: '24px',
+        $7: '28px',
+        $8: '32px',
     },
     borderWidths: {
         $1: '1px',

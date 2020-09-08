@@ -14,11 +14,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "history": "^5.0.0",
     "match-sorter": "^4.2.0",
     "react": "^0.0.0-experimental-94c0244ba",
     "react-dom": "^0.0.0-experimental-94c0244ba",
     "react-feather": "^2.0.8",
     "react-query": "^2.14.1",
+    "react-router": "^0.0.0-experimental-ffd8c7d0",
     "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
     "react-scripts": "3.4.3",
     "reset.css": "^2.0.2",
@@ -47,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/history": "^4.7.7",
     "@types/match-sorter": "^4.0.0",
     "@types/react-query": "^1.1.2",
     "@types/react-router-dom": "^5.1.5",

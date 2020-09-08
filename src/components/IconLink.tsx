@@ -1,8 +1,8 @@
 import React from 'react'
-import Button from './Button'
+import Link from './Link'
 import S from '../stitches.config'
 
-const RootIconButton = S.styled(Button, {
+const RootIconLink = S.styled(Link, {
     display: 'flex',
     alignItems: 'center',
 
@@ -12,9 +12,8 @@ const RootIconButton = S.styled(Button, {
 
     variants: {
         size: {
-            xs: {
+            sm: {
                 fontSize: '$xs',
-                padding: '$1 $2',
 
                 '& > *': {
                     marginRight: '$1',
@@ -24,21 +23,8 @@ const RootIconButton = S.styled(Button, {
                     },
                 },
             },
-            sm: {
-                fontSize: '$xs',
-                padding: '$1 $3',
-
-                '& > *': {
-                    marginRight: '$2',
-
-                    '&:last-child': {
-                        marginRight: 0,
-                    },
-                },
-            },
             base: {
                 fontSize: '$sm',
-                padding: '$2 $4',
 
                 '& > *': {
                     marginRight: '$2',
@@ -52,19 +38,12 @@ const RootIconButton = S.styled(Button, {
     },
 })
 
-RootIconButton.defaultProps = {
+RootIconLink.defaultProps = {
     size: 'base',
     appearance: 'contained',
 }
 
-RootIconButton.displayName = 'RootIconButton'
-
-type IconButtonProps = {
-    startIcon?: React.ReactNode
-    endIcon?: React.ReactNode
-} & React.ComponentProps<typeof RootIconButton>
-
-// FIXME: We need to know the solution on how we can inherit the types of the Button.
+RootIconLink.displayName = 'RootIconLink'
 
 export default function IconButton({
     startIcon,
@@ -73,10 +52,10 @@ export default function IconButton({
     ...props
 }: any) {
     return (
-        <RootIconButton {...props}>
+        <RootIconLink {...props}>
             {startIcon && startIcon}
             <span>{children}</span>
             {endIcon && endIcon}
-        </RootIconButton>
+        </RootIconLink>
     )
 }

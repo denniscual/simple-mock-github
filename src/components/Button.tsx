@@ -94,13 +94,14 @@ Button.compoundVariant(
         color: 'accent',
         appearance: 'text',
     },
-    // The added styles.
+
     {
-        color: '$accent',
         backgroundColor: 'transparent',
+        color: '$black',
 
         '&:hover': {
-            backgroundColor: '$lightGreen',
+            color: '$accent',
+            backgroundColor: 'transparent',
         },
     }
 )
@@ -112,6 +113,12 @@ Button.compoundVariant(
     },
     {
         backgroundColor: 'transparent',
+        color: '$black',
+
+        '&:hover': {
+            color: '$dimBlack',
+            backgroundColor: 'transparent',
+        },
     }
 )
 
@@ -121,11 +128,12 @@ Button.compoundVariant(
         appearance: 'text',
     },
     {
-        color: '$primary',
         backgroundColor: 'transparent',
+        color: '$black',
 
         '&:hover': {
-            backgroundColor: '$lightBlue',
+            color: '$primary',
+            backgroundColor: 'transparent',
         },
     }
 )
@@ -136,12 +144,12 @@ Button.compoundVariant(
         appearance: 'text',
     },
     {
-        color: '$danger',
         backgroundColor: 'transparent',
+        color: '$black',
 
         '&:hover': {
-            backgroundColor: '$lightRed',
             color: '$danger',
+            backgroundColor: 'transparent',
         },
     }
 )
@@ -261,5 +269,7 @@ Button.defaultProps = {
     appearance: 'contained',
     status: 'enabled',
 }
+
+Button.displayName = 'Button'
 
 export default Button
