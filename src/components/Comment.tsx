@@ -26,16 +26,13 @@ export default function Comment({
     commentTitle,
     commentBody,
 }: {
-    commentTitle: string
-    commentBody: string
+    commentTitle: React.ReactNode
+    commentBody: React.ReactNode
 }) {
     return (
         <Container>
             <CommentHeader>
-                <Text size="sm">
-                    {commentTitle}
-                    <Link to="#">eps1lon</Link> commented 13 hours ago
-                </Text>
+                <Text size="sm">{commentTitle}</Text>
                 <PillButton size="sm" appearance="outlined">
                     Collaborator
                 </PillButton>
