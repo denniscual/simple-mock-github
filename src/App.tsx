@@ -4,6 +4,12 @@ import Docs from './Docs'
 import { Home, Repo } from './pages'
 
 // TODO:
+// - create first a Chip component. Check mui. First we only support just label, no events!
+//   Then use this one as alternative to button like collaborator because this is more appropiate.
+//   Chip styles is kinda the same on Button. Some variants. We can copy or re-use. So it depends on us
+//   what we gonna take. Its ok that there is duplication. At the end of the day this is normal, this is
+//   is basically a progress for us something like more embracing duplication than not good abstraction.
+//   We are great and this is great and this is under control and fuck them sorry and we thank you!!!!! Amen :)
 // - Finalise the code tab page.
 // - create an issues and issue page. Maybe connect now to server???
 
