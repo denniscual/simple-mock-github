@@ -1,9 +1,11 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocationPending } from 'react-router-dom'
 import HeaderActions from './HeaderActions'
 import S from '../../stitches.config'
 import { NavLink as RootNavLink } from 'react-router-dom'
-import { Comment, Link } from '../../components'
+
+// @ts-ignore
+const SuspenseList = React.unstable_SuspenseList
 
 const Header = S.styled('header', {
     px: '$8',
@@ -12,6 +14,7 @@ const Header = S.styled('header', {
     display: 'grid',
     rowGap: '$4',
     boxShadow: 'inset 0 -1px 0 $gray2',
+    marginBottom: '$8',
 })
 Header.displayName = 'Header'
 
@@ -36,53 +39,56 @@ const NavLink = S.styled(RootNavLink, {
     },
 })
 
+const Content = S.styled('div', {
+    px: '$8',
+    margin: '0 auto',
+    maxWidth: 1216,
+})
+
 export default function Repo() {
+    const pending = useLocationPending()
     return (
-        <div>
-            <Header>
-                <HeaderActions />
-                <nav>
-                    <Links>
-                        <li>
-                            <NavLink
-                                end
-                                activeClassName="nav-link-active"
-                                to=""
-                            >
-                                Code
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                activeClassName="nav-link-active"
-                                to="issues"
-                            >
-                                Issues
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                activeClassName="nav-link-active"
-                                to="pull-requests"
-                            >
-                                Pull requests
-                            </NavLink>
-                        </li>
-                    </Links>
-                </nav>
-            </Header>
-            <div style={{ margin: '3em' }}>
-                <Comment
-                    commentTitle={
-                        <>
-                            <Link to="#">eps1lon</Link> commented
-                            <Link to="#">13 hours ago</Link>
-                        </>
-                    }
-                    commentBody="Comment body"
-                />
-            </div>
-            <footer>Footer</footer>
-        </div>
+        <SuspenseList revealOrder="forwards" tail="collapsed">
+            <React.Suspense fallback="Loading repo profile...">
+                <Header>
+                    <HeaderActions />
+                    <div>{pending && 'Loading the assets...'}</div>
+                    <nav>
+                        <Links>
+                            <li>
+                                <NavLink
+                                    end
+                                    activeClassName="nav-link-active"
+                                    to=""
+                                >
+                                    Code
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    activeClassName="nav-link-active"
+                                    to="issues"
+                                >
+                                    Issues
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    activeClassName="nav-link-active"
+                                    to="pull-requests"
+                                >
+                                    Pull requests
+                                </NavLink>
+                            </li>
+                        </Links>
+                    </nav>
+                </Header>
+            </React.Suspense>
+            <React.Suspense fallback="Loading repo details">
+                <Content>
+                    <Outlet />
+                </Content>
+            </React.Suspense>
+        </SuspenseList>
     )
 }

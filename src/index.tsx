@@ -5,7 +5,7 @@ import { serviceWorker } from './utils'
 import 'reset.css'
 
 // @ts-ignore
-ReactDOM.unstable_createBlockingRoot(document.getElementById('root')).render(
+ReactDOM.unstable_createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Root />
     </React.StrictMode>

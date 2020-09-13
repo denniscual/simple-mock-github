@@ -1095,6 +1095,14 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@daishi/react-router@npm:@daishi/react-router@^6.0.0-alpha.4.lib.1":
+  version "6.0.0-alpha.4.lib.1"
+  resolved "https://registry.yarnpkg.com/@daishi/react-router/-/react-router-6.0.0-alpha.4.lib.1.tgz#edf13c8f1a54a441b2bf976c499bda2f46060ae0"
+  integrity sha512-+V7XMVjsYpEXnzM23jwJ7NykYJvI1/NcyiBUk/1XsTKwuGm+0i50nBxuo2ERPxdAKsfQVwgb6ieaGB+P51ZTiA==
+  dependencies:
+    history "5.0.0-beta.9"
+    prop-types "^15.7.2"
+
 "@fortawesome/fontawesome-common-types@^0.2.30":
   version "0.2.30"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.30.tgz#2f1cc5b46bd76723be41d0013a8450c9ba92b777"
@@ -5076,6 +5084,13 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
+
+history@5.0.0-beta.9:
+  version "5.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.0.0-beta.9.tgz#fe230706c18c5f7f132001e55215e71b4aaab6d6"
+  integrity sha512-iLpu0fzu3iM041KDMNsawyB6YZjPLB+Bn+Pvq2lMnY7xxpxDIYvEz7r4et3Na8FthWzbYeukjl74ZKGWXcLhIA==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
 
 history@^5.0.0:
   version "5.0.0"
