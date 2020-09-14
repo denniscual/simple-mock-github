@@ -70,9 +70,7 @@ export default function RepoHeader() {
                 <RepoIcon>
                     <Download />
                 </RepoIcon>
-                <React.Suspense fallback={<Loader size="xs" color="primary" />}>
-                    <RepoProfile />
-                </React.Suspense>
+                <RepoProfile />
             </LightH3>
             <ButtonGroup>
                 <IconButton size="sm" startIcon={<Download />}>

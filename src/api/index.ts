@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/rest'
+import { queryCache } from 'react-query'
 import { Endpoints } from '@octokit/types'
 
 // TODO: We need to handle the fetch error
@@ -44,11 +45,16 @@ async function getRepo(
 }
 getRepo.key = 'Repo'
 
+function prefetchRepo() {
+    queryCache.prefetchQuery(getRepo.key, getRepo)
+}
+
+// Get Repo README
+
 type GetRepoREADMEInput = Endpoints['GET /repos/:owner/:repo/readme']['parameters']
 type GetRepoREADMEResponse = Endpoints['GET /repos/:owner/:repo/readme']['response']
 export type GetRepoREADMEData = GetRepoREADMEResponse['data']
 
-// Get Repo README
 async function getRepoREADME(
     _: string,
     input: GetRepoREADMEInput = {
@@ -65,4 +71,8 @@ async function getRepoREADME(
 }
 getRepoREADME.key = 'RepoREADME'
 
-export { getRepo, getRepoREADME }
+function prefetchRepoREADME() {
+    queryCache.prefetchQuery(getRepoREADME.key, getRepoREADME)
+}
+
+export { getRepo, prefetchRepo, getRepoREADME, prefetchRepoREADME }

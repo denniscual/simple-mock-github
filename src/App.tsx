@@ -1,24 +1,9 @@
 import React from 'react'
 import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
-import { Home, Repo } from './pages'
-import { useQuery, queryCache } from 'react-query'
-import { getRepo, getRepoREADME } from './api'
-
-function prefetchRepo() {
-    queryCache.prefetchQuery(getRepo.key, getRepo)
-}
-
-function prefetchRepoREADME() {
-    queryCache.prefetchQuery(getRepoREADME.key, getRepoREADME)
-}
-
-function Code() {
-    const res = useQuery(getRepoREADME.key, getRepoREADME)
-    console.log({ res })
-
-    return <div>Code</div>
-}
+import Home from './lib/Home'
+import { Repo, RepoCode } from './lib/Repo'
+import { prefetchRepo, prefetchRepoREADME } from './api'
 
 function Issues() {
     return (
@@ -79,7 +64,7 @@ export default function App() {
                         >
                             <Route
                                 path="/"
-                                element={<Code />}
+                                element={<RepoCode />}
                                 preload={prefetchRepoREADME}
                             />
                             <Route path="issues">
