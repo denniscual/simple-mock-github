@@ -1,11 +1,8 @@
 import React from 'react'
-import { Outlet, useLocationPending } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import HeaderActions from './HeaderActions'
 import S from '../../stitches.config'
 import { NavLink as RootNavLink } from 'react-router-dom'
-
-// @ts-ignore
-const SuspenseList = React.unstable_SuspenseList
 
 const Header = S.styled('header', {
     px: '$8',
@@ -46,13 +43,11 @@ const Content = S.styled('div', {
 })
 
 export default function Repo() {
-    const pending = useLocationPending()
     return (
-        <SuspenseList revealOrder="forwards" tail="collapsed">
+        <div>
             <React.Suspense fallback="Loading repo profile...">
                 <Header>
                     <HeaderActions />
-                    <div>{pending && 'Loading the assets...'}</div>
                     <nav>
                         <Links>
                             <li>
@@ -89,6 +84,6 @@ export default function Repo() {
                     <Outlet />
                 </Content>
             </React.Suspense>
-        </SuspenseList>
+        </div>
     )
 }

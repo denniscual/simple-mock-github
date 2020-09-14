@@ -3,6 +3,7 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import { Home, Repo } from './pages'
 import { useQuery, queryCache } from 'react-query'
+import { Loader } from './components'
 
 function getRepo(...args: any): Promise<string[]> {
     return new Promise((res) => {
@@ -72,6 +73,7 @@ function PullRequest() {
 export default function App() {
     return (
         <div>
+            <Loader />
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path="repos">

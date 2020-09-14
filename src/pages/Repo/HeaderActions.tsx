@@ -54,7 +54,6 @@ export default function RepoHeader() {
     return (
         <HeaderAction>
             <LightH3>
-                <RootLink to="issues">Issues</RootLink>
                 <RepoIcon>
                     <Download />
                 </RepoIcon>
