@@ -3,28 +3,24 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import { Home, Repo } from './pages'
 import { useQuery, queryCache } from 'react-query'
-import { Loader } from './components'
+import { getRepo, getRepoREADME } from './api'
 
-function getRepo(...args: any): Promise<string[]> {
-    return new Promise((res) => {
-        setTimeout(() => {
-            res([])
-        }, 2000)
-    })
+function prefetchRepo() {
+    queryCache.prefetchQuery(getRepo.key, getRepo)
 }
 
-const prefetchIssues = () => {
-    queryCache.prefetchQuery('Issues', getRepo)
+function prefetchRepoREADME() {
+    queryCache.prefetchQuery(getRepoREADME.key, getRepoREADME)
 }
 
 function Code() {
-    useQuery('Codes', getRepo)
+    const res = useQuery(getRepoREADME.key, getRepoREADME)
+    console.log({ res })
+
     return <div>Code</div>
 }
 
 function Issues() {
-    useQuery('Issues', getRepo)
-
     return (
         <div>
             Issues
@@ -73,13 +69,20 @@ function PullRequest() {
 export default function App() {
     return (
         <div>
-            <Loader />
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path="repos">
-                        <Route path=":repo" element={<Repo />}>
-                            <Route path="/" element={<Code />} />
-                            <Route path="issues" preload={prefetchIssues}>
+                        <Route
+                            path=":repo"
+                            element={<Repo />}
+                            preload={prefetchRepo}
+                        >
+                            <Route
+                                path="/"
+                                element={<Code />}
+                                preload={prefetchRepoREADME}
+                            />
+                            <Route path="issues">
                                 <Route path="/" element={<Issues />} />
                                 <Route path=":issue" element={<Issue />} />
                             </Route>

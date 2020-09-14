@@ -45,40 +45,38 @@ const Content = S.styled('div', {
 export default function Repo() {
     return (
         <div>
-            <React.Suspense fallback="Loading repo profile...">
-                <Header>
-                    <HeaderActions />
-                    <nav>
-                        <Links>
-                            <li>
-                                <NavLink
-                                    end
-                                    activeClassName="nav-link-active"
-                                    to=""
-                                >
-                                    Code
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    activeClassName="nav-link-active"
-                                    to="issues"
-                                >
-                                    Issues
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    activeClassName="nav-link-active"
-                                    to="pull-requests"
-                                >
-                                    Pull requests
-                                </NavLink>
-                            </li>
-                        </Links>
-                    </nav>
-                </Header>
-            </React.Suspense>
+            <Header>
+                <HeaderActions />
+                <nav>
+                    <Links>
+                        <li>
+                            <NavLink
+                                end
+                                activeClassName="nav-link-active"
+                                to=""
+                            >
+                                Code
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName="nav-link-active"
+                                to="issues"
+                            >
+                                Issues
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName="nav-link-active"
+                                to="pull-requests"
+                            >
+                                Pull requests
+                            </NavLink>
+                        </li>
+                    </Links>
+                </nav>
+            </Header>
             <React.Suspense fallback="Loading repo details">
                 <Content>
                     <Outlet />

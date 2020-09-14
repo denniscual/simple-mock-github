@@ -1,11 +1,20 @@
 import React from 'react'
-import { ButtonGroup, IconButton, Button, Headings } from '../../components'
+import {
+    Loader,
+    ButtonGroup,
+    IconButton,
+    Button,
+    Headings,
+} from '../../components'
 import { Link as RootLink } from 'react-router-dom'
 import Download from '../../components/icons/Download'
 import S from '../../stitches.config'
 import { useQuery } from 'react-query'
+import { getRepo, GetRepoData } from '../../api'
 
 const LightH3 = S.styled(Headings.H3, {
+    display: 'flex',
+    alignItems: 'center',
     fontWeight: '$normal',
 })
 
@@ -34,6 +43,7 @@ const RepoLink = S.styled(Link, {
 })
 
 const HeaderAction = S.styled('div', {
+    height: 30,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -41,24 +51,28 @@ const HeaderAction = S.styled('div', {
 
 HeaderAction.displayName = 'HeaderAction'
 
-function getRepo(...args: any): Promise<string[]> {
-    return new Promise((res) => {
-        setTimeout(() => {
-            res([])
-        }, 1000)
-    })
+function RepoProfile() {
+    const { data } = useQuery(getRepo.key, getRepo) as { data: GetRepoData }
+
+    console.log({ data })
+    return (
+        <>
+            <Link to="#">denniscual</Link> <Separator>/</Separator>{' '}
+            <RepoLink to="#">restatum</RepoLink>
+        </>
+    )
 }
 
 export default function RepoHeader() {
-    useQuery('Repo', getRepo)
     return (
         <HeaderAction>
             <LightH3>
                 <RepoIcon>
                     <Download />
                 </RepoIcon>
-                <Link to="#">denniscual</Link> <Separator>/</Separator>{' '}
-                <RepoLink to="#">restatum</RepoLink>
+                <React.Suspense fallback={<Loader size="xs" color="primary" />}>
+                    <RepoProfile />
+                </React.Suspense>
             </LightH3>
             <ButtonGroup>
                 <IconButton size="sm" startIcon={<Download />}>

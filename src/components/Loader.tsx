@@ -3,8 +3,8 @@ import S from '../stitches.config'
 
 const rippleXs = S.css.keyframes({
     '0%': {
-        top: '16px',
-        left: '16px',
+        top: '11px',
+        left: '11px',
         width: 0,
         height: 0,
         opacity: 1,
@@ -12,8 +12,8 @@ const rippleXs = S.css.keyframes({
     '100%': {
         top: 0,
         left: 0,
-        width: '32px',
-        height: '32px',
+        width: '22px',
+        height: '22px',
         opacity: 0,
     },
 })
@@ -70,29 +70,29 @@ const RootLoader = S.styled('div', {
         color: {
             primary: {
                 '& > div': {
-                    border: '4px solid $primary',
+                    border: '3px solid $primary',
                 },
             },
             accent: {
                 '& > div': {
-                    border: '4px solid $accent',
+                    border: '3px solid $accent',
                 },
             },
             base: {
                 '& > div': {
-                    border: '4px solid $gray',
+                    border: '3px solid $gray',
                 },
             },
             danger: {
                 '& > div': {
-                    border: '4px solid $danger',
+                    border: '3px solid $danger',
                 },
             },
         },
         size: {
             xs: {
-                width: 40,
-                height: 40,
+                width: 30,
+                height: 30,
 
                 '& > div': {
                     animation: `${rippleXs} 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;`,
