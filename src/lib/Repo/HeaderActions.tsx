@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-    Loader,
-    ButtonGroup,
-    IconButton,
-    Button,
-    Headings,
-} from '../../components'
+import { ButtonGroup, IconButton, Button, Headings } from '../../components'
 import { Link as RootLink } from 'react-router-dom'
 import Download from '../../components/icons/Download'
 import S from '../../stitches.config'
@@ -27,6 +21,7 @@ const RepoIcon = S.styled('span', {
 const Separator = S.styled('span', {
     color: '$black',
     fontSize: '$xl',
+    mx: '$1',
 })
 
 const Link = S.styled(RootLink, {
@@ -54,11 +49,12 @@ HeaderAction.displayName = 'HeaderAction'
 function RepoProfile() {
     const { data } = useQuery(getRepo.key, getRepo) as { data: GetRepoData }
 
-    console.log({ data })
+    // TODO: Fix the link in here. Right now, we will just redirect it to github.
     return (
         <>
-            <Link to="#">denniscual</Link> <Separator>/</Separator>{' '}
-            <RepoLink to="#">restatum</RepoLink>
+            <Link to={data.owner.html_url}>{data.owner.login}</Link>
+            <Separator>/</Separator>
+            <RepoLink to={data.url}>{data.name}</RepoLink>
         </>
     )
 }
