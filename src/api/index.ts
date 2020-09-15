@@ -1,7 +1,6 @@
 import { Octokit } from '@octokit/rest'
 import { queryCache } from 'react-query'
 import { Endpoints } from '@octokit/types'
-import queryString from 'query-string'
 
 // TODO: We need to handle the fetch error
 
