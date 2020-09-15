@@ -10,7 +10,12 @@ import {
     prefetchRepoContributors,
     prefetchRepoIssues,
 } from './api'
+import { RouteProgressbar } from './components'
 
+// TODO: Review the IssueList. We can re-use some of the Components and styles for the Pull request. Most likely, we gonna focus on the issues
+// but its good to be aware on the similary styles and ui.
+// TODO: Create the issue component.
+// TODO: Create the sidebar and filter area of the Issues
 // TODO: Wrap to lazy wrapper fn.
 // TODO: We need to put the theme color to a theme module so that we
 // can reference the theme color insid the Component not only on the styled.
@@ -53,6 +58,7 @@ function PullRequest() {
 export default function App() {
     return (
         <div>
+            <RouteProgressbar />
             <Routes>
                 <Route path="/" element={<Home />}>
                     <Route path=":owner">
