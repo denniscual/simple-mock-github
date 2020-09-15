@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import { queryCache } from 'react-query'
 import { Endpoints } from '@octokit/types'
+import queryString from 'query-string'
 
 // TODO: We need to handle the fetch error
 
@@ -171,6 +172,51 @@ const prefetchRepoContributors: RoutePreloadFunction = (params) => {
 //     })
 // }
 
+/**
+ * ------------ Issues -----------
+ * */
+
+type GetRepoIssuesInput = Endpoints['GET /repos/:owner/:repo/issues']['parameters']
+type GetRepoIssuesResponse = Endpoints['GET /repos/:owner/:repo/issues']['response']
+export type GetRepoIssuesData = GetRepoIssuesResponse['data']
+
+const IssuesStates = {
+    open: 'open',
+    closed: 'closed',
+}
+
+async function getRepoIssues(
+    _: string,
+    input: GetRepoIssuesInput
+): Promise<GetRepoIssuesData> {
+    const state = Boolean(input.state)
+        ? input.state
+        : (IssuesStates.open as any)
+    const page = Boolean(input.page) ? input.page : 1
+
+    const res = (await octokit.request('GET /repos/{owner}/{repo}/issues', {
+        ...input,
+        per_page: 30,
+        state,
+        page,
+    })) as GetRepoIssuesResponse
+
+    return res.data
+}
+getRepoIssues.key = 'RepoIssues'
+
+const prefetchRepoIssues: RoutePreloadFunction = (params) => {
+    const input: GetRepoIssuesInput = {
+        ...(params as {
+            owner: string
+            repo: string
+        }),
+    }
+    queryCache.prefetchQuery(getRepoIssues.key, (key) =>
+        getRepoIssues(key as string, input)
+    )
+}
+
 export {
     getRepo,
     prefetchRepo,
@@ -178,6 +224,8 @@ export {
     prefetchRepoREADME,
     getRepoContributors,
     prefetchRepoContributors,
+    getRepoIssues,
+    prefetchRepoIssues,
     // getRepoTopics,
     // prefetchRepoTopics,
 }

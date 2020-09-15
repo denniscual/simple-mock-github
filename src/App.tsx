@@ -3,24 +3,15 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import Home from './lib/Home'
 import { Repo, RepoCode } from './lib/Repo'
+import { Issues } from './lib/Issues'
 import {
     prefetchRepo,
     prefetchRepoREADME,
     prefetchRepoContributors,
+    prefetchRepoIssues,
 } from './api'
 
 // TODO: Wrap to lazy wrapper fn.
-
-function Issues() {
-    return (
-        <div>
-            Issues
-            <div>
-                <Link to="1">Issue 123</Link>
-            </div>
-        </div>
-    )
-}
 
 function Issue() {
     const params = useParams() as { issue: string }
@@ -77,7 +68,11 @@ export default function App() {
                                 }}
                             />
                             <Route path="issues">
-                                <Route path="/" element={<Issues />} />
+                                <Route
+                                    path="/"
+                                    element={<Issues />}
+                                    preload={prefetchRepoIssues}
+                                />
                                 <Route path=":issue" element={<Issue />} />
                             </Route>
                             <Route path="pull-requests">

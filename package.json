@@ -20,6 +20,7 @@
     "history": "^5.0.0",
     "htmr": "^0.8.8",
     "match-sorter": "^4.2.0",
+    "query-string": "^6.13.2",
     "react": "^0.0.0-experimental-94c0244ba",
     "react-dom": "^0.0.0-experimental-94c0244ba",
     "react-feather": "^2.0.8",
@@ -57,6 +58,7 @@
     "@octokit/types": "^5.5.0",
     "@types/history": "^4.7.7",
     "@types/match-sorter": "^4.0.0",
+    "@types/query-string": "^6.3.0",
     "@types/react-query": "^1.1.2",
     "@types/react-router-dom": "^5.1.5",
     "prettier": "^2.1.1"
