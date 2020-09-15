@@ -1,6 +1,11 @@
 import React from 'react'
-import { ButtonGroup, IconButton, Button, Headings } from '../../components'
-import { Link as RootLink } from 'react-router-dom'
+import {
+    NativeLink,
+    ButtonGroup,
+    IconButton,
+    Button,
+    Headings,
+} from '../../components'
 import Download from '../../components/icons/Download'
 import S from '../../stitches.config'
 import { useQuery } from 'react-query'
@@ -24,12 +29,9 @@ const Separator = S.styled('span', {
     mx: '$1',
 })
 
-const Link = S.styled(RootLink, {
+const Link = S.styled(NativeLink, {
     color: '$primary',
-
-    '&:hover': {
-        textDecoration: 'underline',
-    },
+    fontSize: '$xl',
 })
 Link.displayName = 'Link'
 
@@ -52,9 +54,9 @@ function RepoProfile() {
     // TODO: Fix the link in here. Right now, we will just redirect it to github.
     return (
         <>
-            <Link to={data.owner.html_url}>{data.owner.login}</Link>
+            <Link href={data.owner.html_url}>{data.owner.login}</Link>
             <Separator>/</Separator>
-            <RepoLink to={data.url}>{data.name}</RepoLink>
+            <RepoLink href={data.url}>{data.name}</RepoLink>
         </>
     )
 }

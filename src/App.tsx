@@ -3,7 +3,11 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import Home from './lib/Home'
 import { Repo, RepoCode } from './lib/Repo'
-import { prefetchRepo, prefetchRepoREADME } from './api'
+import {
+    prefetchRepo,
+    prefetchRepoREADME,
+    prefetchRepoContributors,
+} from './api'
 
 function Issues() {
     return (
@@ -65,7 +69,10 @@ export default function App() {
                             <Route
                                 path="/"
                                 element={<RepoCode />}
-                                preload={prefetchRepoREADME}
+                                preload={(...args) => {
+                                    prefetchRepoREADME(...args)
+                                    prefetchRepoContributors(...args)
+                                }}
                             />
                             <Route path="issues">
                                 <Route path="/" element={<Issues />} />

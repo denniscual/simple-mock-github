@@ -6,6 +6,7 @@ const Text = S.styled('p', {
     fontFamily: '$sans',
     color: '$black',
     my: '$0',
+    lineHeight: '1.5',
 
     variants: {
         size: {

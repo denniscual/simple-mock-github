@@ -9,6 +9,7 @@ import { ReactQueryConfigProvider } from 'react-query'
 const queryConfig = {
     shared: {
         suspense: true,
+        refetchOnWindowFocus: false,
     },
 }
 

@@ -11,4 +11,5 @@ export { default as ButtonGroup } from './ButtonGroup'
 export { default as Comment } from './Comment'
 export { default as Loader } from './Loader'
 export { default as StringToGFM } from './StringToGFM'
+export { default as NativeLink } from './NativeLink'
 
