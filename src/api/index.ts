@@ -4,6 +4,14 @@ import { Endpoints } from '@octokit/types'
 
 // TODO: We need to handle the fetch error
 
+/**
+ * ------------ types -----------
+ * */
+
+/**
+ * ------------ Utils -----------
+ * */
+
 const octokit = new Octokit({
     userAgent: 'myApp v1.2.3',
     baseUrl: 'https://api.github.com',
@@ -45,15 +53,23 @@ async function getRepo(
 }
 getRepo.key = 'Repo'
 
-function prefetchRepo() {
-    queryCache.prefetchQuery(getRepo.key, getRepo)
+type RoutePreloadFunction = (
+    params: Record<string, string>,
+    location: any,
+    index: number
+) => void
+
+const prefetchRepo: RoutePreloadFunction = (params) => {
+    queryCache.prefetchQuery(getRepo.key, (key) =>
+        getRepo(key as string, params as { owner: string; repo: string })
+    )
 }
 
 // Get Repo README
 
 type GetRepoREADMEInput = Endpoints['GET /repos/:owner/:repo/readme']['parameters']
 type GetRepoREADMEResponse = Endpoints['GET /repos/:owner/:repo/readme']['response']
-export type GetRepoREADMEData = GetRepoREADMEResponse['data']
+type PostMarkdownResponse = Endpoints['POST /markdown']['response']
 
 async function getRepoREADME(
     _: string,
@@ -61,18 +77,30 @@ async function getRepoREADME(
         owner: 'facebook',
         repo: 'react',
     }
-) {
-    const response = (await octokit.request(
+): Promise<string> {
+    const readMeRes = (await octokit.request(
         'GET /repos/{owner}/{repo}/readme',
         input
     )) as GetRepoREADMEResponse
 
-    return response.data
+    const postRes = (await octokit.request('POST /markdown', {
+        text: atob(readMeRes.data.content),
+    })) as PostMarkdownResponse
+
+    return postRes.data
 }
 getRepoREADME.key = 'RepoREADME'
 
-function prefetchRepoREADME() {
-    queryCache.prefetchQuery(getRepoREADME.key, getRepoREADME)
+const prefetchRepoREADME: RoutePreloadFunction = (params) => {
+    queryCache.prefetchQuery(getRepoREADME.key, (key) =>
+        getRepoREADME(
+            key as string,
+            params as {
+                owner: string
+                repo: string
+            }
+        )
+    )
 }
 
 export { getRepo, prefetchRepo, getRepoREADME, prefetchRepoREADME }

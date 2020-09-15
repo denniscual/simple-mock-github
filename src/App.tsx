@@ -56,7 +56,7 @@ export default function App() {
         <div>
             <Routes>
                 <Route path="/" element={<Home />}>
-                    <Route path="repos">
+                    <Route path=":owner">
                         <Route
                             path=":repo"
                             element={<Repo />}
