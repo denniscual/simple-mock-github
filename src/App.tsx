@@ -9,6 +9,8 @@ import {
     prefetchRepoContributors,
 } from './api'
 
+// TODO: Wrap to lazy wrapper fn.
+
 function Issues() {
     return (
         <div>

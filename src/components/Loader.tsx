@@ -52,9 +52,18 @@ const rippleLg = S.css.keyframes({
     },
 })
 
+// This will delay the showing of loader indicator.
+const delayedSpinner = S.css.keyframes({
+    to: {
+        visibility: 'visible',
+    },
+})
+
 const RootLoader = S.styled('div', {
     display: 'inline-block',
     position: 'relative',
+    visibility: 'hidden',
+    animation: `${delayedSpinner} 0s linear 0.5s forwards`,
 
     '& > div': {
         position: 'absolute',

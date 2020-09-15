@@ -1,8 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import HeaderActions from './HeaderActions'
+import { Loader } from '../../components'
 import S from '../../stitches.config'
 import { NavLink as RootNavLink } from 'react-router-dom'
+
+const LoaderContainer = S.styled('div', {
+    display: 'flex',
+    justifyContent: 'center',
+})
+LoaderContainer.displayName = 'LoaderContainer'
 
 const Header = S.styled('header', {
     px: '$8',
@@ -77,11 +84,17 @@ export default function Repo() {
                     </Links>
                 </nav>
             </Header>
-            <React.Suspense fallback="Loading repo details">
-                <Content>
+            <Content>
+                <React.Suspense
+                    fallback={
+                        <LoaderContainer>
+                            <Loader size="lg" color="primary" />
+                        </LoaderContainer>
+                    }
+                >
                     <Outlet />
-                </Content>
-            </React.Suspense>
+                </React.Suspense>
+            </Content>
         </div>
     )
 }

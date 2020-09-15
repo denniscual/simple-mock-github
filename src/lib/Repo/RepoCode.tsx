@@ -1,6 +1,6 @@
 import React from 'react'
 import S from '../../stitches.config'
-import { Headings, Text, NativeLink } from '../../components'
+import { Headings, Text, NativeLink, Loader } from '../../components'
 import {
     getRepo,
     GetRepoData,
@@ -10,6 +10,12 @@ import {
 } from '../../api'
 import { useQuery } from 'react-query'
 import { StringToGFM } from '../../components'
+
+const LoaderContainer = S.styled('div', {
+    display: 'flex',
+    justifyContent: 'center',
+})
+LoaderContainer.displayName = 'LoaderContainer'
 
 /**
  * ------------ Readme -----------
@@ -42,19 +48,12 @@ function RepoAbout() {
         data: GetRepoData
     }
     return (
-        <div>
-            <Section>
-                <Headings.H5>About</Headings.H5>
-                <Text>{data.description}</Text>
-                <NativeLink
-                    href={data.homepage}
-                    color="primary"
-                    target="_blank"
-                >
-                    {getDomain(data.homepage)}
-                </NativeLink>
-            </Section>
-        </div>
+        <>
+            <Text>{data.description}</Text>
+            <NativeLink href={data.homepage} color="primary" target="_blank">
+                {getDomain(data.homepage)}
+            </NativeLink>
+        </>
     )
 }
 
@@ -92,33 +91,38 @@ function RepoContributors() {
         data: GetRepoContributorsData
     }
     return (
-        <Section>
-            <Headings.H5>Contributors</Headings.H5>
-            <List size={data.length >= 7 ? 'base' : 'sm'}>
-                {data.map((contributor) => (
-                    <li key={contributor.id}>
-                        <a
-                            href={contributor.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <Img
-                                src={contributor.avatar_url}
-                                alt={`img-by-${contributor.login}`}
-                            />
-                        </a>
-                    </li>
-                ))}
-            </List>
-        </Section>
+        <List size={data.length >= 7 ? 'base' : 'sm'}>
+            {data.map((contributor) => (
+                <li key={contributor.id}>
+                    <a
+                        href={contributor.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Img
+                            src={contributor.avatar_url}
+                            alt={`img-by-${contributor.login}`}
+                        />
+                    </a>
+                </li>
+            ))}
+        </List>
     )
 }
 
 function RepoOtherDetails() {
     return (
         <div>
-            <RepoAbout />
-            <RepoContributors />
+            <Section>
+                <Headings.H5>About</Headings.H5>
+                <RepoAbout />
+            </Section>
+            <Section>
+                <Headings.H5>Contributors</Headings.H5>
+                <React.Suspense fallback={<Loader size="xs" color="primary" />}>
+                    <RepoContributors />
+                </React.Suspense>
+            </Section>
         </div>
     )
 }
