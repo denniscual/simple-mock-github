@@ -111,12 +111,10 @@ export default function Issues() {
                                 dispatch({ type: 'ISSUES_NEXT_PAGE' })
                             }
                         >
-                            Load more
+                            Next page
                         </ButtonState>
                     </nav>
-                    <React.Suspense fallback="Loading issues...">
-                        <IssueList {...issuesQuery} />
-                    </React.Suspense>
+                    <IssueList {...issuesQuery} />
                 </div>
             </header>
         </div>

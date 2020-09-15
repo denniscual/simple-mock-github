@@ -3,7 +3,7 @@ import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import Home from './lib/Home'
 import { Repo, RepoCode } from './lib/Repo'
-import { Issues } from './lib/Issues'
+import { FilterableIssues } from './lib/Issues'
 import {
     prefetchRepo,
     prefetchRepoREADME,
@@ -12,6 +12,8 @@ import {
 } from './api'
 
 // TODO: Wrap to lazy wrapper fn.
+// TODO: We need to put the theme color to a theme module so that we
+// can reference the theme color insid the Component not only on the styled.
 
 function Issue() {
     const params = useParams() as { issue: string }
@@ -70,7 +72,7 @@ export default function App() {
                             <Route path="issues">
                                 <Route
                                     path="/"
-                                    element={<Issues />}
+                                    element={<FilterableIssues />}
                                     preload={prefetchRepoIssues}
                                 />
                                 <Route path=":issue" element={<Issue />} />

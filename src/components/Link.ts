@@ -6,6 +6,7 @@ const Link = S.styled(RootLink, {
     fontFamily: '$sans',
     outline: 0,
     cursor: 'pointer',
+    lineHeight: '1.5',
 
     variants: {
         size: {
@@ -14,6 +15,9 @@ const Link = S.styled(RootLink, {
             },
             base: {
                 fontSize: '$sm',
+            },
+            lg: {
+                fontSize: '$base',
             },
         },
         color: {
