@@ -2,8 +2,6 @@ import React from 'react'
 import { Routes, Route, useParams, Link } from 'react-router-dom'
 import Docs from './Docs'
 import Home from './lib/Home'
-import { Repo, RepoCode } from './lib/Repo'
-import { FilterableIssues } from './lib/Issues'
 import {
     prefetchRepo,
     prefetchRepoREADME,
@@ -12,12 +10,10 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
-// TODO: Create a cache or etc data source to handle img. its good to suspend the img.
 // TODO: Review the IssueList. We can re-use some of the Components and styles for the Pull request. Most likely, we gonna focus on the issues
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the issue component.
 // TODO: Create the sidebar and filter area of the Issues
-// TODO: Wrap to lazy wrapper fn.
 // TODO: We need to put the theme color to a theme module so that we
 // can reference the theme color insid the Component not only on the styled.
 // TODO: We need to move the auth token into env variables.
@@ -59,6 +55,12 @@ function PullRequest() {
     )
 }
 
+const LazyRepo = React.lazy(() => import('./lib/Repo/Repo'))
+const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
+const LazyFilterableIssues = React.lazy(
+    () => import('./lib/Issues/FilterableIssues')
+)
+
 export default function App() {
     return (
         <div>
@@ -68,12 +70,12 @@ export default function App() {
                     <Route path=":owner">
                         <Route
                             path=":repo"
-                            element={<Repo />}
+                            element={<LazyRepo />}
                             preload={prefetchRepo}
                         >
                             <Route
                                 path="/"
-                                element={<RepoCode />}
+                                element={<LazyRepoCode />}
                                 preload={(...args) => {
                                     prefetchRepoREADME(...args)
                                     prefetchRepoContributors(...args)
@@ -82,7 +84,7 @@ export default function App() {
                             <Route path="issues">
                                 <Route
                                     path="/"
-                                    element={<FilterableIssues />}
+                                    element={<LazyFilterableIssues />}
                                     preload={prefetchRepoIssues}
                                 />
                                 <Route path=":issue" element={<Issue />} />
