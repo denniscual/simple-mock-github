@@ -76,7 +76,7 @@ export default function App() {
                                 element={<RepoCode />}
                                 preload={(...args) => {
                                     prefetchRepoREADME(...args)
-                                    /* prefetchRepoContributors(...args) */
+                                    prefetchRepoContributors(...args)
                                 }}
                             />
                             <Route path="issues">

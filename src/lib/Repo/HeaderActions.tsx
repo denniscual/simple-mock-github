@@ -10,6 +10,7 @@ import Download from '../../components/icons/Download'
 import S from '../../stitches.config'
 import { useQuery } from 'react-query'
 import { getRepo, GetRepoData } from '../../api'
+import { useParams } from 'react-router-dom'
 
 const LightH3 = S.styled(Headings.H3, {
     display: 'flex',
@@ -49,7 +50,10 @@ const HeaderAction = S.styled('div', {
 HeaderAction.displayName = 'HeaderAction'
 
 function RepoProfile() {
-    const { data } = useQuery(getRepo.key, getRepo) as { data: GetRepoData }
+    const params = useParams() as { owner: string; repo: string }
+    const { data } = useQuery(getRepo.key, (key) =>
+        getRepo(key as string, params)
+    ) as { data: GetRepoData }
 
     // TODO: Fix the link in here. Right now, we will just redirect it to github.
     return (

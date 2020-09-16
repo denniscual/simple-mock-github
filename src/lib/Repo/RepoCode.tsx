@@ -16,7 +16,7 @@ import {
 } from '../../api'
 import { useQuery } from 'react-query'
 import { StringToGFM } from '../../components'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 // @ts-ignore
 const SuspenseList = React.unstable_SuspenseList
@@ -32,7 +32,10 @@ LoaderContainer.displayName = 'LoaderContainer'
  * */
 
 function RepoREADME() {
-    const { data } = useQuery(getRepoREADME.key, getRepoREADME) as {
+    const params = useParams() as { owner: string; repo: string }
+    const { data } = useQuery(getRepoREADME.key, (key) =>
+        getRepoREADME(key as string, params)
+    ) as {
         data: string
     }
     return <StringToGFM as="section" html={data} />
@@ -53,7 +56,10 @@ const Section = S.styled('section', {
 })
 
 function RepoAbout() {
-    const { data } = useQuery(getRepo.key, getRepo) as {
+    const params = useParams() as { owner: string; repo: string }
+    const { data } = useQuery(getRepo.key, (key) =>
+        getRepo(key as string, params)
+    ) as {
         data: GetRepoData
     }
     return (
