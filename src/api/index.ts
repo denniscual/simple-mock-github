@@ -13,7 +13,6 @@ import { Endpoints } from '@octokit/types'
  * */
 
 const octokit = new Octokit({
-    // TODO: We need to move this into env.
     auth: '598275eeb8d7999136872313de04f4ae86eea6dd',
     userAgent: 'myApp v1.2.3',
     baseUrl: 'https://api.github.com',
@@ -117,9 +116,13 @@ async function getRepoContributors(
     _: string,
     input: GetRepoContributorsInput
 ): Promise<GetRepoContributorsData> {
+    const perPage = input.per_page ? input.per_page : 10
     const res = await octokit.request(
         'GET /repos/{owner}/{repo}/contributors',
-        input
+        {
+            ...input,
+            per_page: perPage,
+        }
     )
     return res.data
 }
@@ -131,7 +134,6 @@ const prefetchRepoContributors: RoutePreloadFunction = (params) => {
             owner: string
             repo: string
         }),
-        per_page: 10,
     }
     queryCache.prefetchQuery(getRepoContributors.key, (key) =>
         getRepoContributors(key as string, input)

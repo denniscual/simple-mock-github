@@ -1,6 +1,12 @@
 import React from 'react'
 import S from '../../stitches.config'
-import { Headings, Text, NativeLink, Loader } from '../../components'
+import {
+    Headings,
+    Text,
+    NativeLink,
+    Loader,
+    SuspenseImage,
+} from '../../components'
 import {
     getRepo,
     GetRepoData,
@@ -10,6 +16,10 @@ import {
 } from '../../api'
 import { useQuery } from 'react-query'
 import { StringToGFM } from '../../components'
+import { useParams } from 'react-router'
+
+// @ts-ignore
+const SuspenseList = React.unstable_SuspenseList
 
 const LoaderContainer = S.styled('div', {
     display: 'flex',
@@ -29,9 +39,8 @@ function RepoREADME() {
 }
 
 /**
- * ------------ Other details -----------
+ * ------------ About -----------
  * */
-
 function getDomain(url: string) {
     return url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0]
 }
@@ -57,13 +66,15 @@ function RepoAbout() {
     )
 }
 
-const Img = S.styled('img', {
+/**
+ * ------------ Contributor -----------
+ * */
+const avatarClassName = S.css({
     display: 'inline-block',
     borderRadius: '50%',
     width: 32,
     height: 32,
 })
-Img.displayName = 'Img'
 
 const List = S.styled('ul', {
     display: 'grid',
@@ -81,35 +92,60 @@ const List = S.styled('ul', {
         },
     },
 })
-List.defaultProps = {
-    size: 'sm',
-}
 List.displayName = 'List'
 
+function Contributor({
+    url,
+    avatar_url,
+    login,
+}: {
+    url: string
+    avatar_url: string
+    login: string
+}) {
+    return (
+        <li>
+            <a href={url} target="_blank" rel="noopener noreferrer">
+                <SuspenseImage
+                    className={avatarClassName}
+                    alt={`img-by-${login}`}
+                    src={avatar_url}
+                />
+            </a>
+        </li>
+    )
+}
+
 function RepoContributors() {
-    const { data } = useQuery(getRepoContributors.key, getRepoContributors) as {
+    const params = useParams() as { owner: string; repo: string }
+    const { data } = useQuery(getRepoContributors.key, (key) =>
+        getRepoContributors(key as string, params)
+    ) as {
         data: GetRepoContributorsData
     }
     return (
         <List size={data.length >= 7 ? 'base' : 'sm'}>
-            {data.map((contributor) => (
-                <li key={contributor.id}>
-                    <a
-                        href={contributor.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+            <SuspenseList revealOrder="forwards">
+                {data.map((contributor) => (
+                    <React.Suspense
+                        fallback={<Loader size="xs" color="primary" />}
+                        key={contributor.id}
                     >
-                        <Img
-                            src={contributor.avatar_url}
-                            alt={`img-by-${contributor.login}`}
+                        <Contributor
+                            url={contributor.url}
+                            login={contributor.login}
+                            avatar_url={contributor.avatar_url}
                         />
-                    </a>
-                </li>
-            ))}
+                    </React.Suspense>
+                ))}
+            </SuspenseList>
         </List>
     )
 }
 
+/**
+ * ------------ Other details -----------
+ * */
 function RepoOtherDetails() {
     return (
         <div>
@@ -119,9 +155,7 @@ function RepoOtherDetails() {
             </Section>
             <Section>
                 <Headings.H5>Contributors</Headings.H5>
-                <React.Suspense fallback={<Loader size="xs" color="primary" />}>
-                    <RepoContributors />
-                </React.Suspense>
+                <RepoContributors />
             </Section>
         </div>
     )

@@ -12,6 +12,7 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
+// TODO: Create a cache or etc data source to handle img. its good to suspend the img.
 // TODO: Review the IssueList. We can re-use some of the Components and styles for the Pull request. Most likely, we gonna focus on the issues
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the issue component.
@@ -19,6 +20,9 @@ import { RouteProgressbar } from './components'
 // TODO: Wrap to lazy wrapper fn.
 // TODO: We need to put the theme color to a theme module so that we
 // can reference the theme color insid the Component not only on the styled.
+// TODO: We need to move the auth token into env variables.
+// TODO: On the api, we need to handle the error. Check the error boundary
+// of react-query for React Suspense CM.
 
 function Issue() {
     const params = useParams() as { issue: string }
@@ -72,7 +76,7 @@ export default function App() {
                                 element={<RepoCode />}
                                 preload={(...args) => {
                                     prefetchRepoREADME(...args)
-                                    prefetchRepoContributors(...args)
+                                    /* prefetchRepoContributors(...args) */
                                 }}
                             />
                             <Route path="issues">
