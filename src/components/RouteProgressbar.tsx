@@ -12,7 +12,7 @@ NProgress.configure({ showSpinner: false })
 export default function RouteProgressbar() {
     const pending = useLocationPending()
 
-    React.useLayoutEffect(() => {
+    React.useEffect(() => {
         // Add timeout so that we can delay the showing of progress bar.
         // We set 500 ms just like the delay for showing the Loader Component.
         // We don't need to show the timeout if the routes rendering navigation
