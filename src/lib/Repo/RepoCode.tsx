@@ -144,7 +144,7 @@ function RepoContributors() {
  * */
 function RepoOtherDetails() {
     return (
-        <div>
+        <aside>
             <Section>
                 <Headings.H5>About</Headings.H5>
                 <RepoAbout />
@@ -153,11 +153,11 @@ function RepoOtherDetails() {
                 <Headings.H5>Contributors</Headings.H5>
                 <RepoContributors />
             </Section>
-        </div>
+        </aside>
     )
 }
 
-const Container = S.styled('div', {
+const Container = S.styled('section', {
     display: 'grid',
     gridTemplateColumns: '75% 25%',
     columnGap: '$6',

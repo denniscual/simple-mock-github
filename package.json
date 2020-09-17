@@ -9,7 +9,6 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@octokit/rest": "^18.0.6",
     "@stitches/react": "^0.0.2",
-    "@tanem/react-nprogress": "^3.0.43",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -26,7 +25,6 @@
     "react": "^0.0.0-experimental-94c0244ba",
     "react-dom": "^0.0.0-experimental-94c0244ba",
     "react-feather": "^2.0.8",
-    "react-markdown": "^4.3.1",
     "react-query": "^2.14.1",
     "react-router": "^0.0.0-experimental-ffd8c7d0",
     "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
@@ -62,6 +60,7 @@
     "@types/match-sorter": "^4.0.0",
     "@types/nprogress": "^0.2.0",
     "@types/query-string": "^6.3.0",
+    "@types/react-helmet": "^6.1.0",
     "@types/react-query": "^1.1.2",
     "@types/react-router-dom": "^5.1.5",
     "prettier": "^2.1.1"

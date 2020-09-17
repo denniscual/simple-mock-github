@@ -11,6 +11,7 @@ import {
 import { RouteProgressbar } from './components'
 
 // TODO: Create an api for the issue.
+// TODO: We need to use the react date to render "ago" text.
 // TODO: Create the issue component.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
@@ -21,6 +22,7 @@ import { RouteProgressbar } from './components'
 // TODO: We need to move the auth token into env variables.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
+// TODO: Change the icon use on the Repo header. Use react-feather.
 
 function PullRequests() {
     return (
