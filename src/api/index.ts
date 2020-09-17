@@ -218,6 +218,51 @@ const prefetchRepoIssues: RoutePreloadFunction = (params) => {
     )
 }
 
+/**
+ * ------------ Pull requests -----------
+ * */
+
+type GetRepoPullRequestsInput = Endpoints['GET /repos/:owner/:repo/pulls']['parameters']
+type GetRepoPullRequestsResponse = Endpoints['GET /repos/:owner/:repo/pulls']['response']
+export type GetRepoPullRequestsData = GetRepoPullRequestsResponse['data']
+
+const PullRequestsStates = {
+    open: 'open',
+    closed: 'closed',
+}
+
+async function getRepoPullRequests(
+    _: string,
+    input: GetRepoPullRequestsInput
+): Promise<GetRepoPullRequestsData> {
+    const state = Boolean(input.state)
+        ? input.state
+        : (PullRequestsStates.open as any)
+    const page = Boolean(input.page) ? input.page : 1
+
+    const res = (await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+        ...input,
+        per_page: 30,
+        state,
+        page,
+    })) as GetRepoPullRequestsResponse
+
+    return res.data
+}
+getRepoPullRequests.key = 'RepoPullRequests'
+
+const prefetchRepoPullRequests: RoutePreloadFunction = (params) => {
+    const input: GetRepoPullRequestsInput = {
+        ...(params as {
+            owner: string
+            repo: string
+        }),
+    }
+    queryCache.prefetchQuery(getRepoPullRequests.key, (key) =>
+        getRepoPullRequests(key as string, input)
+    )
+}
+
 export {
     getRepo,
     prefetchRepo,
@@ -227,6 +272,8 @@ export {
     prefetchRepoContributors,
     getRepoIssues,
     prefetchRepoIssues,
+    getRepoPullRequests,
+    prefetchRepoPullRequests,
     // getRepoTopics,
     // prefetchRepoTopics,
 }

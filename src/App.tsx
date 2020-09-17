@@ -10,11 +10,14 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
+// TODO: What we want to use inside the issues and pulls are search api
+// because its has filter. - https://developer.github.com/v3/search/#constructing-a-search-query
+
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
-// TODO: Review the IssueList. We can re-use some of the Components and styles for the Pull request. Most likely, we gonna focus on the issues
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the issue component.
 // TODO: Create the sidebar and filter area of the Issues
+// TODO: We need to handle the isFetching inside the issues and pulls.
 // TODO: We need to put the theme color to a theme module so that we
 // can reference the theme color insid the Component not only on the styled.
 // TODO: We need to move the auth token into env variables.

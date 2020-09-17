@@ -1,5 +1,4 @@
 import React from 'react'
-import { GetRepoIssuesData } from '../../api'
 import { Text, Link, NativeLink } from '../../components'
 import S from '../../stitches.config'
 import { AlertCircle, MessageSquare } from 'react-feather'
@@ -58,7 +57,26 @@ const LabelLink = S.styled('a', {
     },
 })
 
-export default function IssueList({ items }: { items: GetRepoIssuesData }) {
+type Item = {
+    id: number
+    state: string
+    title: string
+    number: number
+    user: {
+        html_url: string
+        login: string
+    }
+    labels: {
+        id: number
+        url: string
+        color: string
+        name: string
+    }[]
+    comments: number
+}
+
+// As much as possible we want this Component handle the issues and pulls.
+export default function IssueList({ items }: { items: Item[] }) {
     return (
         <ul>
             {items.map((item) => (
