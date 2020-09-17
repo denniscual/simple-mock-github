@@ -188,10 +188,7 @@ const IssuesStates = {
     closed: 'closed',
 }
 
-async function getRepoIssues(
-    _: string,
-    input: GetRepoIssuesInput
-): Promise<GetRepoIssuesData> {
+async function getRepoIssues(_: string, input: GetRepoIssuesInput) {
     const state = Boolean(input.state)
         ? input.state
         : (IssuesStates.open as any)
@@ -217,6 +214,42 @@ const prefetchRepoIssues: RoutePreloadFunction = (params) => {
     }
     queryCache.prefetchQuery(getRepoIssues.key, (key) =>
         getRepoIssues(key as string, input)
+    )
+}
+
+/**
+ * ------------ Repo issue -----------
+ * */
+
+type GetRepoIssueInput = Endpoints['GET /repos/:owner/:repo/issues/:issue_number']['parameters']
+type GetRepoIssueResponse = Endpoints['GET /repos/:owner/:repo/issues/:issue_number']['response']
+export type GetRepoIssueData = GetRepoIssueResponse['data']
+
+async function getRepoIssue(
+    _: string,
+    input: GetRepoIssueInput
+): Promise<GetRepoIssueData> {
+    const res = (await octokit.request(
+        'GET /repos/{owner}/{repo}/issues/{issue_number}',
+        input
+    )) as GetRepoIssueResponse
+
+    return res.data
+}
+getRepoIssue.key = 'GetRepoIssue'
+
+const prefetchRepoIssue: RoutePreloadFunction = (params) => {
+    const { owner, repo, issueNumber } = params as {
+        owner: string
+        repo: string
+        issueNumber: string
+    }
+    queryCache.prefetchQuery(getRepoIssues.key, (key) =>
+        getRepoIssue(key as string, {
+            owner,
+            repo,
+            issue_number: Number(issueNumber),
+        })
     )
 }
 
@@ -274,6 +307,8 @@ export {
     prefetchRepoContributors,
     getRepoIssues,
     prefetchRepoIssues,
+    getRepoIssue,
+    prefetchRepoIssue,
     getRepoPullRequests,
     prefetchRepoPullRequests,
     // getRepoTopics,

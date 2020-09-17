@@ -7,6 +7,7 @@ import {
     prefetchRepoREADME,
     prefetchRepoContributors,
     prefetchRepoIssues,
+    prefetchRepoIssue,
 } from './api'
 import { RouteProgressbar } from './components'
 
@@ -80,7 +81,11 @@ export default function App() {
                                     element={<LazyFilterableIssues />}
                                     preload={prefetchRepoIssues}
                                 />
-                                <Route path=":issue" element={<LazyIssue />} />
+                                <Route
+                                    path=":issueNumber"
+                                    element={<LazyIssue />}
+                                    preload={prefetchRepoIssue}
+                                />
                             </Route>
                             <Route path="pull-requests">
                                 <Route path="/" element={<PullRequests />} />

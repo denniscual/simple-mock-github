@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    NativeLink,
+    Link as RouterLink,
     ButtonGroup,
     IconButton,
     Button,
@@ -30,7 +30,7 @@ const Separator = S.styled('span', {
     mx: '$1',
 })
 
-const Link = S.styled(NativeLink, {
+const Link = S.styled(RouterLink, {
     color: '$primary',
     fontSize: '$xl',
 })
@@ -58,9 +58,9 @@ function RepoProfile() {
     // TODO: Fix the link in here. Right now, we will just redirect it to github.
     return (
         <>
-            <Link href={data.owner.html_url}>{data.owner.login}</Link>
+            <Link to="..">{data.owner.login}</Link>
             <Separator>/</Separator>
-            <RepoLink href={data.url}>{data.name}</RepoLink>
+            <RepoLink to="">{data.name}</RepoLink>
         </>
     )
 }

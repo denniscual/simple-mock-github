@@ -29,6 +29,7 @@
     "react-router": "^0.0.0-experimental-ffd8c7d0",
     "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
     "react-scripts": "3.4.3",
+    "react-timeago": "^4.4.0",
     "reset.css": "^2.0.2",
     "restatum": "^2.0.0",
     "typescript": "~3.7.2"
@@ -63,6 +64,7 @@
     "@types/react-helmet": "^6.1.0",
     "@types/react-query": "^1.1.2",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-timeago": "^4.1.1",
     "prettier": "^2.1.1"
   }
 }

@@ -1,6 +1,5 @@
 import S from '../stitches.config'
 
-// TODO: Continue this. the types will go back in the future.
 const Text = S.styled('p', {
     opacity: 1,
     fontFamily: '$sans',
