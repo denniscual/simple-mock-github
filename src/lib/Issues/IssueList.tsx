@@ -1,7 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { getRepoIssues, GetRepoIssuesData } from '../../api'
-import { usePaginatedQuery } from 'react-query'
+import { GetRepoIssuesData } from '../../api'
 import { Text, Link, NativeLink } from '../../components'
 import S from '../../stitches.config'
 import { AlertCircle, MessageSquare } from 'react-feather'
@@ -45,7 +43,7 @@ const MetaContainer = S.styled('div', {
     marginTop: '$1',
 })
 
-const IssueLabelLink = S.styled('a', {
+const LabelLink = S.styled('a', {
     borderRadius: '2em',
     border: '$1 solid transparent',
     padding: '0 $2',
@@ -60,65 +58,39 @@ const IssueLabelLink = S.styled('a', {
     },
 })
 
-const IssueList = React.memo(function IssueList({
-    state,
-    page,
-}: {
-    state: string
-    page: number
-}) {
-    const params = useParams() as {
-        repo: string
-        owner: string
-    }
-    const { resolvedData } = usePaginatedQuery(
-        [
-            getRepoIssues.key,
-            {
-                ...params,
-                state,
-                page,
-            },
-        ],
-        getRepoIssues
-    ) as {
-        resolvedData: GetRepoIssuesData
-    }
-
-    console.log({ resolvedData })
-
+export default function IssueList({ items }: { items: GetRepoIssuesData }) {
     return (
         <ul>
-            {resolvedData.map((data) => (
-                <ListItem key={data.id}>
+            {items.map((item) => (
+                <ListItem key={item.id}>
                     <AlertCircleContainer>
-                        {data.state === 'open' ? (
+                        {item.state === 'open' ? (
                             <AlertCircle color="#2ea44f" size={16} />
                         ) : (
                             <AlertCircle color="#cb2431" size={16} />
                         )}
                     </AlertCircleContainer>
                     <div>
-                        <Link size="lg" to={`${data.id}`}>
-                            {data.title}
+                        <Link size="lg" to={`${item.id}`}>
+                            {item.title}
                         </Link>
                         <MetaContainer>
                             <Text as="span" size="xs">
-                                {`#${data.number} opened by `}
+                                {`#${item.number} opened by `}
                                 <NativeLink
-                                    href={data.user.html_url}
+                                    href={item.user.html_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     size="sm"
                                 >
-                                    {data.user.login}
+                                    {item.user.login}
                                 </NativeLink>
                             </Text>
                         </MetaContainer>
                     </div>
                     <div>
-                        {data.labels.map((label) => (
-                            <IssueLabelLink
+                        {item.labels.map((label) => (
+                            <LabelLink
                                 key={label.id}
                                 href={label.url}
                                 style={{
@@ -128,19 +100,17 @@ const IssueList = React.memo(function IssueList({
                                 rel="noopener noreferrer"
                             >
                                 {label.name}
-                            </IssueLabelLink>
+                            </LabelLink>
                         ))}
                     </div>
-                    {data.comments > 0 && (
+                    {item.comments > 0 && (
                         <CommentCountText size="xs" as="span">
                             <MessageSquare color="#586069" size={14} />
-                            {data.comments}
+                            {item.comments}
                         </CommentCountText>
                     )}
                 </ListItem>
             ))}
         </ul>
     )
-})
-
-export default IssueList
+}

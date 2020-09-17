@@ -2,6 +2,9 @@ import React from 'react'
 import { Button, Text } from '../../components'
 import S from '../../stitches.config'
 import IssueList from './IssueList'
+import { getRepoIssues, GetRepoIssuesData } from '../../api'
+import { usePaginatedQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
 
 type IssuesQueryOpenAction = {
     type: 'ISSUES_OPEN'
@@ -85,10 +88,37 @@ export default function Issues() {
         issuesQueryReducer,
         initIssuesQuery
     )
+
+    const params = useParams() as {
+        repo: string
+        owner: string
+    }
+
+    const { resolvedData: issues, isFetching } = usePaginatedQuery(
+        [
+            getRepoIssues.key,
+            {
+                ...params,
+                ...issuesQuery,
+            },
+        ],
+        getRepoIssues
+    ) as {
+        resolvedData: GetRepoIssuesData
+        isFetching: boolean
+    }
+
+    const [value, setValue] = React.useState('')
+
     return (
         <div>
             <header>
-                <input type="text" placeholder="Search" />
+                <input
+                    type="text"
+                    placeholder="Search"
+                    value={value}
+                    onChange={(e) => setValue(e.currentTarget.value)}
+                />
                 <div>
                     <nav>
                         <FilterIssuesState
@@ -114,7 +144,7 @@ export default function Issues() {
                             Next page
                         </ButtonState>
                     </nav>
-                    <IssueList {...issuesQuery} />
+                    <IssueList items={issues} />
                 </div>
             </header>
         </div>

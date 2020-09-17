@@ -10,6 +10,7 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
+// TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // TODO: Review the IssueList. We can re-use some of the Components and styles for the Pull request. Most likely, we gonna focus on the issues
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the issue component.
