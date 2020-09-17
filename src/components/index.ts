@@ -12,7 +12,7 @@ export { default as Comment } from './Comment'
 export { default as Loader } from './Loader'
 export { default as StringToGFM } from './StringToGFM'
 export { default as NativeLink } from './NativeLink'
-export { default as SuspenseImage } from './SuspenseImage'
+export { default as SuspenseAvatar } from './SuspenseAvatar'
 export { default as Progressbar } from './Progressbar'
 export { default as RouteProgressbar } from './RouteProgressbar'
 

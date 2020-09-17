@@ -5,7 +5,7 @@ import {
     Text,
     NativeLink,
     Loader,
-    SuspenseImage,
+    SuspenseAvatar,
 } from '../../components'
 import {
     getRepo,
@@ -75,12 +75,6 @@ function RepoAbout() {
 /**
  * ------------ Contributor -----------
  * */
-const avatarClassName = S.css({
-    display: 'inline-block',
-    borderRadius: '50%',
-    width: 32,
-    height: 32,
-})
 
 const List = S.styled('ul', {
     display: 'grid',
@@ -112,11 +106,7 @@ function Contributor({
     return (
         <li>
             <a href={url} target="_blank" rel="noopener noreferrer">
-                <SuspenseImage
-                    className={avatarClassName}
-                    alt={`img-by-${login}`}
-                    src={avatar_url}
-                />
+                <SuspenseAvatar alt={`img-by-${login}`} src={avatar_url} />
             </a>
         </li>
     )

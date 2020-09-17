@@ -38,6 +38,8 @@ type GetRepoInput = Endpoints['GET /repos/:owner/:repo']['parameters']
 type GetRepoResponse = Endpoints['GET /repos/:owner/:repo']['response']
 export type GetRepoData = GetRepoResponse['data']
 
+// type GetRepoResponses = Endpoints['GET /search/repositories']['response']['data']
+
 async function getRepo(
     _: string,
     input: GetRepoInput = {

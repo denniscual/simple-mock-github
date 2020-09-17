@@ -10,12 +10,10 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
-// TODO: What we want to use inside the issues and pulls are search api
-// because its has filter. - https://developer.github.com/v3/search/#constructing-a-search-query
-
+// TODO: Create an api for the issue.
+// TODO: Create the issue component.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
-// TODO: Create the issue component.
 // TODO: Create the sidebar and filter area of the Issues
 // TODO: We need to handle the isFetching inside the issues and pulls.
 // TODO: We need to put the theme color to a theme module so that we
@@ -23,18 +21,6 @@ import { RouteProgressbar } from './components'
 // TODO: We need to move the auth token into env variables.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
-
-function Issue() {
-    const params = useParams() as { issue: string }
-    return (
-        <div>
-            Issue {params.issue}
-            <div>
-                <Link to="..">Back to issues</Link>
-            </div>
-        </div>
-    )
-}
 
 function PullRequests() {
     return (
@@ -64,6 +50,7 @@ const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
 const LazyFilterableIssues = React.lazy(
     () => import('./lib/Issues/FilterableIssues')
 )
+const LazyIssue = React.lazy(() => import('./lib/Issues/Issue'))
 
 export default function App() {
     return (
@@ -91,7 +78,7 @@ export default function App() {
                                     element={<LazyFilterableIssues />}
                                     preload={prefetchRepoIssues}
                                 />
-                                <Route path=":issue" element={<Issue />} />
+                                <Route path=":issue" element={<LazyIssue />} />
                             </Route>
                             <Route path="pull-requests">
                                 <Route path="/" element={<PullRequests />} />

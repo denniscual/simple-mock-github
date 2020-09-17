@@ -94,7 +94,7 @@ export default function Issues() {
         owner: string
     }
 
-    const { resolvedData: issues, isFetching } = usePaginatedQuery(
+    const { resolvedData: issues } = usePaginatedQuery(
         [
             getRepoIssues.key,
             {
@@ -108,17 +108,9 @@ export default function Issues() {
         isFetching: boolean
     }
 
-    const [value, setValue] = React.useState('')
-
     return (
         <div>
             <header>
-                <input
-                    type="text"
-                    placeholder="Search"
-                    value={value}
-                    onChange={(e) => setValue(e.currentTarget.value)}
-                />
                 <div>
                     <nav>
                         <FilterIssuesState
