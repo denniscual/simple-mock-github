@@ -190,6 +190,48 @@ const prefetchRepoIssues: RoutePreloadFunction = (params) => {
 }
 
 /**
+ * ------------ Repo issue comments -----------
+ * */
+
+type GetRepoIssueCommentsInput = Endpoints['GET /repos/:owner/:repo/issues/:issue_number/comments']['parameters']
+type GetRepoIssueCommentsResponse = Endpoints['GET /repos/:owner/:repo/issues/:issue_number/comments']['response']
+export type GetRepoIssueCommentsData = GetRepoIssueCommentsResponse['data']
+
+async function getRepoIssueComments(
+    input: GetRepoIssueCommentsInput
+): Promise<GetRepoIssueCommentsData> {
+    const perPage = Boolean(input.per_page) ? input.per_page : 30
+    const page = Boolean(input.page) ? input.page : 1
+
+    const res = (await octokit.request(
+        'GET /repos/{owner}/{repo}/issues/{issue_number}/comments',
+        {
+            ...input,
+            per_page: perPage,
+            page,
+        }
+    )) as GetRepoIssueCommentsResponse
+
+    return res.data
+}
+getRepoIssueComments.key = 'GetRepoIssueComments'
+
+const prefetchRepoIssueComments: RoutePreloadFunction = (params) => {
+    const { owner, repo, issueNumber } = params as {
+        owner: string
+        repo: string
+        issueNumber: string
+    }
+    queryCache.prefetchQuery(getRepoIssueComments.key, async () => {
+        await getRepoIssueComments({
+            owner,
+            repo,
+            issue_number: Number(issueNumber),
+        })
+    })
+}
+
+/**
  * ------------ Repo issue -----------
  * */
 
@@ -209,29 +251,27 @@ async function getRepoIssue(
 }
 getRepoIssue.key = 'GetRepoIssue'
 
-async function getRepoIssueBody(text: string) {
-    const specs = await getGFMSpecs(text)
-    return specs
-}
-getRepoIssueBody.key = 'GetRepoIssueBody'
-
-const prefetchRepoIssue: RoutePreloadFunction = (params) => {
+const prefetchRepoIssue: RoutePreloadFunction = (params, ...rest) => {
     const { owner, repo, issueNumber } = params as {
         owner: string
         repo: string
         issueNumber: string
     }
-    queryCache.prefetchQuery(getRepoIssues.key, async () => {
-        const issue = await getRepoIssue({
-            owner,
-            repo,
-            issue_number: Number(issueNumber),
-        })
 
-        queryCache.prefetchQuery(getRepoIssueBody.key, async () => {
-            getRepoIssueBody(issue.body)
-        })
-    })
+    const input = {
+        owner,
+        repo,
+        issue_number: Number(issueNumber),
+    }
+
+    queryCache.prefetchQuery(
+        [getRepoIssues.key, { owner, repo, issueNumber }],
+        async () => {
+            await getRepoIssue(input)
+        }
+    )
+
+    // prefetchRepoIssueComments(params, ...rest)
 }
 
 /**
@@ -292,5 +332,8 @@ export {
     prefetchRepoIssue,
     getRepoPullRequests,
     prefetchRepoPullRequests,
-    getRepoIssueBody,
+    getRepoIssueComments,
+    prefetchRepoIssueComments,
+    getGFMSpecs,
 }
+

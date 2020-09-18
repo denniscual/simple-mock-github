@@ -18,6 +18,7 @@ import { RouteProgressbar } from './components'
 // we can easily include the transforming on the api for getting the comments.
 
 // Leftover for the issues page.
+// TODO: We need to make sure when prefetching, we also need to add the parameters on the `keys` of the query. Check the prefetching for repoIssue and repoIssueComments.
 // TODO: Finalise the list styles container.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
