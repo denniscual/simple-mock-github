@@ -12,6 +12,13 @@ import {
 import { RouteProgressbar } from './components'
 
 // NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
+
+// Issue
+// TODO: On the comments, we don't need to separate the api for transforming the body of comment into GFM,
+// we can easily include the transforming on the api for getting the comments.
+
+// Leftover for the issues page.
+// TODO: Finalise the list styles container.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the sidebar and filter area of the Issues
