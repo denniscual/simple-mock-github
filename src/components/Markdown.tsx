@@ -11,7 +11,7 @@ import 'github-markdown-css'
  * use Github flavored markdown api.
  *
  */
-export default function StringToGFM<U extends keyof JSX.IntrinsicElements>({
+export default function Markdown<U extends keyof JSX.IntrinsicElements>({
     as,
     html,
     ...otherProps

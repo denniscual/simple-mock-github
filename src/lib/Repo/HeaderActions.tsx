@@ -33,6 +33,7 @@ const Separator = S.styled('span', {
 const Link = S.styled(RouterLink, {
     color: '$primary',
     fontSize: '$xl',
+    fontWeight: '$normal',
 })
 Link.displayName = 'Link'
 

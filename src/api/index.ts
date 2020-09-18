@@ -2,11 +2,15 @@ import { Octokit } from '@octokit/rest'
 import { queryCache } from 'react-query'
 import { Endpoints } from '@octokit/types'
 
-// TODO: We need to handle the fetch error
-
 /**
  * ------------ types -----------
  * */
+
+type RoutePreloadFunction = (
+    params: Record<string, string>,
+    location: any,
+    index: number
+) => void
 
 /**
  * ------------ Utils -----------
@@ -28,6 +32,16 @@ const octokit = new Octokit({
         timeout: 0,
     },
 })
+
+type PostMarkdownResponse = Endpoints['POST /markdown']['response']
+
+async function getGFMSpecs(text: string) {
+    const res = (await octokit.request('POST /markdown', {
+        text,
+    })) as PostMarkdownResponse
+    return res.data as string
+}
+getGFMSpecs.key = 'GetGFMSpecs'
 
 /**
  * ------------ Repository -----------
@@ -56,12 +70,6 @@ async function getRepo(
 }
 getRepo.key = 'Repo'
 
-type RoutePreloadFunction = (
-    params: Record<string, string>,
-    location: any,
-    index: number
-) => void
-
 const prefetchRepo: RoutePreloadFunction = (params) => {
     queryCache.prefetchQuery(getRepo.key, (key) =>
         getRepo(key as string, params as { owner: string; repo: string })
@@ -72,7 +80,6 @@ const prefetchRepo: RoutePreloadFunction = (params) => {
 
 type GetRepoREADMEInput = Endpoints['GET /repos/:owner/:repo/readme']['parameters']
 type GetRepoREADMEResponse = Endpoints['GET /repos/:owner/:repo/readme']['response']
-type PostMarkdownResponse = Endpoints['POST /markdown']['response']
 
 async function getRepoREADME(
     _: string,
@@ -88,11 +95,9 @@ async function getRepoREADME(
     )) as GetRepoREADMEResponse
 
     // Then turn the markdown into GFM specs compliant
-    const postRes = (await octokit.request('POST /markdown', {
-        text: atob(readMeRes.data.content),
-    })) as PostMarkdownResponse
+    const data = await getGFMSpecs(atob(readMeRes.data.content))
 
-    return postRes.data
+    return data
 }
 getRepoREADME.key = 'RepoREADME'
 
@@ -141,39 +146,6 @@ const prefetchRepoContributors: RoutePreloadFunction = (params) => {
         getRepoContributors(key as string, input)
     )
 }
-
-// Get Repo Topics
-// type GetRepoTopicsInput = Endpoints['GET /repos/:owner/:repo/topics']['parameters']
-// type GetRepoTopicsResponse = Endpoints['GET /repos/:owner/:repo/topics']['response']
-// export type GetRepoTopicsData = GetRepoTopicsResponse['data']
-
-// async function getRepoTopics(
-//     _: string,
-//     input: GetRepoTopicsInput
-// ): Promise<GetRepoTopicsData> {
-//     // First is to get the encoded readme content.
-//     const res = (await octokit.request(
-//         'GET /repos/{owner}/{repo}/topics',
-//         input
-//     )) as GetRepoTopicsResponse
-
-//     return res.data
-// }
-// getRepoTopics.key = 'RepoTopics'
-
-// const prefetchRepoTopics: RoutePreloadFunction = (params) => {
-//     const input = {
-//         owner: params.owner,
-//         repo: params.repo,
-//         mediaType: {
-//             previews: ['mercy'],
-//         },
-//     }
-
-//     queryCache.prefetchQuery(getRepoREADME.key, (key) => {
-//         getRepoTopics(key as string, input)
-//     })
-// }
 
 /**
  * ------------ Issues -----------
@@ -226,7 +198,6 @@ type GetRepoIssueResponse = Endpoints['GET /repos/:owner/:repo/issues/:issue_num
 export type GetRepoIssueData = GetRepoIssueResponse['data']
 
 async function getRepoIssue(
-    _: string,
     input: GetRepoIssueInput
 ): Promise<GetRepoIssueData> {
     const res = (await octokit.request(
@@ -238,19 +209,29 @@ async function getRepoIssue(
 }
 getRepoIssue.key = 'GetRepoIssue'
 
+async function getRepoIssueBody(text: string) {
+    const specs = await getGFMSpecs(text)
+    return specs
+}
+getRepoIssueBody.key = 'GetRepoIssueBody'
+
 const prefetchRepoIssue: RoutePreloadFunction = (params) => {
     const { owner, repo, issueNumber } = params as {
         owner: string
         repo: string
         issueNumber: string
     }
-    queryCache.prefetchQuery(getRepoIssues.key, (key) =>
-        getRepoIssue(key as string, {
+    queryCache.prefetchQuery(getRepoIssues.key, async () => {
+        const issue = await getRepoIssue({
             owner,
             repo,
             issue_number: Number(issueNumber),
         })
-    )
+
+        queryCache.prefetchQuery(getRepoIssueBody.key, async () => {
+            getRepoIssueBody(issue.body)
+        })
+    })
 }
 
 /**
@@ -311,6 +292,5 @@ export {
     prefetchRepoIssue,
     getRepoPullRequests,
     prefetchRepoPullRequests,
-    // getRepoTopics,
-    // prefetchRepoTopics,
+    getRepoIssueBody,
 }

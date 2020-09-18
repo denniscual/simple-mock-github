@@ -11,9 +11,7 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
-// TODO: Create an api for the issue.
-// TODO: We need to use the react date to render "ago" text.
-// TODO: Create the issue component.
+// NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the sidebar and filter area of the Issues
@@ -24,6 +22,7 @@ import { RouteProgressbar } from './components'
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
 // TODO: Change the icon use on the Repo header. Use react-feather.
+// TODO: We need to handle the fetch error in api.
 
 function PullRequests() {
     return (

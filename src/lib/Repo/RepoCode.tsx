@@ -15,7 +15,7 @@ import {
     getRepoREADME,
 } from '../../api'
 import { useQuery } from 'react-query'
-import { StringToGFM } from '../../components'
+import { Markdown } from '../../components'
 import { useParams } from 'react-router-dom'
 
 // @ts-ignore
@@ -38,7 +38,7 @@ function RepoREADME() {
     ) as {
         data: string
     }
-    return <StringToGFM as="section" html={data} />
+    return <Markdown as="section" html={data} />
 }
 
 /**

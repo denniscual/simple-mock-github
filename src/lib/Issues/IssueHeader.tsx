@@ -1,5 +1,5 @@
 import React from 'react'
-import { Headings, Text, Link } from '../../components'
+import { Headings, Text, Link, Chip } from '../../components'
 import { AlertCircle } from 'react-feather'
 import { getRepoIssue, GetRepoIssueData } from '../../api'
 import { useQuery } from 'react-query'
@@ -25,16 +25,7 @@ const IssueNumber = S.styled('span', {
     fontWeight: '$normal',
 })
 
-const OpenChip = S.styled('span', {
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '$2 $3',
-    backgroundColor: '$accent',
-    fontSize: '$sm',
-    fontWeight: '$medium',
-    color: '$white',
-    borderRadius: '$oval',
+const OpenChip = S.styled(Chip, {
     marginRight: '$2',
 
     '& > *': {
@@ -52,7 +43,7 @@ const MetaText = S.styled(Text, {
 })
 
 const Container = S.styled('header', {
-    gridArea: 'header',
+    gridArea: 'issue-header',
     paddingBottom: '$4',
     borderBottom: '$1 solid $gray2',
 })
@@ -65,8 +56,8 @@ export default function IssueHeader() {
     }
     const { data } = useQuery(
         [getRepoIssue.key, { owner, repo, issueNumber }],
-        (key) =>
-            getRepoIssue(key as string, {
+        () =>
+            getRepoIssue({
                 owner,
                 repo,
                 issue_number: Number(issueNumber),
@@ -80,7 +71,7 @@ export default function IssueHeader() {
                 <IssueNumber>#{data.number}</IssueNumber>
             </Headings.H1>
             <Meta>
-                <OpenChip>
+                <OpenChip color="accent">
                     <AlertCircle color="#ffffff" size={16} />
                     Open
                 </OpenChip>
