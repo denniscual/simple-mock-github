@@ -14,8 +14,7 @@ import { RouteProgressbar } from './components'
 // NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
 
 // Issue
-// TODO: On the comments, we don't need to separate the api for transforming the body of comment into GFM,
-// we can easily include the transforming on the api for getting the comments.
+// TODO: Create the issue other details.
 
 // Leftover for the issues page.
 // TODO: We need to make sure when prefetching, we also need to add the parameters on the `keys` of the query. Check the prefetching for repoIssue and repoIssueComments.
