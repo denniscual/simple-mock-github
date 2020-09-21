@@ -1,5 +1,4 @@
 import React from 'react'
-import { Headings } from '../../components'
 import S from '../../stitches.config'
 
 const Section = S.styled('section', {
@@ -15,7 +14,7 @@ const DetailSection: React.FC<{ title: React.ReactNode }> = ({
 }) => {
     return (
         <Section>
-            <Headings.H5>{title}</Headings.H5>
+            {title}
             {children}
         </Section>
     )

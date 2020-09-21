@@ -1,11 +1,11 @@
 import React from 'react'
 import S from '../../stitches.config'
 import {
-    Headings,
     Text,
     NativeLink,
     Loader,
     SuspenseAvatar,
+    Headings,
 } from '../../components'
 import {
     getRepo,
@@ -139,10 +139,10 @@ function RepoContributors() {
 function RepoOtherDetails() {
     return (
         <aside>
-            <DetailSection title="About">
+            <DetailSection title={<Headings.H5>About</Headings.H5>}>
                 <RepoAbout />
             </DetailSection>
-            <DetailSection title="Contributors">
+            <DetailSection title={<Headings.H5>Contributors</Headings.H5>}>
                 <RepoContributors />
             </DetailSection>
         </aside>

@@ -24,16 +24,19 @@ const Text = S.styled('p', {
         },
         fontWeight: {
             hairline: {
-                fontSize: '$xs',
+                fontWeight: '$hairline',
             },
             light: {
-                fontSize: '$sm',
+                fontWeight: '$light',
             },
             normal: {
-                fontSize: '$base',
+                fontWeight: '$normal',
             },
             medium: {
-                fontSize: '$xl',
+                fontWeight: '$medium',
+            },
+            bold: {
+                fontWeight: 'bold',
             },
         },
     },
@@ -41,6 +44,7 @@ const Text = S.styled('p', {
 
 Text.defaultProps = {
     size: 'base',
+    fontWeight: 'normal',
 }
 
 Text.displayName = 'Text'
