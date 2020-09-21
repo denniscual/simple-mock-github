@@ -69,17 +69,8 @@ export default function RepoHeader() {
     return (
         <HeaderAction>
             <LightH3>
-                <RepoIcon>
-                    <Download />
-                </RepoIcon>
                 <RepoProfile />
             </LightH3>
-            <ButtonGroup>
-                <IconButton size="sm" startIcon={<Download />}>
-                    Unstar
-                </IconButton>
-                <Button size="sm">1</Button>
-            </ButtonGroup>
         </HeaderAction>
     )
 }
