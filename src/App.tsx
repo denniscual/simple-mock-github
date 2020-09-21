@@ -14,11 +14,9 @@ import { RouteProgressbar } from './components'
 // NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
 
 // Issue
-// TODO: Create the issue other details.
+// TODO: Only show the issues not issues from PR.
 
 // Leftover for the issues page.
-// TODO: We need to make sure when prefetching, we also need to add the parameters on the `keys` of the query. Check the prefetching for repoIssue and repoIssueComments.
-// TODO: Finalise the list styles container.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
 // TODO: Create the sidebar and filter area of the Issues
@@ -30,6 +28,8 @@ import { RouteProgressbar } from './components'
 // of react-query for React Suspense CM.
 // TODO: Change the icon use on the Repo header. Use react-feather.
 // TODO: We need to handle the fetch error in api.
+// TODO: Add footer
+// FIXME: We need to use a Link of react-router for Suspense avatar. Then redirect it into this `localhost:3000/login`.
 
 function PullRequests() {
     return (

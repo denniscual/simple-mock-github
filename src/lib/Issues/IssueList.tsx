@@ -3,6 +3,7 @@ import { Text, Link } from '../../components'
 import S from '../../stitches.config'
 import { AlertCircle, MessageSquare } from 'react-feather'
 import TimeAgo from 'react-timeago'
+import LabelLink from './LabelLink'
 
 const ListItem = S.styled('li', {
     borderTop: '$1 solid $gray2',
@@ -41,21 +42,6 @@ const CommentCountText = S.styled(Text, {
 
 const MetaContainer = S.styled('div', {
     marginTop: '$1',
-})
-
-const LabelLink = S.styled('a', {
-    borderRadius: '$oval',
-    border: '$1 solid transparent',
-    padding: '0 $2',
-    fontSize: '$xs',
-    fontWeight: '$medium',
-    lineHeight: '18px',
-    color: '$black',
-    marginRight: '$1',
-
-    '&:last-child': {
-        marginRight: 0,
-    },
 })
 
 type Item = {
