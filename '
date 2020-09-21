@@ -5,7 +5,7 @@ import IssueList from './IssueList'
 import { getRepoIssues, GetRepoIssuesData } from '../../api'
 import { usePaginatedQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { AlertCircle, Check } from 'react-feather'
+import { AlertCircle } from 'react-feather'
 
 type IssuesQueryOpenAction = {
     type: 'ISSUES_OPEN'
@@ -65,7 +65,6 @@ function issuesQueryReducer(
 
 const ButtonState = S.styled(Button, {
     fontWeight: '$light',
-    padding: 0,
 })
 
 function FilterIssuesState({
@@ -85,37 +84,15 @@ function FilterIssuesState({
     )
 }
 
-// This will delay the showing of loader indicator.
-const delayedLoader = S.css.keyframes({
-    to: {
-        visibility: 'visible',
-    },
-})
-
-const LoadingText = S.styled(Text, {
-    animation: `${delayedLoader} 0s linear 0.5s forwards`,
-    visibility: 'hidden',
-})
-
 const FilterHeaderBox = S.styled('div', {
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    padding: '$4',
-    backgroundColor: '$gray3',
-    border: '$1 solid $gray2',
+    padding: 16,
+    backgroundColor: '#f6f8fa',
+    border: '1px solid #e1e4e8',
     borderBottom: 'none',
-    display: 'flex',
-    alignItems: 'center',
-
-    '& > *': {
-        marginRight: '$4',
-    },
-
-    '& > *:last-child': {
-        marginRight: 0,
-    },
 })
 
 export default function Issues() {
@@ -129,7 +106,7 @@ export default function Issues() {
         owner: string
     }
 
-    const { resolvedData: issues, isFetching } = usePaginatedQuery(
+    const { resolvedData: issues } = usePaginatedQuery(
         [
             getRepoIssues.key,
             {
@@ -143,9 +120,6 @@ export default function Issues() {
         isFetching: boolean
     }
 
-    // Only get issues without pull requests.
-    const issuesWithoutPulls = issues.filter((issue) => !issue.pull_request)
-
     return (
         <div>
             <header>
@@ -155,22 +129,18 @@ export default function Issues() {
                         ownState="open"
                         onClick={() => dispatch({ type: 'ISSUES_OPEN' })}
                     >
-                        <AlertCircle size={14} color="#24292e" /> Open
+                        <AlertCircle size={14} />
+                        Open
                     </FilterIssuesState>
                     <FilterIssuesState
                         currentState={issuesQuery.state}
                         ownState="closed"
                         onClick={() => dispatch({ type: 'ISSUES_CLOSED' })}
                     >
-                        <Check size={14} color="#24292e" /> Closed
+                        Closed
                     </FilterIssuesState>
-                    {isFetching && (
-                        <LoadingText as="span" size="sm">
-                            Loading issues...
-                        </LoadingText>
-                    )}
                 </FilterHeaderBox>
-                <IssueList items={issuesWithoutPulls} />
+                <IssueList items={issues} />
             </header>
         </div>
     )
