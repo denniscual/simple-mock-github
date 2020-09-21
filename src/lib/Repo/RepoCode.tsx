@@ -17,6 +17,7 @@ import {
 import { useQuery } from 'react-query'
 import { Markdown } from '../../components'
 import { useParams } from 'react-router-dom'
+import DetailSection from './DetailSection'
 
 // @ts-ignore
 const SuspenseList = React.unstable_SuspenseList
@@ -47,13 +48,6 @@ function RepoREADME() {
 function getDomain(url: string) {
     return url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0]
 }
-
-const Section = S.styled('section', {
-    py: '$4',
-    display: 'grid',
-    rowGap: '$4',
-    borderBottom: '$1 solid $gray2',
-})
 
 function RepoAbout() {
     const params = useParams() as { owner: string; repo: string }
@@ -145,14 +139,12 @@ function RepoContributors() {
 function RepoOtherDetails() {
     return (
         <aside>
-            <Section>
-                <Headings.H5>About</Headings.H5>
+            <DetailSection title="About">
                 <RepoAbout />
-            </Section>
-            <Section>
-                <Headings.H5>Contributors</Headings.H5>
+            </DetailSection>
+            <DetailSection title="Contributors">
                 <RepoContributors />
-            </Section>
+            </DetailSection>
         </aside>
     )
 }
@@ -163,8 +155,6 @@ const Container = S.styled('section', {
     columnGap: '$6',
 })
 
-// TODO: Check mamaya about the loading orchestrate.
-// TODO: Check the react-query for handle error in CM.
 export default function RepoCode() {
     return (
         <Container>
