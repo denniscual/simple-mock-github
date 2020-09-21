@@ -110,11 +110,7 @@ function IssueAssignees() {
     )
 }
 
-const issueOtherDetailsCn = S.css({
-    gridArea: 'other-details',
-})
-
-export default function IssueOtherDetails() {
+function IssueLabels() {
     const { owner, repo, issueNumber } = useParams() as UrlParams
     const { data } = useQuery(
         [getRepoIssue.key, { owner, repo, issueNumber }],
@@ -127,40 +123,49 @@ export default function IssueOtherDetails() {
     ) as { data: GetRepoIssueData }
 
     return (
-        <aside className={issueOtherDetailsCn}>
-            <IssueAssignees />
-            <DetailSection
-                title={
-                    <SmallText as="span" size="xs" fontWeight="bold">
-                        Labels
-                    </SmallText>
-                }
-            >
-                {data.labels.length > 0 ? (
-                    <List>
-                        {data.labels.map((label) => (
-                            <li key={label.id}>
-                                <LabelLink
-                                    key={label.id}
-                                    href={label.url}
-                                    style={{
-                                        backgroundColor: `#${label.color}`,
-                                    }}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {label.name}
-                                </LabelLink>
-                            </li>
-                        ))}
-                    </List>
-                ) : (
-                    <SmallText as="span" size="xs">
-                        No labels
-                    </SmallText>
-                )}
-            </DetailSection>
-        </aside>
+        <DetailSection
+            title={
+                <SmallText as="span" size="xs" fontWeight="bold">
+                    Labels
+                </SmallText>
+            }
+        >
+            {data.labels.length > 0 ? (
+                <List>
+                    {data.labels.map((label) => (
+                        <li key={label.id}>
+                            <LabelLink
+                                key={label.id}
+                                href={label.url}
+                                style={{
+                                    backgroundColor: `#${label.color}`,
+                                }}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {label.name}
+                            </LabelLink>
+                        </li>
+                    ))}
+                </List>
+            ) : (
+                <SmallText as="span" size="xs">
+                    No labels
+                </SmallText>
+            )}
+        </DetailSection>
     )
 }
 
+const issueOtherDetailsCn = S.css({
+    gridArea: 'other-details',
+})
+
+export default function IssueOtherDetails() {
+    return (
+        <aside className={issueOtherDetailsCn}>
+            <IssueAssignees />
+            <IssueLabels />
+        </aside>
+    )
+}

@@ -15,7 +15,6 @@ const Container = S.styled('section', {
         gridTemplateAreas: `
             "issue-header issue-header"
             "comments other-details"
-            "loader-container loader-container"
     `,
         columnGap: '$8',
     },
