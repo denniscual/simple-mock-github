@@ -18,7 +18,6 @@ import { RouteProgressbar } from './components'
 // Leftover for the issues page.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
-// TODO: We need to handle the isFetching inside the issues and pulls.
 // TODO: We need to move the auth token into env variables.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.

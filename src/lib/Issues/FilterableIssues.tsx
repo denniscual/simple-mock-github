@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Text } from '../../components'
+import { Button, Text, Headings } from '../../components'
 import S from '../../stitches.config'
 import IssueList from './IssueList'
 import { getRepoIssues, GetRepoIssuesData } from '../../api'
@@ -97,7 +97,7 @@ const LoadingText = S.styled(Text, {
     visibility: 'hidden',
 })
 
-const FilterHeaderBox = S.styled('div', {
+const FilterHeaderBox = S.styled('header', {
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopLeftRadius: 6,
@@ -116,6 +116,15 @@ const FilterHeaderBox = S.styled('div', {
     '& > *:last-child': {
         marginRight: 0,
     },
+})
+
+const InfoBoard = S.styled('header', {
+    border: '$1 solid $gray2',
+    p: '$6',
+    borderRadius: '$1',
+    textAlign: 'center',
+    marginBottom: '$5',
+    lineHeight: '1.6',
 })
 
 export default function Issues() {
@@ -148,7 +157,20 @@ export default function Issues() {
 
     return (
         <div>
-            <header>
+            <InfoBoard>
+                <Headings.H5>
+                    Want to contribute to {params.owner}/{params.repo}?
+                </Headings.H5>
+                <Text size="sm">
+                    If you have a bug or an idea, read the contributing
+                    guidelines before opening an issue.
+                </Text>
+                <Text size="sm">
+                    If you have a bug or an idea, read the contributing
+                    guidelines before opening an issue.
+                </Text>
+            </InfoBoard>
+            <section>
                 <FilterHeaderBox>
                     <FilterIssuesState
                         currentState={issuesQuery.state}
@@ -171,7 +193,7 @@ export default function Issues() {
                     )}
                 </FilterHeaderBox>
                 <IssueList items={issuesWithoutPulls} />
-            </header>
+            </section>
         </div>
     )
 }
