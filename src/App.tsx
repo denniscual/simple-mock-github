@@ -11,19 +11,13 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
-// NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
-
-// Issue
-
 // Leftover for the issues page.
-// TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
 // but its good to be aware on the similary styles and ui.
 // TODO: We need to move the auth token into env variables.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
 // TODO: Change the icon use on the Repo header. Use react-feather.
 // TODO: We need to handle the fetch error in api.
-// TODO: Add footer
 // FIXME: We need to use a Link of react-router for Suspense avatar. Then redirect it into this `localhost:3000/login`.
 
 const LazyRepo = React.lazy(() => import('./lib/Repo/Repo'))

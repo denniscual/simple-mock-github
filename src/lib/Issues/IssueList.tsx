@@ -11,7 +11,7 @@ const ListItem = S.styled('li', {
     borderLeft: '$1 solid $gray2',
     padding: '$2 $4',
     display: 'grid',
-    gridTemplateColumns: 'auto auto 1fr auto',
+    gridTemplateColumns: 'auto 1fr auto',
     justifyItems: 'baseline',
     columnGap: '$2',
 
@@ -79,7 +79,18 @@ export default function IssueList({ items }: { items: Item[] }) {
                     <div>
                         <Link size="lg" to={`${item.number}`}>
                             {item.title}
-                        </Link>
+                        </Link>{' '}
+                        {item.labels.map((label) => (
+                            <LabelLink
+                                key={label.id}
+                                href="#"
+                                style={{
+                                    backgroundColor: `#${label.color}`,
+                                }}
+                            >
+                                {label.name}
+                            </LabelLink>
+                        ))}
                         <MetaContainer>
                             <Text as="span" size="xs">
                                 #${item.number} opened{' '}
@@ -89,21 +100,6 @@ export default function IssueList({ items }: { items: Item[] }) {
                                 </Link>
                             </Text>
                         </MetaContainer>
-                    </div>
-                    <div>
-                        {item.labels.map((label) => (
-                            <LabelLink
-                                key={label.id}
-                                href={label.url}
-                                style={{
-                                    backgroundColor: `#${label.color}`,
-                                }}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {label.name}
-                            </LabelLink>
-                        ))}
                     </div>
                     {item.comments > 0 && (
                         <CommentCountText size="xs" as="span">
