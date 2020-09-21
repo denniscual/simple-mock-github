@@ -18,7 +18,6 @@ const Header = S.styled('header', {
     display: 'grid',
     rowGap: '$4',
     boxShadow: 'inset 0 -1px 0 $gray2',
-    marginBottom: '$8',
 })
 Header.displayName = 'Header'
 
@@ -44,7 +43,7 @@ const NavLink = S.styled(RootNavLink, {
 })
 
 const Content = S.styled('div', {
-    px: '$8',
+    p: '$8',
     margin: '0 auto',
     maxWidth: 1216,
 })
@@ -71,14 +70,6 @@ export default function Repo() {
                                 to="issues"
                             >
                                 Issues
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                activeClassName="nav-link-active"
-                                to="pull-requests"
-                            >
-                                Pull requests
                             </NavLink>
                         </li>
                     </Links>

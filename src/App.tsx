@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, useParams, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Docs from './Docs'
 import Home from './lib/Home'
 import {
@@ -14,7 +14,6 @@ import { RouteProgressbar } from './components'
 // NOTE: We don't need to define the key param on the api functions. If we need, define it though lol!
 
 // Issue
-// TODO: Only show the issues not issues from PR.
 
 // Leftover for the issues page.
 // TODO: We need to change the styles of the IssueItem/ListItem. Don't use grid instead just use flexbox.
@@ -27,29 +26,6 @@ import { RouteProgressbar } from './components'
 // TODO: We need to handle the fetch error in api.
 // TODO: Add footer
 // FIXME: We need to use a Link of react-router for Suspense avatar. Then redirect it into this `localhost:3000/login`.
-
-function PullRequests() {
-    return (
-        <div>
-            Pull requests
-            <div>
-                <Link to="2">Pull request 2</Link>
-            </div>
-        </div>
-    )
-}
-
-function PullRequest() {
-    const params = useParams() as { pullRequest: string }
-    return (
-        <div>
-            Pull request {params.pullRequest}
-            <div>
-                <Link to="..">Back to pull requests</Link>
-            </div>
-        </div>
-    )
-}
 
 const LazyRepo = React.lazy(() => import('./lib/Repo/Repo'))
 const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
@@ -88,13 +64,6 @@ export default function App() {
                                     path=":issueNumber"
                                     element={<LazyIssue />}
                                     preload={prefetchRepoIssue}
-                                />
-                            </Route>
-                            <Route path="pull-requests">
-                                <Route path="/" element={<PullRequests />} />
-                                <Route
-                                    path=":pullRequest"
-                                    element={<PullRequest />}
                                 />
                             </Route>
                         </Route>

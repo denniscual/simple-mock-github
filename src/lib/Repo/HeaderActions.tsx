@@ -56,7 +56,6 @@ function RepoProfile() {
         getRepo(key as string, params)
     ) as { data: GetRepoData }
 
-    // TODO: Fix the link in here. Right now, we will just redirect it to github.
     return (
         <>
             <Link to="..">{data.owner.login}</Link>
