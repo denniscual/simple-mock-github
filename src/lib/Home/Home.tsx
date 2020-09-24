@@ -169,7 +169,6 @@ const ResultText = S.styled(Text, {
 })
 
 function SearchFormRepo() {
-    // TODO: Add pagination in here.
     const [isTheFocusOnSearch, setIsTheFocusOnSearch] = React.useState(false)
     const [searchQuery, setSearchQuery] = React.useState('')
     // Close the window when clicking outside.
