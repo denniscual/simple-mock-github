@@ -11,8 +11,9 @@ import {
 } from './api'
 import { RouteProgressbar } from './components'
 
-// Leftover for the issues page.
-// but its good to be aware on the similary styles and ui.
+// Search
+// TODO: Add the search input and the result list. Use the useTransition and also the useDebugValue.
+
 // TODO: We need to move the auth token into env variables.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
