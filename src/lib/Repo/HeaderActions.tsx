@@ -52,7 +52,7 @@ HeaderAction.displayName = 'HeaderAction'
 
 function RepoProfile() {
     const params = useParams() as { owner: string; repo: string }
-    const { data } = useQuery(getRepo.key, (key) =>
+    const { data } = useQuery([getRepo.key, params], (key) =>
         getRepo(key as string, params)
     ) as { data: GetRepoData }
 

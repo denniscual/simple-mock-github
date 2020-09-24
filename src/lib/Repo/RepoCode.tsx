@@ -34,7 +34,7 @@ LoaderContainer.displayName = 'LoaderContainer'
 
 function RepoREADME() {
     const params = useParams() as { owner: string; repo: string }
-    const { data } = useQuery(getRepoREADME.key, (key) =>
+    const { data } = useQuery([getRepoREADME.key, params], (key) =>
         getRepoREADME(key as string, params)
     ) as {
         data: string
@@ -51,7 +51,7 @@ function getDomain(url: string) {
 
 function RepoAbout() {
     const params = useParams() as { owner: string; repo: string }
-    const { data } = useQuery(getRepo.key, (key) =>
+    const { data } = useQuery([getRepo.key, params], (key) =>
         getRepo(key as string, params)
     ) as {
         data: GetRepoData
