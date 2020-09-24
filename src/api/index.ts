@@ -270,54 +270,29 @@ const prefetchRepoIssue: RoutePreloadFunction = (params, ...rest) => {
             await getRepoIssue(input)
         }
     )
-
-    // prefetchRepoIssueComments(params, ...rest)
 }
 
 /**
- * ------------ Pull requests -----------
+ * ------------ Search repos -----------
  * */
 
-type GetRepoPullRequestsInput = Endpoints['GET /repos/:owner/:repo/pulls']['parameters']
-type GetRepoPullRequestsResponse = Endpoints['GET /repos/:owner/:repo/pulls']['response']
-export type GetRepoPullRequestsData = GetRepoPullRequestsResponse['data']
+type SearchReposInput = Endpoints['GET /search/repositories']['parameters']
+type SearchReposResponse = Endpoints['GET /search/repositories']['response']
+export type SearchReposData = SearchReposResponse['data']
 
-const PullRequestsStates = {
-    open: 'open',
-    closed: 'closed',
-}
-
-async function getRepoPullRequests(
-    _: string,
-    input: GetRepoPullRequestsInput
-): Promise<GetRepoPullRequestsData> {
-    const state = Boolean(input.state)
-        ? input.state
-        : (PullRequestsStates.open as any)
+async function searchRepos(input: SearchReposInput) {
+    const perPage = Boolean(input.per_page) ? input.per_page : 30
     const page = Boolean(input.page) ? input.page : 1
 
-    const res = (await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+    const res = await octokit.search.repos({
         ...input,
-        per_page: 30,
-        state,
         page,
-    })) as GetRepoPullRequestsResponse
+        per_page: perPage,
+    })
 
     return res.data
 }
-getRepoPullRequests.key = 'RepoPullRequests'
-
-const prefetchRepoPullRequests: RoutePreloadFunction = (params) => {
-    const input: GetRepoPullRequestsInput = {
-        ...(params as {
-            owner: string
-            repo: string
-        }),
-    }
-    queryCache.prefetchQuery(getRepoPullRequests.key, (key) =>
-        getRepoPullRequests(key as string, input)
-    )
-}
+searchRepos.key = 'SearchRepos'
 
 export {
     getRepo,
@@ -330,10 +305,8 @@ export {
     prefetchRepoIssues,
     getRepoIssue,
     prefetchRepoIssue,
-    getRepoPullRequests,
-    prefetchRepoPullRequests,
     getRepoIssueComments,
     prefetchRepoIssueComments,
     getGFMSpecs,
+    searchRepos,
 }
-

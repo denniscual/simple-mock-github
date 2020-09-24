@@ -8,5 +8,6 @@ import Progressbar from './Progressbar'
  */
 export default function RouteProgressbar() {
     const pending = useLocationPending()
+    console.log({ pending })
     return <Progressbar pending={pending} />
 }
