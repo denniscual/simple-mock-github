@@ -12,7 +12,7 @@ import {
 import { RouteProgressbar } from './components'
 
 // Search
-// TODO: We need to move the auth token into env variables.
+// TODO: Fix the style issue on the search input.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // of react-query for React Suspense CM.
 // TODO: Change the icon use on the Repo header. Use react-feather.
