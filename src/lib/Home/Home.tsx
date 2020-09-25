@@ -81,7 +81,6 @@ const ResultContainer = S.styled('div', {
     borderBottomRightRadius: '$1',
     boxSizing: 'border-box',
     backgroundColor: '$white',
-    py: '$3',
 
     variants: {
         status: {
@@ -111,13 +110,8 @@ const listItemCn = S.css({
         color: '$white',
     },
 
-    '&:first-child': {
-        paddingTop: 0,
-    },
-
     '&:last-child': {
         borderBottom: 'none',
-        paddingBottom: 0,
     },
 })
 
@@ -129,19 +123,25 @@ function SearchResultList({
     onItemClick: () => void
 }) {
     const navigate = useNavigate()
-    const params = useParams() as {
-        repo: string
+
+    const { resolvedData } = usePaginatedQuery(
+        [searchRepos.key, searchQuery],
+        (_, _searchQuery) => {
+            return searchRepos({
+                q: _searchQuery as string,
+                per_page: 7,
+            })
+        }
+    ) as {
+        resolvedData: SearchReposData
     }
 
-    const q = searchQuery !== '' ? searchQuery : params.repo
-
-    const { resolvedData } = usePaginatedQuery([searchRepos.key, q], (_, q) => {
-        return searchRepos({
-            q: q as string,
-            per_page: 7,
-        })
-    }) as {
-        resolvedData: SearchReposData
+    if (searchQuery !== '' && resolvedData.items.length === 0) {
+        return (
+            <ResultText as="span" size="sm">
+                No found items
+            </ResultText>
+        )
     }
 
     return (
@@ -166,6 +166,7 @@ function SearchResultList({
 const ResultText = S.styled(Text, {
     textAlign: 'center',
     display: 'block',
+    py: '$3',
 })
 
 function SearchFormRepo() {
@@ -181,14 +182,14 @@ function SearchFormRepo() {
     }
     useOnClickOutside(formRef, onClose)
 
-    const result = React.useMemo(() => {
+    const resultContent = React.useMemo(() => {
         if (searchQuery === '') {
             return <ResultText size="sm">Try to search "reactjs"</ResultText>
         }
         return (
             <React.Suspense
                 fallback={
-                    <ResultText>
+                    <ResultText as="span" size="sm">
                         <Loader color="primary" size="xs" />
                     </ResultText>
                 }
@@ -204,6 +205,8 @@ function SearchFormRepo() {
         )
     }, [searchQuery])
 
+    const activeStatus = isTheFocusOnSearch ? 'active' : 'notActive'
+
     return (
         <form ref={formRef}>
             <SearchLabel htmlFor="search">
@@ -217,12 +220,10 @@ function SearchFormRepo() {
                     type="text"
                     name="search"
                     placeholder="Search repo..."
-                    status={isTheFocusOnSearch ? 'active' : 'notActive'}
+                    status={activeStatus}
                 />
-                <ResultContainer
-                    status={isTheFocusOnSearch ? 'active' : 'notActive'}
-                >
-                    {result}
+                <ResultContainer status={activeStatus}>
+                    {resultContent}
                 </ResultContainer>
             </SearchLabel>
         </form>

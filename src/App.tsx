@@ -14,6 +14,8 @@ import { RouteProgressbar } from './components'
 // Search
 // TODO: Fix the style issue on the search input.
 // TODO: On the api, we need to handle the error. Check the error boundary
+// TODO: Add repo icon to the search and on the header actions.
+// TODO: We need to rename the header actions??
 // of react-query for React Suspense CM.
 // TODO: Change the icon use on the Repo header. Use react-feather.
 // TODO: We need to handle the fetch error in api.
