@@ -11,7 +11,7 @@ import S from '../../stitches.config'
 import { useQuery } from 'react-query'
 import { getRepo, GetRepoData } from '../../api'
 import { useParams } from 'react-router-dom'
-import { Tablet } from 'react-feather'
+import { Book } from 'react-feather'
 
 const LightH3 = S.styled(Headings.H3, {
     display: 'flex',
@@ -19,9 +19,9 @@ const LightH3 = S.styled(Headings.H3, {
     fontWeight: '$normal',
 })
 
-const RepoIcon = S.styled(Tablet, {
+const RepoIcon = S.styled(Book, {
     color: '$black',
-    marginRight: '$3',
+    marginRight: '$2',
 })
 
 const Separator = S.styled('span', {

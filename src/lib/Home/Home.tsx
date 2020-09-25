@@ -7,7 +7,7 @@ import { usePaginatedQuery } from 'react-query'
 import { searchRepos, SearchReposData } from '../../api'
 import { useNavigate } from 'react-router-dom'
 import useOnClickOutside from 'use-onclickoutside'
-import { Tablet } from 'react-feather'
+import { Book, CornerDownLeft } from 'react-feather'
 
 const Header = S.styled('header', {
     px: '$8',
@@ -40,7 +40,97 @@ const GitHubLink = S.styled('a', {
     display: 'inline-block',
 })
 
-const SearchLabel = S.styled('label', {
+const listCn = S.css({})
+const listItemCn = S.css({
+    p: '$3',
+    borderBottom: '$1 solid $gray2',
+    fontSize: '$sm',
+    cursor: 'pointer',
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr auto',
+    columnGap: '$3',
+    alignItems: 'center',
+
+    '&:hover': {
+        backgroundColor: '$primary',
+        color: '$white',
+
+        '.tablet-icon': {
+            color: '$white',
+        },
+
+        '.jump-to': {
+            visibility: 'visible',
+        },
+    },
+
+    '&:last-child': {
+        borderBottom: 'none',
+    },
+})
+
+const JumpTo = S.styled('span', {
+    backgroundColor: '$lightGray',
+    color: '$lightBlack',
+    p: '$1',
+    fontSize: '$xs',
+    borderRadius: '$1',
+    visibility: 'hidden',
+})
+
+function SearchResultList({
+    searchQuery,
+    onItemClick,
+}: {
+    searchQuery: string
+    onItemClick: () => void
+}) {
+    const navigate = useNavigate()
+
+    const { resolvedData } = usePaginatedQuery(
+        [searchRepos.key, searchQuery],
+        (_, _searchQuery) => {
+            return searchRepos({
+                q: _searchQuery as string,
+                per_page: 7,
+            })
+        }
+    ) as {
+        resolvedData: SearchReposData
+    }
+
+    if (searchQuery !== '' && resolvedData.items.length === 0) {
+        return (
+            <ResultText as="span" size="sm">
+                No found items
+            </ResultText>
+        )
+    }
+
+    return (
+        <ul className={listCn}>
+            {resolvedData.items.map((item) => (
+                <li
+                    key={item.id}
+                    className={listItemCn}
+                    onClick={(event: any) => {
+                        event.preventDefault()
+                        onItemClick()
+                        navigate(item.full_name, { replace: true })
+                    }}
+                >
+                    <Book className="tablet-icon" size={14} />
+                    {item.full_name}
+                    <JumpTo className="jump-to">
+                        Jump to <CornerDownLeft size={12} />
+                    </JumpTo>
+                </li>
+            ))}
+        </ul>
+    )
+}
+
+const SearchableContainer = S.styled('div', {
     display: 'block',
     position: 'relative',
 })
@@ -87,6 +177,7 @@ const ResultContainer = S.styled('div', {
         status: {
             active: {
                 display: 'block',
+                boxShadow: '0 4px 10px rgba(0,0,0,.1)',
             },
             notActive: {
                 display: 'none',
@@ -97,79 +188,6 @@ const ResultContainer = S.styled('div', {
 ResultContainer.displayName = 'ResultContainer'
 ResultContainer.defaultProps = {
     status: 'notActive',
-}
-
-const listCn = S.css({})
-const listItemCn = S.css({
-    p: '$3',
-    borderBottom: '$1 solid $gray2',
-    fontSize: '$sm',
-    cursor: 'pointer',
-    display: 'grid',
-    gridTemplateColumns: 'auto 1fr',
-    columnGap: '$2',
-
-    '&:hover': {
-        backgroundColor: '$primary',
-        color: '$white',
-
-        '.tablet-icon': {
-            color: '$white',
-        },
-    },
-
-    '&:last-child': {
-        borderBottom: 'none',
-    },
-})
-
-function SearchResultList({
-    searchQuery,
-    onItemClick,
-}: {
-    searchQuery: string
-    onItemClick: () => void
-}) {
-    const navigate = useNavigate()
-
-    const { resolvedData } = usePaginatedQuery(
-        [searchRepos.key, searchQuery],
-        (_, _searchQuery) => {
-            return searchRepos({
-                q: _searchQuery as string,
-                per_page: 7,
-            })
-        }
-    ) as {
-        resolvedData: SearchReposData
-    }
-
-    if (searchQuery !== '' && resolvedData.items.length === 0) {
-        return (
-            <ResultText as="span" size="sm">
-                No found items
-            </ResultText>
-        )
-    }
-
-    return (
-        <ul className={listCn}>
-            {resolvedData.items.map((item) => (
-                <li
-                    key={item.id}
-                    className={listItemCn}
-                    onClick={(event: any) => {
-                        event.preventDefault()
-                        onItemClick()
-                        navigate(item.full_name, { replace: true })
-                    }}
-                >
-                    <Tablet className="tablet-icon" size={14} />
-                    {item.full_name}
-                </li>
-            ))}
-        </ul>
-    )
 }
 
 const ResultText = S.styled(Text, {
@@ -187,32 +205,32 @@ function SearchableRepos() {
     }) as string
 
     // Close the window when clicking outside.
-    const labelRef = React.useRef<HTMLLabelElement | null>(null)
+    const containerRef = React.useRef<HTMLDivElement | null>(null)
     function onClose() {
         setIsTheFocusOnSearch(false)
     }
     function onOpen() {
         setIsTheFocusOnSearch(true)
     }
-    useOnClickOutside(labelRef, onClose)
+    useOnClickOutside(containerRef, onClose)
 
-    const activeStatus = isTheFocusOnSearch ? 'active' : 'notActive'
+    const focusStatus = isTheFocusOnSearch ? 'active' : 'notActive'
 
-    // TODO: Remove the label, change it into a div.
+    console.log({ searchQuery })
 
     return (
-        <SearchLabel htmlFor="search" ref={labelRef}>
+        <SearchableContainer ref={containerRef}>
             <SearchInput
                 // @ts-ignore
                 autocomplete="off"
                 onFocus={onOpen}
                 onChange={(event) => setSearchQuery(event.currentTarget.value)}
+                value={searchQuery}
                 type="text"
-                name="search"
-                placeholder="Search repo..."
-                status={activeStatus}
+                placeholder="Search or jump to..."
+                status={focusStatus}
             />
-            <ResultContainer status={activeStatus}>
+            <ResultContainer status={focusStatus}>
                 {searchQuery === '' ? (
                     <ResultText size="sm">Try to search "reactjs"</ResultText>
                 ) : (
@@ -233,7 +251,7 @@ function SearchableRepos() {
                     </React.Suspense>
                 )}
             </ResultContainer>
-        </SearchLabel>
+        </SearchableContainer>
     )
 }
 
