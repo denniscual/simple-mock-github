@@ -108,6 +108,14 @@ function Contributor({
 
 function RepoContributors() {
     const params = useParams() as { owner: string; repo: string }
+
+    // @ts-ignore
+    const defferedParams = React.unstable_useDeferredValue(params, {
+        timeoutMs: 2000,
+    }) as string
+
+    console.log({ params, defferedParams })
+
     const { data } = useQuery(getRepoContributors.key, (key) =>
         getRepoContributors(key as string, params)
     ) as {

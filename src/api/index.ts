@@ -282,6 +282,10 @@ type SearchReposResponse = Endpoints['GET /search/repositories']['response']
 export type SearchReposData = SearchReposResponse['data']
 
 async function searchRepos(input: SearchReposInput) {
+    if (input.q === '') {
+        return Promise.resolve({ items: [], total_count: 0 })
+    }
+
     const perPage = Boolean(input.per_page) ? input.per_page : 30
     const page = Boolean(input.page) ? input.page : 1
 

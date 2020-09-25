@@ -12,7 +12,9 @@ import {
 import { RouteProgressbar } from './components'
 
 // Search
-// TODO: Fix the style issue on the search input.
+// TODO: Add pagination. Just show next and prev and also go to first page and last page. We can do this via computing the total_items.
+// Add the actions on the footer.
+
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: Add repo icon to the search and on the header actions.
 // TODO: We need to rename the header actions??
