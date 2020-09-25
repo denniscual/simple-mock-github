@@ -11,6 +11,7 @@ import S from '../../stitches.config'
 import { useQuery } from 'react-query'
 import { getRepo, GetRepoData } from '../../api'
 import { useParams } from 'react-router-dom'
+import { Tablet } from 'react-feather'
 
 const LightH3 = S.styled(Headings.H3, {
     display: 'flex',
@@ -18,9 +19,8 @@ const LightH3 = S.styled(Headings.H3, {
     fontWeight: '$normal',
 })
 
-const RepoIcon = S.styled('span', {
+const RepoIcon = S.styled(Tablet, {
     color: '$black',
-    fontSize: '$lg',
     marginRight: '$3',
 })
 
@@ -58,6 +58,7 @@ function RepoProfile() {
 
     return (
         <>
+            <RepoIcon size={18} />
             <Link to="..">{data.owner.login}</Link>
             <Separator>/</Separator>
             <RepoLink to="">{data.name}</RepoLink>

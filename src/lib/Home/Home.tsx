@@ -7,6 +7,7 @@ import { usePaginatedQuery } from 'react-query'
 import { searchRepos, SearchReposData } from '../../api'
 import { useNavigate } from 'react-router-dom'
 import useOnClickOutside from 'use-onclickoutside'
+import { Tablet } from 'react-feather'
 
 const Header = S.styled('header', {
     px: '$8',
@@ -104,10 +105,17 @@ const listItemCn = S.css({
     borderBottom: '$1 solid $gray2',
     fontSize: '$sm',
     cursor: 'pointer',
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr',
+    columnGap: '$2',
 
     '&:hover': {
         backgroundColor: '$primary',
         color: '$white',
+
+        '.tablet-icon': {
+            color: '$white',
+        },
     },
 
     '&:last-child': {
@@ -156,6 +164,7 @@ function SearchResultList({
                         navigate(item.full_name, { replace: true })
                     }}
                 >
+                    <Tablet className="tablet-icon" size={14} />
                     {item.full_name}
                 </li>
             ))}
@@ -169,9 +178,7 @@ const ResultText = S.styled(Text, {
     py: '$3',
 })
 
-// TODO: Rename this componenet into SearchableRepoList.
-// Make the input as serachbar
-function SearchFormRepo() {
+function SearchableRepos() {
     const [isTheFocusOnSearch, setIsTheFocusOnSearch] = React.useState(false)
     const [searchQuery, setSearchQuery] = React.useState('')
     // @ts-ignore
@@ -180,57 +187,53 @@ function SearchFormRepo() {
     }) as string
 
     // Close the window when clicking outside.
-    const formRef = React.useRef<HTMLFormElement | null>(null)
+    const labelRef = React.useRef<HTMLLabelElement | null>(null)
     function onClose() {
         setIsTheFocusOnSearch(false)
     }
     function onOpen() {
         setIsTheFocusOnSearch(true)
     }
-    useOnClickOutside(formRef, onClose)
+    useOnClickOutside(labelRef, onClose)
 
     const activeStatus = isTheFocusOnSearch ? 'active' : 'notActive'
 
+    // TODO: Remove the label, change it into a div.
+
     return (
-        <form ref={formRef}>
-            <SearchLabel htmlFor="search">
-                <SearchInput
-                    // @ts-ignore
-                    autocomplete="off"
-                    onFocus={onOpen}
-                    onChange={(event) =>
-                        setSearchQuery(event.currentTarget.value)
-                    }
-                    type="text"
-                    name="search"
-                    placeholder="Search repo..."
-                    status={activeStatus}
-                />
-                <ResultContainer status={activeStatus}>
-                    {searchQuery === '' ? (
-                        <ResultText size="sm">
-                            Try to search "reactjs"
-                        </ResultText>
-                    ) : (
-                        <React.Suspense
-                            fallback={
-                                <ResultText as="span" size="sm">
-                                    <Loader color="primary" size="xs" />
-                                </ResultText>
-                            }
-                        >
-                            <SearchResultList
-                                searchQuery={defferedSearchQuery}
-                                onItemClick={() => {
-                                    onClose()
-                                    setSearchQuery('')
-                                }}
-                            />
-                        </React.Suspense>
-                    )}
-                </ResultContainer>
-            </SearchLabel>
-        </form>
+        <SearchLabel htmlFor="search" ref={labelRef}>
+            <SearchInput
+                // @ts-ignore
+                autocomplete="off"
+                onFocus={onOpen}
+                onChange={(event) => setSearchQuery(event.currentTarget.value)}
+                type="text"
+                name="search"
+                placeholder="Search repo..."
+                status={activeStatus}
+            />
+            <ResultContainer status={activeStatus}>
+                {searchQuery === '' ? (
+                    <ResultText size="sm">Try to search "reactjs"</ResultText>
+                ) : (
+                    <React.Suspense
+                        fallback={
+                            <ResultText as="span" size="sm">
+                                <Loader color="primary" size="xs" />
+                            </ResultText>
+                        }
+                    >
+                        <SearchResultList
+                            searchQuery={defferedSearchQuery}
+                            onItemClick={() => {
+                                onClose()
+                                setSearchQuery('')
+                            }}
+                        />
+                    </React.Suspense>
+                )}
+            </ResultContainer>
+        </SearchLabel>
     )
 }
 
@@ -241,7 +244,7 @@ export default function Home() {
                 <GitHubLink href="www.github.com">
                     <GitHubIcon />
                 </GitHubLink>
-                <SearchFormRepo />
+                <SearchableRepos />
             </Header>
             <main>
                 <React.Suspense
