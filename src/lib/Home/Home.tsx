@@ -1,13 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import S from '../../stitches.config'
-import { Loader, Text } from '../../components'
+import { Loader, Text, Button } from '../../components'
 import GitHubIcon from './GitHubIcon'
 import { usePaginatedQuery } from 'react-query'
 import { searchRepos, SearchReposData } from '../../api'
 import { useNavigate } from 'react-router-dom'
 import useOnClickOutside from 'use-onclickoutside'
-import { Book, CornerDownLeft } from 'react-feather'
+import { Book, CornerDownLeft, ChevronRight, ChevronLeft } from 'react-feather'
 
 const Header = S.styled('header', {
     px: '$8',
@@ -78,6 +78,24 @@ const JumpTo = S.styled('span', {
     visibility: 'hidden',
 })
 
+const PaginationContainer = S.styled('header', {
+    borderBottom: '$1 solid $gray2',
+    p: '$3',
+    fontSize: '$xs',
+    color: '$lightBlack',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+})
+
+const paginationIconCn = S.css({
+    verticalAlign: 'top',
+})
+const paginationButtonCn = S.css({
+    color: '$lightBlack',
+    fontWeight: '$normal',
+})
+
 function SearchResultList({
     searchQuery,
     onItemClick,
@@ -108,25 +126,50 @@ function SearchResultList({
     }
 
     return (
-        <ul className={listCn}>
-            {resolvedData.items.map((item) => (
-                <li
-                    key={item.id}
-                    className={listItemCn}
-                    onClick={(event: any) => {
-                        event.preventDefault()
-                        onItemClick()
-                        navigate(item.full_name, { replace: true })
-                    }}
-                >
-                    <Book className="tablet-icon" size={14} />
-                    {item.full_name}
-                    <JumpTo className="jump-to">
-                        Jump to <CornerDownLeft size={12} />
-                    </JumpTo>
-                </li>
-            ))}
-        </ul>
+        <>
+            <PaginationContainer>
+                <span>Showing 1-30 of 1500</span>
+                <span>
+                    <Button
+                        className={paginationButtonCn}
+                        size="sm"
+                        appearance="text"
+                        color="primary"
+                    >
+                        <ChevronLeft className={paginationIconCn} size={13} />{' '}
+                        Prev
+                    </Button>
+                    <Button
+                        className={paginationButtonCn}
+                        size="sm"
+                        appearance="text"
+                        color="primary"
+                    >
+                        Next{' '}
+                        <ChevronRight className={paginationIconCn} size={13} />
+                    </Button>
+                </span>
+            </PaginationContainer>
+            <ul className={listCn}>
+                {resolvedData.items.map((item) => (
+                    <li
+                        key={item.id}
+                        className={listItemCn}
+                        onClick={(event: any) => {
+                            event.preventDefault()
+                            onItemClick()
+                            navigate(item.full_name, { replace: true })
+                        }}
+                    >
+                        <Book className="tablet-icon" size={14} />
+                        {item.full_name}
+                        <JumpTo className="jump-to">
+                            Jump to <CornerDownLeft size={12} />
+                        </JumpTo>
+                    </li>
+                ))}
+            </ul>
+        </>
     )
 }
 
@@ -216,8 +259,6 @@ function SearchableRepos() {
 
     const focusStatus = isTheFocusOnSearch ? 'active' : 'notActive'
 
-    console.log({ searchQuery })
-
     return (
         <SearchableContainer ref={containerRef}>
             <SearchInput
@@ -230,7 +271,10 @@ function SearchableRepos() {
                 placeholder="Search or jump to..."
                 status={focusStatus}
             />
-            <ResultContainer status={focusStatus}>
+            <ResultContainer
+                // status={focusStatus}
+                status={'active'}
+            >
                 {searchQuery === '' ? (
                     <ResultText size="sm">Try to search "reactjs"</ResultText>
                 ) : (
