@@ -34,11 +34,16 @@ const NavLink = S.styled(RootNavLink, {
     '&.nav-link-active': {
         borderBottom: '2px solid #f9826c',
         fontWeight: '$bold',
+
+        '&:hover': {
+            borderBottom: '2px solid #f9826c',
+        },
     },
 
     '&:hover': {
         textDecoration: 'none',
         color: '$black',
+        borderBottom: '2px solid $dimGray',
     },
 })
 

@@ -9373,13 +9373,12 @@ resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.15.1, resolve@^1.3
   dependencies:
     path-parse "^1.0.6"
 
-restatum@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/restatum/-/restatum-2.0.0.tgz#5e2aa17ad9a39088f7b93ace97162fe9429815b6"
-  integrity sha512-wvJNtLG/fSofHrAlwfoXyJJUKCCroY5xduLFS3lIERrKWp44sUEMh5Cre6KncITcGPU+X/1ZeIVwndPBCViHEg==
+restatum@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/restatum/-/restatum-2.1.4.tgz#02ed5f00e2fcf0980b4c6f1df2aa765bd5a7b34c"
+  integrity sha512-Ij/UWluspgvsnSOtI6wwmHuVlbt7ZGFmGhiIGfYwMJGY397Ji8fiiQR1Fm4SNhenpWzuBFWI8DqRdyLp3eeJaQ==
   dependencies:
     invariant "^2.2.4"
-    use-subscription "^1.4.1"
 
 restore-cursor@^3.1.0:
   version "3.1.0"
@@ -10698,13 +10697,6 @@ use-onclickoutside@^0.3.1:
   dependencies:
     are-passive-events-supported "^1.1.0"
     use-latest "^1.0.0"
-
-use-subscription@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/use-subscription/-/use-subscription-1.4.1.tgz#edcbcc220f1adb2dd4fa0b2f61b6cc308e620069"
-  integrity sha512-7+IIwDG/4JICrWHL/Q/ZPK5yozEnvRm6vHImu0LKwQlmWGKeiF7mbAenLlK/cTNXrTtXHU/SFASQHzB6+oSJMQ==
-  dependencies:
-    object-assign "^4.1.1"
 
 use@^3.1.0:
   version "3.1.1"

@@ -11,6 +11,7 @@ const tokens = {
         $gray2: '#e1e4e8',
         $gray3: '#f6f8fa',
         $gray4: '#6a737d',
+        $gray5: '#b2b9c2',
         $dimGray: '#959da5',
         $lightBlue: '#f1f8ff',
         $mildBlue: '#def',

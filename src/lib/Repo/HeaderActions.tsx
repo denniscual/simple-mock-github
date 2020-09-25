@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-    Link as RouterLink,
-    ButtonGroup,
-    IconButton,
-    Button,
-    Headings,
-} from '../../components'
-import Download from '../../components/icons/Download'
+import { Link as RouterLink, Headings } from '../../components'
 import S from '../../stitches.config'
 import { useQuery } from 'react-query'
 import { getRepo, GetRepoData } from '../../api'

@@ -1,13 +1,23 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import S from '../../stitches.config'
-import { Loader, Text, Button } from '../../components'
+import { Loader, Text } from '../../components'
 import GitHubIcon from './GitHubIcon'
 import { usePaginatedQuery } from 'react-query'
 import { searchRepos, SearchReposData } from '../../api'
 import { useNavigate } from 'react-router-dom'
 import useOnClickOutside from 'use-onclickoutside'
 import { Book, CornerDownLeft, ChevronRight, ChevronLeft } from 'react-feather'
+import { createStore, useSt8, useDispatch } from 'restatum'
+
+const searchReposStore = createStore({
+    searchQuery: {
+        initialState: '',
+    },
+    page: {
+        initialState: 1,
+    },
+})
 
 const Header = S.styled('header', {
     px: '$8',
@@ -91,9 +101,31 @@ const PaginationContainer = S.styled('header', {
 const paginationIconCn = S.css({
     verticalAlign: 'top',
 })
-const paginationButtonCn = S.css({
-    color: '$lightBlack',
+const PaginationControlButton = S.styled('button', {
+    fontSize: '$xs',
     fontWeight: '$normal',
+    padding: '$1 $2',
+    outline: 0,
+    fontFamily: '$sans',
+    borderRadius: '$1',
+    border: 'none',
+    backgroundColor: 'transparent',
+
+    variants: {
+        status: {
+            disabled: {
+                color: '$lightBlack',
+            },
+            notDisabled: {
+                color: '$primary',
+                cursor: 'pointer',
+
+                '&:hover': {
+                    color: '$dimBlue',
+                },
+            },
+        },
+    },
 })
 
 function SearchResultList({
@@ -104,18 +136,29 @@ function SearchResultList({
     onItemClick: () => void
 }) {
     const navigate = useNavigate()
+    const perPage = 7
+    const [page, setPage] = useSt8(searchReposStore.page)
 
-    const { resolvedData } = usePaginatedQuery(
-        [searchRepos.key, searchQuery],
-        (_, _searchQuery) => {
+    console.log({ page })
+
+    const { resolvedData, isFetching } = usePaginatedQuery(
+        [searchRepos.key, searchQuery, page],
+        () => {
             return searchRepos({
-                q: _searchQuery as string,
-                per_page: 7,
+                q: searchQuery as string,
+                per_page: perPage,
+                page: page,
             })
         }
     ) as {
         resolvedData: SearchReposData
+        isFetching: boolean
     }
+
+    const totalCount = resolvedData.total_count
+    const pagesCount = Math.ceil(totalCount / perPage)
+    const hasNext = page < pagesCount
+    const hasPrev = page > 1
 
     if (searchQuery !== '' && resolvedData.items.length === 0) {
         return (
@@ -128,32 +171,37 @@ function SearchResultList({
     return (
         <>
             <PaginationContainer>
-                <span>Showing 1-30 of 1500</span>
-                <span>
-                    <Button
-                        className={paginationButtonCn}
-                        size="sm"
-                        appearance="text"
-                        color="primary"
+                <span>Total count of {totalCount}</span>
+                <div>
+                    <PaginationControlButton
+                        status={hasPrev ? 'notDisabled' : 'disabled'}
+                        onClick={() => {
+                            if (hasPrev) {
+                                setPage((page) => --page)
+                            }
+                        }}
                     >
                         <ChevronLeft className={paginationIconCn} size={13} />{' '}
                         Prev
-                    </Button>
-                    <Button
-                        className={paginationButtonCn}
-                        size="sm"
-                        appearance="text"
-                        color="primary"
+                    </PaginationControlButton>
+                    <PaginationControlButton
+                        status={hasNext ? 'notDisabled' : 'disabled'}
+                        onClick={() => {
+                            if (hasNext) {
+                                setPage((page) => ++page)
+                            }
+                        }}
                     >
                         Next{' '}
                         <ChevronRight className={paginationIconCn} size={13} />
-                    </Button>
-                </span>
+                    </PaginationControlButton>
+                </div>
             </PaginationContainer>
             <ul className={listCn}>
                 {resolvedData.items.map((item) => (
                     <li
                         key={item.id}
+                        style={isFetching ? { color: '#b2b9c2' } : {}}
                         className={listItemCn}
                         onClick={(event: any) => {
                             event.preventDefault()
@@ -241,7 +289,8 @@ const ResultText = S.styled(Text, {
 
 function SearchableRepos() {
     const [isTheFocusOnSearch, setIsTheFocusOnSearch] = React.useState(false)
-    const [searchQuery, setSearchQuery] = React.useState('')
+    const [searchQuery, setSearchQuery] = useSt8(searchReposStore.searchQuery)
+    const setPage = useDispatch(searchReposStore.page)
     // @ts-ignore
     const defferedSearchQuery = React.unstable_useDeferredValue(searchQuery, {
         timeoutMs: 2000,
@@ -265,16 +314,17 @@ function SearchableRepos() {
                 // @ts-ignore
                 autocomplete="off"
                 onFocus={onOpen}
-                onChange={(event) => setSearchQuery(event.currentTarget.value)}
+                onChange={(event) => {
+                    setSearchQuery(event.currentTarget.value)
+                    // reset the page
+                    setPage(1)
+                }}
                 value={searchQuery}
                 type="text"
                 placeholder="Search or jump to..."
                 status={focusStatus}
             />
-            <ResultContainer
-                // status={focusStatus}
-                status={'active'}
-            >
+            <ResultContainer status={focusStatus}>
                 {searchQuery === '' ? (
                     <ResultText size="sm">Try to search "reactjs"</ResultText>
                 ) : (
@@ -306,7 +356,9 @@ export default function Home() {
                 <GitHubLink href="www.github.com">
                     <GitHubIcon />
                 </GitHubLink>
-                <SearchableRepos />
+                <searchReposStore.StoreProvider>
+                    <SearchableRepos />
+                </searchReposStore.StoreProvider>
             </Header>
             <main>
                 <React.Suspense
