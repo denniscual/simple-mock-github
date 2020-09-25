@@ -34,6 +34,14 @@ const octokit = new Octokit({
     },
 })
 
+async function getContent() {
+    return await octokit.repos.getContent({
+        repo: 'simple-mock-github',
+        owner: 'denniscual',
+        path: 'public',
+    })
+}
+
 type PostMarkdownResponse = Endpoints['POST /markdown']['response']
 
 async function getGFMSpecs(text: string) {
@@ -314,4 +322,5 @@ export {
     prefetchRepoIssueComments,
     getGFMSpecs,
     searchRepos,
+    getContent,
 }

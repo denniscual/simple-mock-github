@@ -13,6 +13,9 @@ import { RouteProgressbar } from './components'
 
 // Search
 
+// TODO: We will add the repository files. We will not include the commit history.
+// The simple flow is that if the type is dir, then clicking will navigate to its content. If the type is a file, then clicking will navigate to githug url.
+// Bale in our repo code we will show the codes UI at the root. But if the path will narrow because of the codes, then we will hide the existing UIs but retained teh codes UI. then add breadcrumbs at the top.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: We need to handle the fetch error in api.
 
