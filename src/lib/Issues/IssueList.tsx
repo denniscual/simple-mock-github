@@ -1,27 +1,16 @@
 import React from 'react'
-import { Text, Link } from '../../components'
+import { Text, Link, ListItem as RootListItem } from '../../components'
 import S from '../../stitches.config'
 import { AlertCircle, MessageSquare } from 'react-feather'
 import TimeAgo from 'react-timeago'
 import LabelLink from './LabelLink'
 
-const ListItem = S.styled('li', {
-    borderTop: '$1 solid $gray2',
-    borderRight: '$1 solid $gray2',
-    borderLeft: '$1 solid $gray2',
+const ListItem = S.styled(RootListItem, {
     padding: '$2 $4',
     display: 'grid',
     gridTemplateColumns: 'auto 1fr auto',
     justifyItems: 'baseline',
     columnGap: '$2',
-
-    '&:last-child': {
-        borderBottom: '$1 solid $gray2',
-    },
-
-    '&:hover': {
-        backgroundColor: '$gray3',
-    },
 })
 
 const AlertCircleContainer = S.styled('span', {

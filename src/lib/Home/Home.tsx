@@ -139,8 +139,6 @@ function SearchResultList({
     const perPage = 7
     const [page, setPage] = useSt8(searchReposStore.page)
 
-    console.log({ page })
-
     const { resolvedData, isFetching } = usePaginatedQuery(
         [searchRepos.key, searchQuery, page],
         () => {
@@ -206,7 +204,9 @@ function SearchResultList({
                         onClick={(event: any) => {
                             event.preventDefault()
                             onItemClick()
-                            navigate(item.full_name, { replace: true })
+                            navigate(`${item.full_name}/code`, {
+                                replace: true,
+                            })
                         }}
                     >
                         <Book className="tablet-icon" size={14} />

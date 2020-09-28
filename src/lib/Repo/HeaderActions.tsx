@@ -54,7 +54,7 @@ function RepoProfile() {
             <RepoIcon size={18} />
             <Link to="..">{data.owner.login}</Link>
             <Separator>/</Separator>
-            <RepoLink to="">{data.name}</RepoLink>
+            <RepoLink to="code">{data.name}</RepoLink>
         </>
     )
 }

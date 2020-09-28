@@ -62,9 +62,8 @@ export default function Repo() {
                     <Links>
                         <li>
                             <NavLink
-                                end
                                 activeClassName="nav-link-active"
-                                to=""
+                                to="code"
                             >
                                 Code
                             </NavLink>

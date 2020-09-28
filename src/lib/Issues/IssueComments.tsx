@@ -133,7 +133,7 @@ function IssueMainComment() {
 const issueCommentsCn = S.css({
     display: 'grid',
     rowGap: '$8',
-    ridArea: 'comments',
+    gridArea: 'comments',
 })
 
 export default function IssueComments() {

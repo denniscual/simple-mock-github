@@ -1,13 +1,13 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Docs from './Docs'
 import Home from './lib/Home'
 import {
     prefetchRepo,
-    prefetchRepoREADME,
     prefetchRepoContributors,
     prefetchRepoIssues,
     prefetchRepoIssue,
+    prefetchRepoContent,
+    prefetchRepoREADME,
 } from './api'
 import { RouteProgressbar } from './components'
 
@@ -26,6 +26,10 @@ const LazyFilterableIssues = React.lazy(
 )
 const LazyIssue = React.lazy(() => import('./lib/Issues/Issue'))
 
+function RepoContent() {
+    return <div>repo content</div>
+}
+
 export default function App() {
     return (
         <div>
@@ -38,14 +42,21 @@ export default function App() {
                             element={<LazyRepo />}
                             preload={prefetchRepo}
                         >
-                            <Route
-                                path="/"
-                                element={<LazyRepoCode />}
-                                preload={(...args) => {
-                                    prefetchRepoREADME(...args)
-                                    prefetchRepoContributors(...args)
-                                }}
-                            />
+                            <Route path="/code">
+                                <Route
+                                    path="/"
+                                    element={<LazyRepoCode />}
+                                    preload={(...args) => {
+                                        prefetchRepoContent(...args)
+                                        prefetchRepoContributors(...args)
+                                        prefetchRepoREADME(...args)
+                                    }}
+                                />
+                                <Route
+                                    path="path/*"
+                                    element={<RepoContent />}
+                                />
+                            </Route>
                             <Route path="issues">
                                 <Route
                                     path="/"
@@ -61,7 +72,6 @@ export default function App() {
                         </Route>
                     </Route>
                 </Route>
-                <Route path="docs" element={<Docs />} />
             </Routes>
         </div>
     )

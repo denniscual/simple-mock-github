@@ -16,4 +16,4 @@ export { default as SuspenseAvatar } from './SuspenseAvatar'
 export { default as Progressbar } from './Progressbar'
 export { default as RouteProgressbar } from './RouteProgressbar'
 export { default as Chip } from './Chip'
-
+export { List, ListItem } from './List'

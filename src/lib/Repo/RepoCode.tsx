@@ -5,6 +5,8 @@ import {
     NativeLink,
     Loader,
     SuspenseAvatar,
+    ListItem,
+    Link,
     Headings,
 } from '../../components'
 import {
@@ -13,11 +15,16 @@ import {
     getRepoContributors,
     GetRepoContributorsData,
     getRepoREADME,
+    getRepoContent,
+    GetRepoContentData,
 } from '../../api'
 import { useQuery } from 'react-query'
 import { Markdown } from '../../components'
 import { useParams } from 'react-router-dom'
+import { Folder, File } from 'react-feather'
 import DetailSection from './DetailSection'
+
+type Params = { owner: string; repo: string }
 
 // @ts-ignore
 const SuspenseList = React.unstable_SuspenseList
@@ -29,17 +36,124 @@ const LoaderContainer = S.styled('div', {
 LoaderContainer.displayName = 'LoaderContainer'
 
 /**
+ * ------------ RepoContent -----------
+ * */
+
+const RepoContentHeader = S.styled('header', {
+    p: '$4',
+    backgroundColor: '$mildBlue',
+    fontSize: '$sm',
+    borderTopLeftRadius: '$1',
+    borderTopRightRadius: '$1',
+    border: '$1 solid $gray2',
+    borderBottom: 'none',
+})
+
+const RepoContentItem = S.styled(ListItem, {
+    padding: '$2 $4',
+    fontSize: '$sm',
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr',
+    columnGap: '$3',
+    alignItems: 'center',
+})
+
+const RepoContentItemLink = S.styled(Link, {
+    fontWeight: '$normal',
+    color: '$black',
+})
+
+function RepoContent() {
+    const params = useParams() as Params
+    const { data } = useQuery([getRepoContent.key, params], () =>
+        getRepoContent({
+            ...params,
+            path: '',
+        })
+    ) as {
+        data: GetRepoContentData
+    }
+
+    const repoContentList = React.useMemo(() => {
+        if (Array.isArray(data)) {
+            return (
+                <ul>
+                    {data
+                        .slice()
+                        .reduce(
+                            (acc, value) => {
+                                if (value.type === 'dir') {
+                                    acc[0] = acc[0].concat(value)
+                                } else {
+                                    acc[1] = acc[1].concat(value)
+                                }
+                                return acc
+                            },
+                            [[], []]
+                        )
+                        .flat()
+                        // @ts-ignore
+                        .map((content) => (
+                            <RepoContentItem key={content.id}>
+                                {content.type === 'dir' ? (
+                                    <Folder size={15} color="#0366d6" />
+                                ) : (
+                                    <File size={15} color="#24292e" />
+                                )}
+                                <RepoContentItemLink
+                                    to={`path/${content.path}`}
+                                >
+                                    {content.name}
+                                </RepoContentItemLink>
+                            </RepoContentItem>
+                        ))}
+                </ul>
+            )
+        }
+        return <ListItem as="div">{data.name}</ListItem>
+    }, [data])
+
+    return (
+        <section>
+            <RepoContentHeader>Repo files</RepoContentHeader>
+            {repoContentList}
+        </section>
+    )
+}
+
+/**
  * ------------ Readme -----------
  * */
 
+const ReadmeSection = S.styled('section', {
+    border: '$1 solid $gray2',
+    borderRadius: '$1',
+    p: '$4',
+})
+
+const ReadmeTitle = S.styled(Headings.H6, {
+    marginBottom: '$4',
+})
+
+const MarkdownContainer = S.styled('div', {
+    p: '$4',
+})
+
 function RepoREADME() {
-    const params = useParams() as { owner: string; repo: string }
+    const params = useParams() as Params
     const { data } = useQuery([getRepoREADME.key, params], (key) =>
         getRepoREADME(key as string, params)
     ) as {
         data: string
     }
-    return <Markdown as="section" html={data} />
+    return (
+        <ReadmeSection>
+            <ReadmeTitle>README.md</ReadmeTitle>
+            <MarkdownContainer>
+                <Markdown as="section" html={data} />
+            </MarkdownContainer>
+        </ReadmeSection>
+    )
 }
 
 /**
@@ -156,10 +270,26 @@ const Container = S.styled('section', {
     columnGap: '$6',
 })
 
+const ContentContainer = S.styled('div', {
+    display: 'grid',
+    rowGap: '$4',
+})
+
 export default function RepoCode() {
     return (
         <Container>
-            <RepoREADME />
+            <ContentContainer>
+                <RepoContent />
+                <React.Suspense
+                    fallback={
+                        <LoaderContainer>
+                            <Loader size="lg" color="primary" />
+                        </LoaderContainer>
+                    }
+                >
+                    <RepoREADME />
+                </React.Suspense>
+            </ContentContainer>
             <RepoOtherDetails />
         </Container>
     )

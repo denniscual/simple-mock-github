@@ -34,14 +34,6 @@ const octokit = new Octokit({
     },
 })
 
-async function getContent() {
-    return await octokit.repos.getContent({
-        repo: 'simple-mock-github',
-        owner: 'denniscual',
-        path: 'public',
-    })
-}
-
 type PostMarkdownResponse = Endpoints['POST /markdown']['response']
 
 async function getGFMSpecs(text: string) {
@@ -55,6 +47,39 @@ getGFMSpecs.key = 'GetGFMSpecs'
 /**
  * ------------ Repository -----------
  * */
+
+/**
+ * ------------ RepoContent -----------
+ * */
+
+type RepoContentInput = Endpoints['GET /repos/:owner/:repo/contents/:path']['parameters']
+export type GetRepoContentData = Endpoints['GET /repos/:owner/:repo/contents/:path']['response']['data']
+
+// This will return the content of the provided path. It could return a file(an object) or a directory
+// which is an array.
+async function getRepoContent(input: RepoContentInput) {
+    const path = input.path ?? ''
+    const res = await octokit.repos.getContent({
+        ...input,
+        path,
+    })
+    return res.data
+}
+getRepoContent.key = 'GetRepoContent'
+
+const prefetchRepoContent: RoutePreloadFunction = (params, ...rest) => {
+    const { owner, repo, path } = params as {
+        owner: string
+        repo: string
+        path: string
+    }
+
+    const input = { owner, repo, path }
+
+    queryCache.prefetchQuery([getRepoIssues.key, input], async () => {
+        await getRepoContent(input)
+    })
+}
 
 // GET Repo
 type GetRepoInput = Endpoints['GET /repos/:owner/:repo']['parameters']
@@ -79,7 +104,7 @@ async function getRepo(
 }
 getRepo.key = 'Repo'
 
-const prefetchRepo: RoutePreloadFunction = (params) => {
+const prefetchRepo: RoutePreloadFunction = (params, ...rest) => {
     queryCache.prefetchQuery(getRepo.key, (key) =>
         getRepo(key as string, params as { owner: string; repo: string })
     )
@@ -322,5 +347,6 @@ export {
     prefetchRepoIssueComments,
     getGFMSpecs,
     searchRepos,
-    getContent,
+    getRepoContent,
+    prefetchRepoContent,
 }
