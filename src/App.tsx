@@ -18,9 +18,11 @@ import { RouteProgressbar } from './components'
 // Bale in our repo code we will show the codes UI at the root. But if the path will narrow because of the codes, then we will hide the existing UIs but retained teh codes UI. then add breadcrumbs at the top.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: We need to handle the fetch error in api.
+// FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
 
 const LazyRepo = React.lazy(() => import('./lib/Repo/Repo'))
 const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
+const LazyRepoSubCode = React.lazy(() => import('./lib/Repo/RepoSubCode'))
 const LazyFilterableIssues = React.lazy(
     () => import('./lib/Issues/FilterableIssues')
 )
@@ -54,7 +56,7 @@ export default function App() {
                                 />
                                 <Route
                                     path="path/*"
-                                    element={<RepoContent />}
+                                    element={<LazyRepoSubCode />}
                                 />
                             </Route>
                             <Route path="issues">

@@ -68,16 +68,18 @@ async function getRepoContent(input: RepoContentInput) {
 getRepoContent.key = 'GetRepoContent'
 
 const prefetchRepoContent: RoutePreloadFunction = (params, ...rest) => {
-    const { owner, repo, path } = params as {
+    const { owner, repo } = params as {
         owner: string
         repo: string
-        path: string
+        '*'?: string
     }
 
-    const input = { owner, repo, path }
+    const path = params['*'] ?? ''
+
+    const input = { owner, repo }
 
     queryCache.prefetchQuery([getRepoIssues.key, input], async () => {
-        await getRepoContent(input)
+        await getRepoContent({ ...input, path })
     })
 }
 
