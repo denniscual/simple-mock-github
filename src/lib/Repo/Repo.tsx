@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import HeaderActions from './HeaderActions'
+import RepoHeader from './RepoHeader'
 import { Loader } from '../../components'
 import S from '../../stitches.config'
 import { NavLink as RootNavLink } from 'react-router-dom'
@@ -57,7 +57,7 @@ export default function Repo() {
     return (
         <div>
             <Header>
-                <HeaderActions />
+                <RepoHeader />
                 <nav>
                     <Links>
                         <li>

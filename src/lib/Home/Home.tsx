@@ -311,8 +311,7 @@ function SearchableRepos() {
     return (
         <SearchableContainer ref={containerRef}>
             <SearchInput
-                // @ts-ignore
-                autocomplete="off"
+                autoComplete="off"
                 onFocus={onOpen}
                 onChange={(event) => {
                     setSearchQuery(event.currentTarget.value)

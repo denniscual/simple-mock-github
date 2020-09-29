@@ -34,14 +34,14 @@ const RepoLink = S.styled(Link, {
     fontWeight: '$bold',
 })
 
-const HeaderAction = S.styled('div', {
+const Container = S.styled('div', {
     height: 30,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
 })
 
-HeaderAction.displayName = 'HeaderAction'
+RepoHeader.displayName = 'RepoHeader'
 
 function RepoProfile() {
     const params = useParams() as { owner: string; repo: string }
@@ -61,10 +61,10 @@ function RepoProfile() {
 
 export default function RepoHeader() {
     return (
-        <HeaderAction>
+        <Container>
             <LightH3>
                 <RepoProfile />
             </LightH3>
-        </HeaderAction>
+        </Container>
     )
 }

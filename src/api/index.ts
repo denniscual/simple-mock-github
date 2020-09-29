@@ -8,8 +8,8 @@ import { Endpoints } from '@octokit/types'
 
 type RoutePreloadFunction = (
     params: Record<string, string>,
-    location: any,
-    index: number
+    location?: any,
+    index?: number
 ) => void
 
 /**
@@ -67,7 +67,7 @@ async function getRepoContent(input: RepoContentInput) {
 }
 getRepoContent.key = 'GetRepoContent'
 
-const prefetchRepoContent: RoutePreloadFunction = (params, ...rest) => {
+const prefetchRepoContent: RoutePreloadFunction = (params) => {
     const { owner, repo } = params as {
         owner: string
         repo: string

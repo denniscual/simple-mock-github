@@ -30,6 +30,7 @@ const RepoContentItem = S.styled(ListItem, {
     columnGap: '$3',
     alignItems: 'center',
 })
+RepoContentItem.displayName = 'RepoContentItem'
 
 const RepoContentItemLink = S.styled(Link, {
     fontWeight: '$normal',
@@ -41,7 +42,8 @@ export default function RepoContent() {
     const path = params['*']
     const { data } = useQuery([getRepoContent.key, params], () =>
         getRepoContent({
-            ...params,
+            owner: params.owner,
+            repo: params.repo,
             path: path ?? '',
         })
     ) as {
@@ -74,7 +76,7 @@ export default function RepoContent() {
                         .flat()
                         // @ts-ignore
                         .map((content) => (
-                            <RepoContentItem key={content.id}>
+                            <RepoContentItem key={content.sha}>
                                 {content.type === 'dir' ? (
                                     <Folder size={15} color="#0366d6" />
                                 ) : (

@@ -42,18 +42,23 @@ export default function RepoSubCode() {
         { pathname: pageCodePath, label: params.repo },
         ...pathnames,
     ].map(({ pathname, label }, idx, arr) => {
-        if (idx === arr.length - 1) {
-            return <Text as="span">{label}</Text>
-        }
         const key = `${label}-${pathname}-${idx}`
 
+        if (idx === arr.length - 1) {
+            return (
+                <Text key={key} as="span">
+                    {label}
+                </Text>
+            )
+        }
+
         return (
-            <>
-                <Link key={key} to={pathname} size="lg" color="primary">
+            <React.Fragment key={key}>
+                <Link to={pathname} size="lg" color="primary">
                     {label}
                 </Link>
                 <Separator>/</Separator>
-            </>
+            </React.Fragment>
         )
     })
 

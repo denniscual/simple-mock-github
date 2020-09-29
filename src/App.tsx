@@ -37,11 +37,7 @@ export default function App() {
                         <Route
                             path=":repo"
                             element={<LazyRepo />}
-                            preload={(...args) => {
-                                prefetchRepo(...args)
-                                // prefetching issues whenever the user will navigate to repo page.
-                                prefetchRepoIssues(...args)
-                            }}
+                            preload={prefetchRepo}
                         >
                             <Route path="/code">
                                 <Route
@@ -51,6 +47,7 @@ export default function App() {
                                         prefetchRepoContent(...args)
                                         prefetchRepoContributors(...args)
                                         prefetchRepoREADME(...args)
+                                        prefetchRepoIssues(...args)
                                     }}
                                 />
                                 <Route
