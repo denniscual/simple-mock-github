@@ -32,7 +32,7 @@ const LoaderContainer = S.styled('div', {
 LoaderContainer.displayName = 'LoaderContainer'
 
 /**
- * ------------ Readme -----------
+ * ------------ Repo code content -----------
  * */
 
 const ReadmeSection = S.styled('section', {
@@ -66,8 +66,35 @@ function RepoREADME() {
     )
 }
 
+const CodeContentContainer = S.styled('div', {
+    '& > *': {
+        marginBottom: '$4',
+
+        '&:last-child': {
+            marginBottom: 0,
+        },
+    },
+})
+
+function RepoCodeContent() {
+    return (
+        <CodeContentContainer>
+            <RepoContent />
+            <React.Suspense
+                fallback={
+                    <LoaderContainer>
+                        <Loader size="lg" color="primary" />
+                    </LoaderContainer>
+                }
+            >
+                <RepoREADME />
+            </React.Suspense>
+        </CodeContentContainer>
+    )
+}
+
 /**
- * ------------ About -----------
+ * ------------ Other details -----------
  * */
 function getDomain(url: string) {
     return url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0]
@@ -89,10 +116,6 @@ function RepoAbout() {
         </>
     )
 }
-
-/**
- * ------------ Contributor -----------
- * */
 
 const List = S.styled('ul', {
     display: 'grid',
@@ -158,9 +181,6 @@ function RepoContributors() {
     )
 }
 
-/**
- * ------------ Other details -----------
- * */
 function RepoOtherDetails() {
     return (
         <aside>
@@ -180,26 +200,10 @@ const Container = S.styled('section', {
     columnGap: '$6',
 })
 
-const ContentContainer = S.styled('div', {
-    display: 'grid',
-    rowGap: '$4',
-})
-
 export default function RepoCode() {
     return (
         <Container>
-            <ContentContainer>
-                <RepoContent />
-                <React.Suspense
-                    fallback={
-                        <LoaderContainer>
-                            <Loader size="lg" color="primary" />
-                        </LoaderContainer>
-                    }
-                >
-                    <RepoREADME />
-                </React.Suspense>
-            </ContentContainer>
+            <RepoCodeContent />
             <RepoOtherDetails />
         </Container>
     )

@@ -13,6 +13,7 @@ import { RouteProgressbar } from './components'
 
 // Search
 
+// TODO: We need to fix the styles of the markdown. especially the image.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: We need to handle the fetch error in api.
 // FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
