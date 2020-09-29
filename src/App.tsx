@@ -38,8 +38,8 @@ export default function App() {
                             element={<LazyRepo />}
                             preload={prefetchRepo}
                         >
+                            {/* Render this page on this path => /code or /code/ */}
                             <Route path="/code">
-                                {/* Render this page on this path => /code or /code/ */}
                                 <Route
                                     path="/"
                                     element={<LazyRepoCode />}
@@ -50,13 +50,19 @@ export default function App() {
                                         prefetchRepoIssues(...args)
                                     }}
                                 />
-                                {/* Render this page on this path => /code/* */}
+
                                 <Route
                                     path="/*"
                                     element={<LazyRepoSubCode />}
                                     preload={prefetchRepoContent}
                                 />
                             </Route>
+                            {/* Render this page on this path => /code/* */}
+                            <Route
+                                path="/*"
+                                element={<LazyRepoSubCode />}
+                                preload={prefetchRepoContent}
+                            />
                             <Route path="issues">
                                 <Route
                                     path="/"

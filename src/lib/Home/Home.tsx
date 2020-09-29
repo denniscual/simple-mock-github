@@ -204,9 +204,7 @@ function SearchResultList({
                         onClick={(event: any) => {
                             event.preventDefault()
                             onItemClick()
-                            navigate(`${item.full_name}/code`, {
-                                replace: true,
-                            })
+                            navigate(`${item.full_name}/code`)
                         }}
                     >
                         <Book className="tablet-icon" size={14} />

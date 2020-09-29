@@ -21,15 +21,14 @@ export default function RepoSubCode() {
     }
 
     const contentParam = params['*']
-    const pageCodePath = useResolvedPath('.')
-    const pageContentPathname = useResolvedPath('').pathname
+    const pageCodePathname = useResolvedPath('.').pathname
 
     const splittedContentParam = contentParam.split('/')
     const pathnames = splittedContentParam.map((path, idx) => {
         const pathname =
             idx === 0
-                ? `${pageContentPathname}/${path}`
-                : `${pageContentPathname}/${splittedContentParam
+                ? `${pageCodePathname}/${path}`
+                : `${pageCodePathname}/${splittedContentParam
                       .slice(0, idx + 1)
                       .join('/')}`
         return {
@@ -39,7 +38,7 @@ export default function RepoSubCode() {
     })
 
     const breadcrumbs = [
-        { pathname: pageCodePath, label: params.repo },
+        { pathname: pageCodePathname, label: params.repo },
         ...pathnames,
     ].map(({ pathname, label }, idx, arr) => {
         const key = `${label}-${pathname}-${idx}`
