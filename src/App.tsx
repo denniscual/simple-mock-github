@@ -13,12 +13,11 @@ import { RouteProgressbar } from './components'
 
 // Search
 
-// TODO: We will add the repository files. We will not include the commit history.
-// The simple flow is that if the type is dir, then clicking will navigate to its content. If the type is a file, then clicking will navigate to githug url.
-// Bale in our repo code we will show the codes UI at the root. But if the path will narrow because of the codes, then we will hide the existing UIs but retained teh codes UI. then add breadcrumbs at the top.
+// TODO: Add the breadcrumbs.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: We need to handle the fetch error in api.
 // FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
+// TODO: Remove our auth.
 
 const LazyRepo = React.lazy(() => import('./lib/Repo/Repo'))
 const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
@@ -27,10 +26,6 @@ const LazyFilterableIssues = React.lazy(
     () => import('./lib/Issues/FilterableIssues')
 )
 const LazyIssue = React.lazy(() => import('./lib/Issues/Issue'))
-
-function RepoContent() {
-    return <div>repo content</div>
-}
 
 export default function App() {
     return (
@@ -42,7 +37,11 @@ export default function App() {
                         <Route
                             path=":repo"
                             element={<LazyRepo />}
-                            preload={prefetchRepo}
+                            preload={(...args) => {
+                                prefetchRepo(...args)
+                                // prefetching issues whenever the user will navigate to repo page.
+                                prefetchRepoIssues(...args)
+                            }}
                         >
                             <Route path="/code">
                                 <Route
@@ -55,8 +54,9 @@ export default function App() {
                                     }}
                                 />
                                 <Route
-                                    path="path/*"
+                                    path="content/*"
                                     element={<LazyRepoSubCode />}
+                                    preload={prefetchRepoContent}
                                 />
                             </Route>
                             <Route path="issues">

@@ -48,18 +48,19 @@ export default function RepoContent() {
         data: GetRepoContentData
     }
 
-    // This is an absolute link.
-    function createContentUrl(path: string) {
-        return `/${params.owner}/${params.repo}/code/path/${path}`
-    }
-
     const repoContentList = React.useMemo(() => {
+        // This is an absolute link.
+        // TODO: Change this link, use the react-router hooks.
+        function createContentUrl(path: string) {
+            return `/${params.owner}/${params.repo}/code/content/${path}`
+        }
         if (Array.isArray(data)) {
             return (
                 <ul>
                     {data
                         .slice()
                         .reduce(
+                            // Sort the files based on the type. We want to make the dir first then the file type.
                             (acc, value) => {
                                 if (value.type === 'dir') {
                                     acc[0] = acc[0].concat(value)
@@ -90,12 +91,12 @@ export default function RepoContent() {
             )
         }
         return <ListItem as="div">{data.name}</ListItem>
-    }, [data])
+    }, [data, params.owner, params.repo])
 
     return (
-        <section>
+        <div>
             <RepoContentHeader>Repo files</RepoContentHeader>
             {repoContentList}
-        </section>
+        </div>
     )
 }

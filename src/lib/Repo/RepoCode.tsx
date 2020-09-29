@@ -1,6 +1,7 @@
 import React from 'react'
 import S from '../../stitches.config'
 import {
+    Markdown,
     Text,
     NativeLink,
     Loader,
@@ -15,7 +16,6 @@ import {
     getRepoREADME,
 } from '../../api'
 import { useQuery } from 'react-query'
-import { Markdown } from '../../components'
 import { useParams } from 'react-router-dom'
 import DetailSection from './DetailSection'
 import RepoContent from './RepoContent'
@@ -60,7 +60,7 @@ function RepoREADME() {
         <ReadmeSection>
             <ReadmeTitle>README.md</ReadmeTitle>
             <MarkdownContainer>
-                <Markdown as="section" html={data} />
+                <Markdown as="div" html={data} />
             </MarkdownContainer>
         </ReadmeSection>
     )
