@@ -13,7 +13,6 @@ import { RouteProgressbar } from './components'
 
 // Search
 
-// TODO: Add the breadcrumbs.
 // TODO: On the api, we need to handle the error. Check the error boundary
 // TODO: We need to handle the fetch error in api.
 // FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
@@ -40,6 +39,7 @@ export default function App() {
                             preload={prefetchRepo}
                         >
                             <Route path="/code">
+                                {/* Render this page on this path => /code or /code/ */}
                                 <Route
                                     path="/"
                                     element={<LazyRepoCode />}
@@ -50,8 +50,9 @@ export default function App() {
                                         prefetchRepoIssues(...args)
                                     }}
                                 />
+                                {/* Render this page on this path => /code/* */}
                                 <Route
-                                    path="content/*"
+                                    path="/*"
                                     element={<LazyRepoSubCode />}
                                     preload={prefetchRepoContent}
                                 />

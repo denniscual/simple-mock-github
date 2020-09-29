@@ -51,11 +51,6 @@ export default function RepoContent() {
     }
 
     const repoContentList = React.useMemo(() => {
-        // This is an absolute link.
-        // TODO: Change this link, use the react-router hooks.
-        function createContentUrl(path: string) {
-            return `/${params.owner}/${params.repo}/code/content/${path}`
-        }
         if (Array.isArray(data)) {
             return (
                 <ul>
@@ -82,9 +77,7 @@ export default function RepoContent() {
                                 ) : (
                                     <File size={15} color="#24292e" />
                                 )}
-                                <RepoContentItemLink
-                                    to={createContentUrl(content.path)}
-                                >
+                                <RepoContentItemLink to={content.path}>
                                     {content.name}
                                 </RepoContentItemLink>
                             </RepoContentItem>
@@ -93,7 +86,7 @@ export default function RepoContent() {
             )
         }
         return <ListItem as="div">{data.name}</ListItem>
-    }, [data, params.owner, params.repo])
+    }, [data])
 
     return (
         <div>

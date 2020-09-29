@@ -21,7 +21,7 @@ export default function RepoSubCode() {
     }
 
     const contentParam = params['*']
-    const pageCodePath = useResolvedPath('..')
+    const pageCodePath = useResolvedPath('.')
     const pageContentPathname = useResolvedPath('').pathname
 
     const splittedContentParam = contentParam.split('/')

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import RepoHeader from './RepoHeader'
 import { Loader } from '../../components'
 import S from '../../stitches.config'
-import { NavLink as RootNavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const LoaderContainer = S.styled('div', {
     display: 'flex',
@@ -25,7 +25,7 @@ const Links = S.styled('ul', {
     display: 'flex',
 })
 
-const NavLink = S.styled(RootNavLink, {
+const navLinkCn = S.css({
     p: '$4',
     color: '$black',
     display: 'inline-block',
@@ -62,6 +62,7 @@ export default function Repo() {
                     <Links>
                         <li>
                             <NavLink
+                                className={navLinkCn}
                                 activeClassName="nav-link-active"
                                 to="code"
                             >
@@ -70,6 +71,7 @@ export default function Repo() {
                         </li>
                         <li>
                             <NavLink
+                                className={navLinkCn}
                                 activeClassName="nav-link-active"
                                 to="issues"
                             >
