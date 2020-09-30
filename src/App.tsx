@@ -17,9 +17,7 @@ import { RouteProgressbar } from './components'
 // FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
 // TODO: Remove our auth.
 
-const LazyRepoCode = React.lazy(() => import('./lib/Repo/RepoCode'))
 const LazyRepoSubCode = React.lazy(() => import('./lib/Repo/RepoSubCode'))
-const LazyIssue = React.lazy(() => import('./lib/Issues/Issue'))
 
 // TODO: We will do this first then go to binosight.
 // Or maybe we will have a registration of the Components which we want to preload.
@@ -69,15 +67,19 @@ class LazyResources {
 }
 
 const lazyResources = new LazyResources()
-lazyResources.set('Repo', () => import('./lib/Repo/Repo'))
 lazyResources.set('Home', () => import('./lib/Home/Home'))
+lazyResources.set('Repo', () => import('./lib/Repo/Repo'))
+lazyResources.set('RepoCode', () => import('./lib/Repo/RepoCode'))
 lazyResources.set('Issues', () => import('./lib/Issues/FilterableIssues'))
+lazyResources.set('Issue', () => import('./lib/Issues/Issue'))
 
 const LazyHome2 = lazyResources.get('Home').lazy()
 const LazyRepo = lazyResources.get('Repo').lazy()
+const LazyRepoCode = lazyResources.get('RepoCode').lazy()
 const LazyIssues = lazyResources.get('Issues').lazy()
+const LazyIssue = lazyResources.get('Issue').lazy()
 
-// preload
+// preload the home.
 lazyResources.get('Home').preload()
 
 export default function App() {
@@ -103,11 +105,16 @@ export default function App() {
                                         path="/"
                                         element={<LazyRepoCode />}
                                         preload={(...args) => {
+                                            // for data
                                             prefetchRepoContent(...args)
                                             prefetchRepoContributors(...args)
                                             prefetchRepoREADME(...args)
                                             prefetchRepoIssues(...args)
 
+                                            // for codes
+                                            lazyResources
+                                                .get('RepoCode')
+                                                .preload()
                                             lazyResources
                                                 .get('Issues')
                                                 .preload()
@@ -124,7 +131,13 @@ export default function App() {
                                     <Route
                                         path="/"
                                         element={<LazyIssues />}
-                                        preload={prefetchRepoIssues}
+                                        preload={(...args) => {
+                                            prefetchRepoIssues(...args)
+
+                                            lazyResources
+                                                .get('Issues')
+                                                .preload()
+                                        }}
                                     />
                                     <Route
                                         path=":issueNumber"
