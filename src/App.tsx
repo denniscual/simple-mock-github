@@ -8,7 +8,7 @@ import {
     prefetchRepoContent,
     prefetchRepoREADME,
 } from './api'
-import { RouteProgressbar } from './components'
+import { RouteProgressbar, Loader, Text } from './components'
 import {
     lazyHome,
     lazyRepo,
@@ -17,6 +17,33 @@ import {
     lazyIssues,
     lazyIssue,
 } from './lazyComponents'
+import S from './stitches.config'
+
+const AppLoaderContainer = S.styled('div', {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '25%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+})
+
+const AppLoaderText = S.styled(Text, {
+    color: '$dimGray',
+    marginTop: '$2',
+})
+
+function AppLoader() {
+    return (
+        <AppLoaderContainer>
+            <Loader size="sm" color="primary" />
+            <AppLoaderText size="sm" fontWeight="light">
+                Loading the app...
+            </AppLoaderText>
+        </AppLoaderContainer>
+    )
+}
 
 // Search
 
@@ -42,7 +69,7 @@ export default function App() {
     return (
         <div>
             <RouteProgressbar />
-            <React.Suspense fallback="Loading app...">
+            <React.Suspense fallback={<AppLoader />}>
                 <Routes>
                     <Route path="/" element={<LazyHome />}>
                         <Route path=":owner">
