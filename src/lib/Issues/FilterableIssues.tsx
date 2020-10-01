@@ -2,66 +2,17 @@ import React from 'react'
 import { Button, Text, Headings } from '../../components'
 import S from '../../stitches.config'
 import IssueList from './IssueList'
-import { getRepoIssues, GetRepoIssuesData } from '../../api'
-import { usePaginatedQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
+import {
+    getRepoIssues,
+    GetRepoIssuesData,
+    IssuesStatesKey,
+    IssuesStates,
+} from '../../api'
+import { useQuery } from 'react-query'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { AlertCircle, Check } from 'react-feather'
 
-type IssuesQueryOpenAction = {
-    type: 'ISSUES_OPEN'
-}
-
-type IssuesQueryClosedAction = {
-    type: 'ISSUES_CLOSED'
-}
-
-type IssuesQueryNextPageAction = {
-    type: 'ISSUES_NEXT_PAGE'
-}
-
-type IssuesQueryAction =
-    | IssuesQueryOpenAction
-    | IssuesQueryClosedAction
-    | IssuesQueryNextPageAction
-
-type IssuesQueryState = {
-    state: 'open' | 'closed'
-    page: number
-}
-
-const initIssuesQuery: IssuesQueryState = {
-    state: 'open',
-    page: 1,
-}
-
-function issuesQueryReducer(
-    state: IssuesQueryState,
-    action: IssuesQueryAction
-): IssuesQueryState {
-    switch (action.type) {
-        case 'ISSUES_OPEN': {
-            return {
-                state: 'open',
-                page: 1,
-            }
-        }
-        case 'ISSUES_CLOSED': {
-            return {
-                state: 'closed',
-                page: 1,
-            }
-        }
-        case 'ISSUES_NEXT_PAGE': {
-            return {
-                ...state,
-                page: ++state.page,
-            }
-        }
-        default: {
-            return state
-        }
-    }
-}
+// TODO: Wrap the Issues on its own React.Suspense so that on "Receded" it will not hide the header.
 
 const ButtonState = S.styled(Button, {
     fontWeight: '$light',
@@ -73,8 +24,8 @@ function FilterIssuesState({
     ownState,
     ...otherProps
 }: {
-    currentState: string
-    ownState: string
+    currentState: IssuesStatesKey
+    ownState: IssuesStatesKey
     children: React.ReactNode
     onClick: React.MouseEventHandler
 }) {
@@ -84,18 +35,6 @@ function FilterIssuesState({
         <ButtonState appearance="text" {...otherProps} />
     )
 }
-
-// This will delay the showing of loader indicator.
-const delayedLoader = S.css.keyframes({
-    to: {
-        visibility: 'visible',
-    },
-})
-
-const LoadingText = S.styled(Text, {
-    animation: `${delayedLoader} 0s linear 0.5s forwards`,
-    visibility: 'hidden',
-})
 
 const FilterHeaderBox = S.styled('header', {
     borderLeftWidth: 1,
@@ -127,33 +66,87 @@ const InfoBoard = S.styled('header', {
     lineHeight: '1.6',
 })
 
-export default function Issues() {
-    const [issuesQuery, dispatch] = React.useReducer(
-        issuesQueryReducer,
-        initIssuesQuery
-    )
+type IssuesQueryOpenAction = {
+    type: 'ISSUES_OPEN'
+}
 
+type IssuesQueryClosedAction = {
+    type: 'ISSUES_CLOSED'
+}
+
+type IssuesQueryNextPageAction = {
+    type: 'ISSUES_NEXT_PAGE'
+}
+
+type IssuesQueryAction =
+    | IssuesQueryOpenAction
+    | IssuesQueryClosedAction
+    | IssuesQueryNextPageAction
+
+type IssuesQueryState = {
+    state: IssuesStatesKey
+    page: number
+}
+
+function issuesQueryReducer(
+    state: IssuesQueryState,
+    action: IssuesQueryAction
+): IssuesQueryState {
+    switch (action.type) {
+        case 'ISSUES_OPEN': {
+            return {
+                state: 'open',
+                page: 1,
+            }
+        }
+        case 'ISSUES_CLOSED': {
+            return {
+                state: 'closed',
+                page: 1,
+            }
+        }
+        case 'ISSUES_NEXT_PAGE': {
+            return {
+                ...state,
+                page: ++state.page,
+            }
+        }
+        default: {
+            return state
+        }
+    }
+}
+
+export default function Issues() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    // search params
+    const page = Number(searchParams.get('page'))
+    const state = searchParams.get('state') as IssuesStatesKey
+    // params
     const params = useParams() as {
         repo: string
         owner: string
     }
 
-    const { resolvedData: issues, isFetching } = usePaginatedQuery(
-        [
-            getRepoIssues.key,
-            {
-                ...params,
-                ...issuesQuery,
-            },
-        ],
-        getRepoIssues
+    const input = {
+        ...params,
+        page,
+        state,
+    }
+
+    const { data: issues } = useQuery([getRepoIssues.key, input], () =>
+        getRepoIssues(input)
     ) as {
-        resolvedData: GetRepoIssuesData
-        isFetching: boolean
+        data: GetRepoIssuesData
     }
 
     // Only get issues without pull requests.
     const issuesWithoutPulls = issues.filter((issue) => !issue.pull_request)
+
+    function dispatch(action: IssuesQueryAction) {
+        const nextQuery = issuesQueryReducer({ state, page }, action)
+        setSearchParams({ ...nextQuery, page: String(nextQuery.page) })
+    }
 
     return (
         <div>
@@ -173,24 +166,21 @@ export default function Issues() {
             <section>
                 <FilterHeaderBox>
                     <FilterIssuesState
-                        currentState={issuesQuery.state}
-                        ownState="open"
-                        onClick={() => dispatch({ type: 'ISSUES_OPEN' })}
+                        currentState={state}
+                        ownState={IssuesStates.open}
+                        onClick={() => {
+                            dispatch({ type: 'ISSUES_OPEN' })
+                        }}
                     >
                         <AlertCircle size={14} color="#24292e" /> Open
                     </FilterIssuesState>
                     <FilterIssuesState
-                        currentState={issuesQuery.state}
-                        ownState="closed"
+                        currentState={state}
+                        ownState={IssuesStates.closed}
                         onClick={() => dispatch({ type: 'ISSUES_CLOSED' })}
                     >
                         <Check size={14} color="#24292e" /> Closed
                     </FilterIssuesState>
-                    {isFetching && (
-                        <LoadingText as="span" size="sm">
-                            Loading issues...
-                        </LoadingText>
-                    )}
                 </FilterHeaderBox>
                 <IssueList items={issuesWithoutPulls} />
             </section>

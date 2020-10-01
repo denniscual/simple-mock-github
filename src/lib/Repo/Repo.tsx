@@ -4,6 +4,7 @@ import RepoHeader from './RepoHeader'
 import { Loader } from '../../components'
 import S from '../../stitches.config'
 import { NavLink } from 'react-router-dom'
+import { IssuesStates } from '../../api'
 
 const LoaderContainer = S.styled('div', {
     display: 'flex',
@@ -73,7 +74,7 @@ export default function Repo() {
                             <NavLink
                                 className={navLinkCn}
                                 activeClassName="nav-link-active"
-                                to="issues"
+                                to={`issues/?state=${IssuesStates.open}&page=1`}
                             >
                                 Issues
                             </NavLink>

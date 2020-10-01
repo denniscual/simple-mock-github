@@ -194,9 +194,11 @@ export type GetRepoIssuesData = GetRepoIssuesResponse['data']
 const IssuesStates = {
     open: 'open',
     closed: 'closed',
-}
+} as const
 
-async function getRepoIssues(_: string, input: GetRepoIssuesInput) {
+export type IssuesStatesKey = keyof typeof IssuesStates
+
+async function getRepoIssues(input: GetRepoIssuesInput) {
     const state = Boolean(input.state)
         ? input.state
         : (IssuesStates.open as any)
@@ -213,15 +215,22 @@ async function getRepoIssues(_: string, input: GetRepoIssuesInput) {
 }
 getRepoIssues.key = 'RepoIssues'
 
-const prefetchRepoIssues: RoutePreloadFunction = (params) => {
+const prefetchRepoIssues: RoutePreloadFunction = (params, location) => {
+    const searchParams = new URLSearchParams(location.search)
+    const page = Number(searchParams.get('page'))
+    const state = searchParams.get('state') as IssuesStatesKey
+
     const input: GetRepoIssuesInput = {
+        page,
+        state,
         ...(params as {
             owner: string
             repo: string
         }),
     }
-    queryCache.prefetchQuery(getRepoIssues.key, (key) =>
-        getRepoIssues(key as string, input)
+
+    queryCache.prefetchQuery([getRepoIssues.key, input], () =>
+        getRepoIssues(input)
     )
 }
 
@@ -252,7 +261,7 @@ async function getRepoIssueComments(
 }
 getRepoIssueComments.key = 'GetRepoIssueComments'
 
-const prefetchRepoIssueComments: RoutePreloadFunction = (params) => {
+const prefetchRepoIssueComments: RoutePreloadFunction = (params, location) => {
     const { owner, repo, issueNumber } = params as {
         owner: string
         repo: string
@@ -341,6 +350,7 @@ export {
     prefetchRepoREADME,
     getRepoContributors,
     prefetchRepoContributors,
+    IssuesStates,
     getRepoIssues,
     prefetchRepoIssues,
     getRepoIssue,
