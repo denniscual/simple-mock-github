@@ -106,8 +106,8 @@ async function getRepo(
 }
 getRepo.key = 'Repo'
 
-const prefetchRepo: RoutePreloadFunction = (params, ...rest) => {
-    queryCache.prefetchQuery(getRepo.key, (key) =>
+const prefetchRepo: RoutePreloadFunction = (params) => {
+    queryCache.prefetchQuery([getRepo.key, params], (key) =>
         getRepo(key as string, params as { owner: string; repo: string })
     )
 }
