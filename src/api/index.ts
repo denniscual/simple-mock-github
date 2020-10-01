@@ -199,16 +199,9 @@ const IssuesStates = {
 export type IssuesStatesKey = keyof typeof IssuesStates
 
 async function getRepoIssues(input: GetRepoIssuesInput) {
-    const state = Boolean(input.state)
-        ? input.state
-        : (IssuesStates.open as any)
-    const page = Boolean(input.page) ? input.page : 1
-
     const res = (await octokit.request('GET /repos/{owner}/{repo}/issues', {
         ...input,
         per_page: 30,
-        state,
-        page,
     })) as GetRepoIssuesResponse
 
     return res.data
@@ -217,8 +210,10 @@ getRepoIssues.key = 'RepoIssues'
 
 const prefetchRepoIssues: RoutePreloadFunction = (params, location) => {
     const searchParams = new URLSearchParams(location.search)
-    const page = Number(searchParams.get('page'))
-    const state = searchParams.get('state') as IssuesStatesKey
+    const pageParam = Number(searchParams.get('page'))
+    const page = Boolean(pageParam) ? pageParam : 1
+    const stateParam = searchParams.get('state') as IssuesStatesKey
+    const state = Boolean(stateParam) ? stateParam : (IssuesStates.open as any)
 
     const input: GetRepoIssuesInput = {
         page,

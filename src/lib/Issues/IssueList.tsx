@@ -1,9 +1,16 @@
 import React from 'react'
-import { Text, Link, ListItem as RootListItem } from '../../components'
+import {
+    Text,
+    Link,
+    ListItem as RootListItem,
+    LabelLink,
+} from '../../components'
 import S from '../../stitches.config'
 import { AlertCircle, MessageSquare } from 'react-feather'
 import TimeAgo from 'react-timeago'
-import LabelLink from './LabelLink'
+import { useParams, useSearchParams } from 'react-router-dom'
+import { getRepoIssues, GetRepoIssuesData, IssuesStatesKey } from '../../api'
+import { useQuery } from 'react-query'
 
 const ListItem = S.styled(RootListItem, {
     padding: '$2 $4',
@@ -33,43 +40,49 @@ const MetaContainer = S.styled('div', {
     marginTop: '$1',
 })
 
-type Item = {
-    id: number
-    state: string
-    title: string
-    number: number
-    user: {
-        html_url: string
-        login: string
-    }
-    labels: {
-        id: number
-        url: string
-        color: string
-        name: string
-    }[]
-    comments: number
-    created_at: string
-}
-
 // As much as possible we want this Component handle the issues and pulls.
-export default function IssueList({ items }: { items: Item[] }) {
+export default function IssueList() {
+    const [searchParams] = useSearchParams()
+    // search params
+    const page = Number(searchParams.get('page'))
+    const state = searchParams.get('state') as IssuesStatesKey
+    // params
+    const params = useParams() as {
+        repo: string
+        owner: string
+    }
+
+    const input = {
+        ...params,
+        page,
+        state,
+    }
+
+    const { data: issues } = useQuery([getRepoIssues.key, input], () =>
+        getRepoIssues(input)
+    ) as {
+        data: GetRepoIssuesData
+    }
+
+    // Only get issues without pull requests.
+    const issuesWithoutPulls = issues.filter((issue) => !issue.pull_request)
+
     return (
         <ul>
-            {items.map((item) => (
-                <ListItem key={item.id}>
+            {issuesWithoutPulls.map((issue) => (
+                <ListItem key={issue.id}>
                     <AlertCircleContainer>
-                        {item.state === 'open' ? (
+                        {issue.state === 'open' ? (
                             <AlertCircle color="#2ea44f" size={16} />
                         ) : (
                             <AlertCircle color="#cb2431" size={16} />
                         )}
                     </AlertCircleContainer>
                     <div>
-                        <Link size="lg" to={`${item.number}`}>
-                            {item.title}
+                        <Link size="lg" to={`${issue.number}`}>
+                            {issue.title}
                         </Link>{' '}
-                        {item.labels.map((label) => (
+                        {issue.labels.map((label) => (
                             <LabelLink
                                 key={label.id}
                                 href="#"
@@ -82,18 +95,18 @@ export default function IssueList({ items }: { items: Item[] }) {
                         ))}
                         <MetaContainer>
                             <Text as="span" size="xs">
-                                #${item.number} opened{' '}
-                                <TimeAgo date={item.created_at} /> by{' '}
-                                <Link to={`/${item.user.login}`} size="sm">
-                                    {item.user.login}
+                                #${issue.number} opened{' '}
+                                <TimeAgo date={issue.created_at} /> by{' '}
+                                <Link to={`/${issue.user.login}`} size="sm">
+                                    {issue.user.login}
                                 </Link>
                             </Text>
                         </MetaContainer>
                     </div>
-                    {item.comments > 0 && (
+                    {issue.comments > 0 && (
                         <CommentCountText size="xs" as="span">
                             <MessageSquare color="#586069" size={14} />
-                            {item.comments}
+                            {issue.comments}
                         </CommentCountText>
                     )}
                 </ListItem>

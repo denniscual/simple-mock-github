@@ -1,4 +1,4 @@
-import S from '../../stitches.config'
+import S from '../stitches.config'
 
 const LabelLink = S.styled('a', {
     borderRadius: '$oval',

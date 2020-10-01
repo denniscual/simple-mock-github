@@ -1,4 +1,8 @@
-export { default as Repo } from './Repo'
-export { default as RepoCode } from './RepoCode'
-export { default as DetailSection } from './DetailSection'
-export { default as RepoSubCode } from './RepoSubCode'
+import { LazyComponent } from '../../utils'
+import DetailSection from './DetailSection'
+
+const lazyRepo = new LazyComponent(() => import('./Repo'))
+const lazyRepoCode = new LazyComponent(() => import('./RepoCode'))
+const lazyRepoSubCode = new LazyComponent(() => import('./RepoSubCode'))
+
+export { lazyRepo, lazyRepoCode, lazyRepoSubCode, DetailSection }

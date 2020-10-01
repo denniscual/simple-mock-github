@@ -1,16 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import RepoHeader from './RepoHeader'
-import { Loader } from '../../components'
+import { Loader, LoaderContainer } from '../../components'
 import S from '../../stitches.config'
 import { NavLink } from 'react-router-dom'
 import { IssuesStates } from '../../api'
-
-const LoaderContainer = S.styled('div', {
-    display: 'flex',
-    justifyContent: 'center',
-})
-LoaderContainer.displayName = 'LoaderContainer'
 
 const Header = S.styled('header', {
     px: '$8',

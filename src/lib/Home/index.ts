@@ -1,3 +1,3 @@
-import Home from './Home'
+import { LazyComponent } from '../../utils'
 
-export default Home
+export default new LazyComponent(() => import('./Home'))

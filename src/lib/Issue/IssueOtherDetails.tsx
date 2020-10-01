@@ -5,7 +5,7 @@ import { getRepoIssue, GetRepoIssueData } from '../../api'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { Link, Loader, SuspenseAvatar, Text } from '../../components'
-import LabelLink from './LabelLink'
+import { LabelLink } from '../../components'
 
 // @ts-ignore
 const SuspenseList = React.unstable_SuspenseList

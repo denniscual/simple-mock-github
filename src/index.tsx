@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Root from './Root'
+import App from './App'
 import { serviceWorker } from './utils'
 import 'reset.css'
 
 // @ts-ignore
 ReactDOM.unstable_createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <Root />
+        <App />
     </React.StrictMode>
 )
 
