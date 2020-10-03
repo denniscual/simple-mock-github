@@ -50,7 +50,7 @@ You can run the app by navigating to `simple-mock-github/issue-tracker/` and the
         # yarn users:
         yarn start
 
-This will start the development server and open a browser to [localhost:3000](http://localhost:3000).
+This will start the development server and open a browser to [http://localhost:3000/facebook/react/code](http://localhost:3000/facebook/react/code).
 
 ## About the App
 
