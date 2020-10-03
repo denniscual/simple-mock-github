@@ -10,14 +10,6 @@ import {
 import { ErrorBoundary } from 'react-error-boundary'
 import { Frown } from 'react-feather'
 
-// TODO: Wrap the Issues on its own React.Suspense so that on "Receded" it will not hide the header.
-
-// TODO: We gonna rename the Components. Check the preview video of the Remix by Ryan.
-// TODO: On the api, we need to handle the error. Check the error boundary
-// TODO: We need to handle the fetch error in api.
-// FIXME: Create a generic type for the Params. Add the ownder and repo as required then other which are not(optional)
-// TODO: Remove our auth.
-
 const AppLoaderContainer = S.styled('div', {
     display: 'flex',
     flexDirection: 'column',
@@ -88,7 +80,7 @@ export default function App() {
                                         <ErrorInnerContainer>
                                             <Frown color="#959da5" size={50} />
                                             <ErrorText>
-                                                There was an error on loading
+                                                There was an error when loading
                                                 the app
                                             </ErrorText>
                                             <Button

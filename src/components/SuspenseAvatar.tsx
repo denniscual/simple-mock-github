@@ -45,7 +45,7 @@ export default function SuspenseAvatar(
      * Here basically we just used the `useQuery` to trigger loading
      * on Suspense.
      */
-    useQuery([props.alt, props.src], (_, src) => {
+    useQuery(props.src, (_, src) => {
         return new Promise((resolve) => {
             const img = new Image()
             img.onload = () => {

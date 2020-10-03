@@ -17,8 +17,7 @@ type RoutePreloadFunction = (
  * */
 
 const octokit = new Octokit({
-    // auth: 'Your githut auth token...',
-    auth: 'd94127dffe73d353a02e15081718bf6ced05ff6a',
+    auth: process.env.REACT_APP_GITHUB_AUTH_TOKEN,
     userAgent: 'myApp v1.2.3',
     baseUrl: 'https://api.github.com',
     log: {
