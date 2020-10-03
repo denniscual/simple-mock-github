@@ -1,44 +1,68 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Simple/Partial GitHub Issues Clone
 
-## Available Scripts
+This app demonstrates the features of the experimental React in the context of the real app with the help of [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) and [React Query with Suspense enabled](https://react-query.tanstack.com/docs/guides/suspense).
 
-In the project directory, you can run:
+#### Key features:
 
-### `yarn start`
+* Implementing the [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) pattern. During route transitions the app is configured to load the code and data for new routes *in parallel*. It uses the new prop of the Route, React router component, called "preload" which will be invoked before the Component renders. 
+* Using Concurrent Mode and Suspense to improve the loading sequence, including [`useTransition()`](https://reactjs.org/docs/concurrent-mode-reference.html#usetransition) for route transitions in order to continue showing the previous route for a brief period while the next route is prepared/rendered.
+* Uses the Suspense-enabled React query to colocate data-deps.
+* Uses some features from React Router v6 like preloading, nested routes, relative links, hook for Search params, etc.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Setup
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This app is meant for experimentation; we recommend cloning and running locally, hacking on the source code, trying to change things and see how it affects the user experience.
 
-### `yarn test`
+1. First, clone the app:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+        git clone git@github.com:denniscual/simple-mock-github.git
 
-### `yarn build`
+2. Change into the app's directory:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        cd simple-mock-github
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+3. Install the app's dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        # npm users:
+        npm install
 
-### `yarn eject`
+        # yarn users:
+        yarn
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Get your GitHub authentication token in order to let the app query GitHub's public GraphQL API:
+   1. Open https://github.com/settings/tokens.
+   2. Ensure that at least the `repo` scope is selected.
+   3. Generate the token
+   4. Create a file `./simple-mock-github/.env.local` and add the following contents (substitute `<TOKEN>` for your authentication token):
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+          # simple-mock-github/.env.local
+          REACT_APP_GITHUB_AUTH_TOKEN=<TOKEN>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Now you're ready to run the app!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Running The App
 
-## Learn More
+You can run the app by navigating to `simple-mock-github/issue-tracker/` and then running the start command:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        # npm users:
+        npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        # yarn users:
+        yarn start
+
+This will start the development server and open a browser to [localhost:3000](http://localhost:3000).
+
+## About the App
+
+This app uses a number of technologies including (among others):
+
+- [Create React App](https://github.com/facebook/create-react-app): 
+  - The app uses [typescript template](https://create-react-app.dev/docs/adding-typescript/).
+  - The app uses CRA's support for environment variables - https://create-react-app.dev/docs/adding-custom-environment-variables - to allow configuring the GitHub authentication token.
+  - The app enables [prettier](https://prettier.io) for code formatting, as discussed in https://create-react-app.dev/docs/setting-up-your-editor#formatting-code-automatically.
+  - Note that Create React App itself builds upon many great technologies, see the docs for more details!
+- React's [experimental release with Concurrent Mode and Suspense](https://reactjs.org/docs/concurrent-mode-intro.html). 
+- [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) . This version already support the `preloading` of data and codes. 
+- [React Query Suspense-enabled](https://react-query.tanstack.com/docs/guides/suspense).
+- [Experimental Stitches](https://stitches.dev/) - The modern styling library.
+
