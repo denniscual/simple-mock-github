@@ -42,8 +42,8 @@ export default function SuspenseAvatar(
     }
 ) {
     /**
-     * Here basically we just used the `useQuery` to trigger loading
-     * on Suspense.
+     * Here, we want to cache the img src based on the key (prop.src).
+     * Using this, we can take advantage the "Stale-while-revalidate" approach.
      */
     useQuery(props.src, (_, src) => {
         return new Promise((resolve) => {

@@ -1,69 +1,66 @@
 {
-  "name": "restatum-and-react-query",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@octokit/rest": "^18.0.6",
-    "@stitches/react": "^0.0.2",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "github-markdown-css": "^4.0.0",
-    "history": "^5.0.0",
-    "htmr": "^0.8.8",
-    "nprogress": "^0.2.0",
-    "query-string": "^6.13.2",
-    "react": "^0.0.0-experimental-94c0244ba",
-    "react-dom": "^0.0.0-experimental-94c0244ba",
-    "react-error-boundary": "^3.0.2",
-    "react-feather": "^2.0.8",
-    "react-query": "^2.23.0",
-    "react-router": "^0.0.0-experimental-ffd8c7d0",
-    "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
-    "react-scripts": "^3.4.3",
-    "react-timeago": "^4.4.0",
-    "reset.css": "^2.0.2",
-    "restatum": "^2.1.4",
-    "typescript": "~3.7.2",
-    "use-onclickoutside": "^0.3.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@octokit/types": "^5.5.0",
-    "@types/history": "^4.7.7",
-    "@types/lodash.debounce": "^4.0.6",
-    "@types/match-sorter": "^4.0.0",
-    "@types/nprogress": "^0.2.0",
-    "@types/query-string": "^6.3.0",
-    "@types/react-autosuggest": "^10.0.0",
-    "@types/react-helmet": "^6.1.0",
-    "@types/react-query": "^1.1.2",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/react-timeago": "^4.1.1",
-    "prettier": "^2.1.1"
-  }
+    "name": "simple-mock-github",
+    "version": "0.1.0",
+    "dependencies": {
+        "@octokit/rest": "^18.0.6",
+        "@stitches/react": "^0.0.2",
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.3.2",
+        "@testing-library/user-event": "^7.1.2",
+        "@types/jest": "^24.0.0",
+        "@types/node": "^12.0.0",
+        "@types/react": "^16.9.0",
+        "@types/react-dom": "^16.9.0",
+        "github-markdown-css": "^4.0.0",
+        "htmr": "^0.8.8",
+        "nprogress": "^0.2.0",
+        "react": "^0.0.0-experimental-94c0244ba",
+        "react-dom": "^0.0.0-experimental-94c0244ba",
+        "react-error-boundary": "^3.0.2",
+        "react-feather": "^2.0.8",
+        "react-query": "^2.23.0",
+        "react-router": "^0.0.0-experimental-ffd8c7d0",
+        "react-router-dom": "^0.0.0-experimental-ffd8c7d0",
+        "react-scripts": "^3.4.3",
+        "react-timeago": "^4.4.0",
+        "reset.css": "^2.0.2",
+        "restatum": "^2.1.4",
+        "typescript": "~3.7.2",
+        "use-onclickoutside": "^0.3.1"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@octokit/types": "^5.5.0",
+        "@types/history": "^4.7.7",
+        "@types/lodash.debounce": "^4.0.6",
+        "@types/match-sorter": "^4.0.0",
+        "@types/nprogress": "^0.2.0",
+        "@types/query-string": "^6.3.0",
+        "@types/react-autosuggest": "^10.0.0",
+        "@types/react-helmet": "^6.1.0",
+        "@types/react-query": "^1.1.2",
+        "@types/react-router-dom": "^5.1.5",
+        "@types/react-timeago": "^4.1.1",
+        "prettier": "^2.1.1"
+    }
 }

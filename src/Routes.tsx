@@ -46,6 +46,7 @@ export default function Routes() {
                                 path="/"
                                 element={<LazyRepoCode />}
                                 preload={(...args) => {
+                                    console.log('preload in Repo code')
                                     // for data
                                     prefetchRepoContent(...args)
                                     prefetchRepoContributors(...args)

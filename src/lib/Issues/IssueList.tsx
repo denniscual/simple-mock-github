@@ -40,7 +40,6 @@ const MetaContainer = S.styled('div', {
     marginTop: '$1',
 })
 
-// As much as possible we want this Component handle the issues and pulls.
 export default function IssueList() {
     const [searchParams] = useSearchParams()
     // search params
