@@ -1,6 +1,6 @@
 # Simple/Partial GitHub Issues Clone
 
-This client-side app demonstrates the features of the experimental React in the context of the real app with the help of [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) and [React Query with Suspense enabled](https://react-query.tanstack.com/docs/guides/suspense).
+This [client-side app](https://simple-mock-github.vercel.app/facebook/react) demonstrates the features of the experimental React in the context of the real app with the help of [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) and [React Query with Suspense enabled](https://react-query.tanstack.com/docs/guides/suspense).
 
 #### Key features:
 
@@ -11,7 +11,7 @@ This client-side app demonstrates the features of the experimental React in the 
 
 ## Setup
 
-This app is meant for experimentation; we recommend cloning and running locally, hacking on the source code, trying to change things and see how it affects the user experience.
+This app is meant for experimentation; we recommend cloning and running locally, hacking on the source code, trying to change things and see how it affects the user experience. 
 
 1. First, clone the app:
 
