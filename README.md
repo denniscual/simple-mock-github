@@ -54,7 +54,7 @@ This will start the development server and open a browser to [http://localhost:3
 
 ## About the App
 
-This app uses a number of technologies including (among others):
+This app uses a number of technologies and references:
 
 - [Create React App](https://github.com/facebook/create-react-app): 
   - The app uses [typescript template](https://create-react-app.dev/docs/adding-typescript/).
@@ -66,3 +66,5 @@ This app uses a number of technologies including (among others):
 - [React Query Suspense-enabled](https://react-query.tanstack.com/docs/guides/suspense).
 - [Experimental Stitches](https://stitches.dev/) - The modern styling library.
 - [Restatum](https://github.com/denniscual/restatum) - Simple state management library.
+- [Relay Issue Tracker Example](https://github.com/relayjs/relay-examples/tree/master/issue-tracker)
+
