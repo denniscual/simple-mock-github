@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes as RootRoutes, Route } from 'react-router-dom'
 import {
+    RoutePreloadFunction,
     prefetchRepo,
     prefetchRepoContributors,
     prefetchRepoIssues,
@@ -12,92 +13,103 @@ import lazyHome from './lib/Home'
 import { lazyRepo, lazyRepoCode, lazyRepoSubCode } from './lib/Repo'
 import lazyIssues from './lib/Issues'
 import lazyIssue from './lib/Issue'
-
-// Lazy loaded Components
-const LazyHome = lazyHome.lazy()
-const LazyRepo = lazyRepo.lazy()
-const LazyRepoCode = lazyRepoCode.lazy()
-const LazyRepoSubCode = lazyRepoSubCode.lazy()
-const LazyIssues = lazyIssues.lazy()
-const LazyIssue = lazyIssue.lazy()
-
-// preload the home.
-lazyHome.preload()
+import lazyNotFound from './lib/NotFound'
 
 export default function Routes() {
     return (
         <RootRoutes>
-            <Route path="/" element={<LazyHome />}>
+            <Route path="/" element={<LazyHome />} preload={homePreload}>
                 <Route path=":owner">
                     <Route
                         path=":repo"
                         element={<LazyRepo />}
-                        preload={(...args) => {
-                            // prefetch data
-                            prefetchRepo(...args)
-
-                            // prefetch codes
-                            lazyRepo.preload()
-                        }}
+                        preload={repoPreload}
                     >
                         <Route path="/code">
                             {/* Render this page on this path => /code or /code/ */}
                             <Route
                                 path="/"
                                 element={<LazyRepoCode />}
-                                preload={(...args) => {
-                                    // for data
-                                    prefetchRepoContent(...args)
-                                    prefetchRepoContributors(...args)
-                                    prefetchRepoREADME(...args)
-                                    prefetchRepoIssues(...args)
-
-                                    // for codes
-                                    lazyRepoCode.preload()
-                                    lazyIssues.preload()
-                                }}
+                                preload={repoCodeIndexPreload}
                             />
                             {/* Render this page on this path => /code/* */}
                             <Route
                                 path="/*"
                                 element={<LazyRepoSubCode />}
-                                preload={(...args) => {
-                                    // for data
-                                    prefetchRepoContent(...args)
-
-                                    // for codes
-                                    lazyRepoSubCode.preload()
-                                }}
+                                preload={repoSubcodePreload}
                             />
                         </Route>
                         <Route path="issues">
                             <Route
                                 path="/"
                                 element={<LazyIssues />}
-                                preload={(...args) => {
-                                    // for data
-                                    prefetchRepoIssues(...args)
-
-                                    // for codes
-                                    lazyIssues.preload()
-                                    lazyIssue.preload()
-                                }}
+                                preload={issuesPreload}
                             />
                             <Route
                                 path=":issueNumber"
                                 element={<LazyIssue />}
-                                preload={(...args) => {
-                                    // for data
-                                    prefetchRepoIssue(...args)
-
-                                    // for codes
-                                    lazyIssue.preload()
-                                }}
+                                preload={issuePreload}
                             />
                         </Route>
                     </Route>
                 </Route>
             </Route>
+            <Route
+                path="*"
+                element={<LazyNotFound />}
+                preload={notFoundPreload}
+            />
         </RootRoutes>
     )
+}
+
+/**
+ * ------------ Lazy loaded Components -----------
+ * */
+const LazyHome = lazyHome.lazy()
+const LazyRepo = lazyRepo.lazy()
+const LazyRepoCode = lazyRepoCode.lazy()
+const LazyRepoSubCode = lazyRepoSubCode.lazy()
+const LazyIssues = lazyIssues.lazy()
+const LazyIssue = lazyIssue.lazy()
+const LazyNotFound = lazyNotFound.lazy()
+
+/**
+ * ------------ Preload functions for routes -----------
+ * */
+const homePreload = () => {
+    lazyHome.preload()
+}
+const repoPreload: RoutePreloadFunction = (...args) => {
+    prefetchRepo(...args)
+
+    lazyRepo.preload()
+}
+const repoCodeIndexPreload: RoutePreloadFunction = (...args) => {
+    prefetchRepoContent(...args)
+    prefetchRepoContributors(...args)
+    prefetchRepoREADME(...args)
+    prefetchRepoIssues(...args)
+
+    lazyRepoCode.preload()
+    lazyIssues.preload()
+}
+const repoSubcodePreload: RoutePreloadFunction = (...args) => {
+    prefetchRepoContent(...args)
+
+    lazyRepoSubCode.preload()
+}
+const issuesPreload: RoutePreloadFunction = (...args) => {
+    prefetchRepoIssues(...args)
+
+    lazyIssues.preload()
+    lazyIssue.preload()
+}
+const issuePreload: RoutePreloadFunction = (...args) => {
+    prefetchRepoIssue(...args)
+
+    lazyIssue.preload()
+}
+const notFoundPreload = () => {
+    lazyNotFound.preload()
 }

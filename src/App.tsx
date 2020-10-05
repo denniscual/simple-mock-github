@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteProgressbar, Loader, Text, Button } from './components'
+import { RouteProgressbar, Loader, Text, Button, ErrorInfo } from './components'
 import S from './stitches.config'
 import Routes from './Routes'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -8,9 +8,6 @@ import {
     ReactQueryErrorResetBoundary,
 } from 'react-query'
 import { ErrorBoundary } from 'react-error-boundary'
-import { Frown } from 'react-feather'
-
-// FIXME: Update the version of react.
 
 const AppLoaderContainer = S.styled('div', {
     display: 'flex',
@@ -38,27 +35,6 @@ function AppLoader() {
     )
 }
 
-/**
- * ------------ Error boundary -----------
- * */
-
-const ErrorMainContainer = S.styled('main', {
-    backgroundColor: '$lightGray',
-    minHeight: '100vh',
-})
-
-const ErrorInnerContainer = S.styled('div', {
-    margin: '0 auto',
-    paddingTop: '11%',
-    width: 400,
-    textAlign: 'center',
-})
-
-const ErrorText = S.styled(Text, {
-    color: '$dimGray',
-    margin: '$2 0 $6',
-})
-
 // This is for query to support React CM
 const queryConfig = {
     shared: {
@@ -78,23 +54,17 @@ export default function App() {
                             <ErrorBoundary
                                 onReset={reset}
                                 fallbackRender={({ resetErrorBoundary }) => (
-                                    <ErrorMainContainer>
-                                        <ErrorInnerContainer>
-                                            <Frown color="#959da5" size={50} />
-                                            <ErrorText>
-                                                There was an error when loading
-                                                the app
-                                            </ErrorText>
-                                            <Button
-                                                color="accent"
-                                                onClick={() =>
-                                                    resetErrorBoundary()
-                                                }
-                                            >
-                                                Try again
-                                            </Button>
-                                        </ErrorInnerContainer>
-                                    </ErrorMainContainer>
+                                    <ErrorInfo
+                                        description="There was an error when loading
+                                                the app"
+                                    >
+                                        <Button
+                                            color="accent"
+                                            onClick={() => resetErrorBoundary()}
+                                        >
+                                            Try again
+                                        </Button>
+                                    </ErrorInfo>
                                 )}
                             >
                                 <React.Suspense fallback={<AppLoader />}>

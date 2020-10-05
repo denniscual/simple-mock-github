@@ -6,7 +6,7 @@ import { Endpoints } from '@octokit/types'
  * ------------ types -----------
  * */
 
-type RoutePreloadFunction = (
+export type RoutePreloadFunction = (
     params: Record<string, string>,
     location?: any,
     index?: number
