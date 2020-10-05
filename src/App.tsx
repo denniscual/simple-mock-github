@@ -10,6 +10,8 @@ import {
 import { ErrorBoundary } from 'react-error-boundary'
 import { Frown } from 'react-feather'
 
+// FIXME: Update the version of react.
+
 const AppLoaderContainer = S.styled('div', {
     display: 'flex',
     flexDirection: 'column',
