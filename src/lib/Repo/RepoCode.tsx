@@ -201,7 +201,6 @@ const Container = S.styled('section', {
 })
 
 export default function RepoCode() {
-    console.log('Render Repo code')
     return (
         <Container>
             <RepoCodeContent />
