@@ -65,4 +65,4 @@ This app uses a number of technologies including (among others):
 - [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) . This version already support the `preloading` of data and codes. 
 - [React Query Suspense-enabled](https://react-query.tanstack.com/docs/guides/suspense).
 - [Experimental Stitches](https://stitches.dev/) - The modern styling library.
-
+- [Restatum](https://github.com/denniscual/restatum) - Simple state management library.
