@@ -1,6 +1,6 @@
 # Simple/Partial GitHub Issues Clone
 
-This app demonstrates the features of the experimental React in the context of the real app with the help of [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) and [React Query with Suspense enabled](https://react-query.tanstack.com/docs/guides/suspense).
+This client-side app demonstrates the features of the experimental React in the context of the real app with the help of [Experimental React Router v6](https://github.com/ReactTraining/react-router/blob/dev/docs/api-reference.md) and [React Query with Suspense enabled](https://react-query.tanstack.com/docs/guides/suspense).
 
 #### Key features:
 
