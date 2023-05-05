@@ -4,7 +4,7 @@ This [client-side app](https://simple-mock-github.vercel.app/facebook/react/code
 
 #### Key features:
 
-* Implementing the [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) pattern. During route transitions the app is configured to load the code and data for new routes *in parallel*. It uses the new prop of the Route, React router component, called "preload" which will be invoked before the Component renders. 
+* Implementing the [render-as-you-fetch](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-3-render-as-you-fetch-using-suspense) pattern. During route transitions the app is configured to load the code and data for new routes *in parallel*. It uses the new prop of the Route,Beta React router component, called "preload" which will be invoked before the Component renders. 
 * Using Concurrent Mode and Suspense to improve the loading sequence, including [`useTransition()`](https://reactjs.org/docs/concurrent-mode-reference.html#usetransition) for route transitions in order to continue showing the previous route for a brief period while the next route is prepared/rendered.
 * Uses the Suspense-enabled React query to colocate data-deps.
 * Uses some features from React Router v6 like preloading, nested routes, relative links, hook for Search params, etc.
